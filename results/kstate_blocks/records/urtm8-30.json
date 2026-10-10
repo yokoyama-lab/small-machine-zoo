@@ -1,0 +1,93 @@
+{
+ "machine": "urtm17-5.txt",
+ "blocks": [
+  2,
+  2
+ ],
+ "groups": [
+  [
+   "O+1",
+   "D-1"
+  ],
+  [
+   "D+1",
+   "O-1"
+  ],
+  [
+   "O+2",
+   "D-2"
+  ],
+  [
+   "D+2",
+   "O-2"
+  ]
+ ],
+ "status": "OPTIMAL",
+ "V": 11,
+ "wall": 107.6,
+ "cutoff": null,
+ "obj": 30,
+ "bound": 30,
+ "blk": {
+  "begin_": 2,
+  "copy_y_1_": 2,
+  "copy_y_2_": 1,
+  "copy_n_1_": 1,
+  "copy_n_2_": 2,
+  "copy_end_1_": 1,
+  "copy_end_2_": 2,
+  "cycle_end_": 1,
+  "case_n_3_": 1,
+  "case_n_4_": 2,
+  "case_y_1_": 1,
+  "case_y_2_": 1,
+  "copy_start_": 2,
+  "copy_y_3_": 1,
+  "copy_n_3_": 2,
+  "case_n_1_": 1,
+  "case_n_2_": 2
+ },
+ "v": {
+  "begin_": 5,
+  "copy_y_1_": 3,
+  "copy_y_2_": 3,
+  "copy_n_1_": 2,
+  "copy_n_2_": 4,
+  "copy_end_1_": 1,
+  "copy_end_2_": 2,
+  "cycle_end_": 4,
+  "case_n_3_": 5,
+  "case_n_4_": 1,
+  "case_y_1_": 4,
+  "case_y_2_": 3,
+  "copy_start_": 5,
+  "copy_y_3_": 2,
+  "copy_n_3_": 4,
+  "case_n_1_": 5,
+  "case_n_2_": 2
+ },
+ "sigma": {
+  "+1": 1,
+  "+2": 1,
+  "-1": 5,
+  "-2": 5
+ },
+ "eps": {
+  "+1": 1,
+  "+2": 1,
+  "-1": -1,
+  "-2": -1
+ },
+ "built_symbols": 30,
+ "states": 8,
+ "rules": 188,
+ "verify_ok": true,
+ "verify": [
+  "  lockstep 10/10 ok"
+ ],
+ "local": [
+  true,
+  299
+ ],
+ "tag": "urtm17m5.epsB22"
+}

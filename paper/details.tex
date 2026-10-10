@@ -1,0 +1,199 @@
+\section{Construction details and intermediate counts}
+
+This appendix brings together the construction and proof explanations that
+accompany the short note. The Lean definitions and theorem statements determine
+the exact hypotheses and conclusions. The explanations below do not constitute
+a human inspection of the formalization.
+
+\subsection{Four-state and block constructions}
+
+Let an original machine have $m$ states and $n$ symbols. Write $m_+$ and $m_-$
+for the numbers of states entered by right and left moves, respectively.
+Morita's four-state conversion uses $(2m+1)n$ symbols. Giving the two directions
+separate number ranges reduces the expression to $(m+1)n$.
+Counting in reverse while carrying a symbol to the left gives the upper bound
+$(\max(m_+,m_-)+1)n$.
+Splitting states into blocks, merging roles, and removing unused
+symbol--counter pairs gives $n+\sum_{i\in V}|X_i|$, where $V$ is the set of
+counter values used and $X_i$ is the set of original symbols used with value $i$.
+For the conversion from $(10,8)$, the respective symbol counts are 168, 88,
+48, and 46. The last value is the block construction before the later
+symbol-merging improvements.
+
+The corresponding formal statements are collected in
+\texttt{LeanUniv.FinalFormulas}. The expression for reverse counting is an
+upper bound; the other formulas just listed are equalities for the stated
+conversion functions. These formulas concern construction families and do
+not give lower bounds over all universal machines.
+
+For the final five symbol-merging points, the original machine is $(13,7)$.
+The recipe files specify the blocks and counter choices, and the merge files
+specify classes of symbols. The generators reconstruct the tables, while
+Lean checks their finite properties and applies the general symbol-merging
+theorem. Rebuilding these files reproduces the selected constructions; it
+does not repeat the optimization search or establish optimality.
+
+\subsection{Three-state conversion}
+
+For Morita's three-state conversion, let
+$M=m_+n+2n+2$ and $N=mn^2+n^2+1$ be the sizes of the intermediate machine.
+The original symbol-count formula is $N(2M-1)$. Sharing the up and down marks
+gives $NM$. A further construction assigns a separate counter limit to each
+symbol; its count is $N$ plus the sum of these limits.
+
+For the source $(32,3)$, the successive recorded symbol counts are 36,654,
+18,476, 1,820, 659, and 600. The 1,820-symbol intermediate table has only a
+size calculation: adequacy of its counter limits throughout every run was
+not proved. The 659-symbol table rebuilds the intermediate machine using
+one symbol per cell. Reflecting the source machine left to right gives the
+600-symbol table. Simulation and universality of the final $(3,600)$ witness
+are established by the corresponding Lean theorems.
+
+\subsection{Two-symbol conversion and automated search}
+
+For a conversion using $k$-bit codes, let $P_r$ and $P_w$ be the sums, over
+states, of the numbers of read-code and write-code prefixes of lengths
+$1,\ldots,k-1$. Let $D_0$ be the set of source states having a rule whose
+target is also a source state. The formalized state-count formula is
+$|D_0|+(k-1)m+P_r+P_w$, bounded above by $mk+P_r+P_w$.
+
+From $(13,7)$, the recorded state counts are 169 using Morita's code,
+149 with a search-selected code, 135 after selecting written values and path
+types, 92 after state merging, and 85 after the broader automated search.
+The solver that selected the intermediate tables is not itself a verified
+Lean conversion function. Its concrete output tables are checked in Lean;
+the proof for the merged table also establishes the required relationship
+to its pre-merge table. The relevant intermediate-value theorems are in
+\texttt{LeanUniv.FinalValues}.
+
+The automated search was modeled on autoresearch~\cite{Karpathy26}.
+An interactive AI session prepared the search program, fixed evaluator,
+and instructions at the human's request. After the human started a session,
+the agent edited the search program and the evaluator checked candidates
+for determinism, reversibility, and finite CTSH simulations. Only candidates
+subsequently proved in Lean counted as results. The search found $(6,37)$,
+$(8,28)$, $(9,27)$, and $(85,2)$; only the last remains non-dominated after
+the symbol-merging improvements. The repository includes the construction
+recipes needed to rebuild the final witnesses.
+
+\section{Outline of the two-state decidability proof}
+
+The formal entry points are \texttt{halting\_decidable\_uniform} and
+\texttt{no\_le\_two\_state\_URTM}. This section summarizes the structure
+of the existing proof; the formal statements specify its scope.
+
+First remove transitions into states with no outgoing transitions by the
+reduction described in the main text. Let $[a,b]$ contain the initial head
+position and all initially non-blank cells, and put $w=b-a+1$.
+Let $\Sigma$ contain the blank and every symbol read or written by the
+table, and let $n=|\Sigma|$. Consider an initial ID whose tape symbols
+lie in $\Sigma$.
+
+\begin{enumerate}
+\item In a reversible table, transitions entering the same state move in
+the same direction. If a two-state table has both left and right moves,
+one state is entered only from the left and the other only from the right;
+there is no remaining state for a zero-shift target. The state therefore
+records the direction of the last move. The transition function can be
+represented by a partial injection on direction--symbol pairs.
+
+\item Consider a half-line to the right of a fixed boundary. Every entry
+has the right-moving state and every exit the left-moving state. While the
+head is outside the half-line, its contents do not change. The outcome of
+the next entry therefore depends on its initial contents and on the number
+of earlier entries, rather than on the outside tape. The only information
+passed back to the outside is the return itself.
+
+\item For initially blank nested half-lines, their local computations are
+translations of one another. In a halting computation, each visited deeper
+half-line has fewer entries than its predecessor. Otherwise the computation
+repeats translated to the right and never halts. This bounds the maximum
+depth by the number of entries at the outer boundary.
+
+\item The sequence of visits to a cell follows a finite local clock on
+direction--symbol pairs. There are $2n$ such pairs. This bounds by $2n+1$
+the number of entries into a blank half-line if the computation halts
+inside it. The left-hand case follows by reflection.
+
+\item Replace excursions outside $[a,b]$ by immediate returns at its ends.
+The resulting dynamics within the window is finite. In the existing proof,
+$Z=n^w\cdot 3w$ bounds the window states, and
+$N=Z(2n+3)+1$ bounds the relevant entries into each outside half-line.
+Combining this with the depth bound confines a halting run to
+$[a-N,b+N]$.
+
+\item That interval contains finitely many IDs over the finite alphabet.
+A halting run of a deterministic machine cannot repeat an ID. Thus a
+computable bound on the number of steps suffices to decide halting by
+bounded simulation. The bound need not be practical.
+\end{enumerate}
+
+If only one movement direction occurs, once the head leaves the initial
+window it repeatedly reads blanks. Repetition of a state gives a translated
+repetition of the run. A halting run can therefore be bounded in this case
+as well. The general nonexistence theorem combines the computability of
+halting for these tables with Mathlib's undecidability of the halting problem.
+
+The first step is where reversibility restricts the two-state model. With
+three states, a half-line can receive different kinds of entries moving in
+the same direction; the two-state argument does not apply unchanged.
+
+\section{Outline of the three-state two-symbol proof}
+
+The proof normalizes the tables and checks 359,829 normalized tables with
+the Lean kernel. It handles most tables by certificates constraining visits
+outside a window and by finite-state bounds. Other cases reduce to bounded
+halting for a two-state machine after removing a state, or require a
+separate argument about their behavior.
+
+Counts of equivalence classes up to renaming and left--right reflection
+were computed outside Lean: there are 26,861 such classes in the recorded
+enumeration, and the last ten classes contain 120 tables. The AI supplied
+arguments for these final classes, proving that a halting run stays within
+a bounded neighborhood of the initial window.
+
+The resulting theorem is
+\texttt{URTM.Meta.no\_three\_two\_URTM\_all}, followed by the transfer to
+\texttt{no\_three\_two\_URTMStrict\_all}. The original target condition is
+the string-ID form of universality with the stated restriction on encoded
+symbols. The transfer from \texttt{IsUTMStrict} is essential: a proof of
+nonexistence for a different universality definition alone would not imply
+the claim made in the note. The finite enumeration files and all imported
+proof dependencies are included in the repository.
+
+\section{Comparison with prior work and verification scope}
+
+Morita's nine machines provide the baseline~\cite{Morita17}. Six of these
+points remain on the frontier together with the seven new points. The work
+improves conversion and symbol-assignment choices; it does not prove that
+the resulting state--symbol pairs are globally smallest.
+Kudlek and Rogozhin's merging of a blank and another symbol in an ordinary
+UTM~\cite{KudlekRogozhin02} guided the symbol-merging stage. The general
+theorem here makes the preservation conditions explicit for the formalized
+universality predicate, including recovery of the symbols on halting tapes.
+
+The lower-bound region quoted for standard UTMs comes from the survey by
+Woods and Neary~\cite{WoodsNeary09}. Its conventions for halting and
+zero-shifts differ from the present model. The new nonexistence claims are
+therefore established directly in the stated reversible model rather than
+inferred solely from that comparison. The AI also used prior work on
+irreversible machines to guide the three-state proof; the author has not
+checked that correspondence against the original sources.
+
+The supplied generators read Morita's original test configurations from
+the machine descriptions attached to his 2015 slides. For eight machines,
+Lean reproduces 44 published halting runs, with the count 1,073 in one
+$(13,7)$ comment corrected to 1,173. For $(3,36654)$, the exact step counts
+are 471,798, 2,348,492, and 57,220. The large table is checked through a
+lookup function proved to agree with it and certificates for successive
+run segments. These finite examples support comparison of the operational
+model with the supplied data, while the general simulation and universality
+theorems cover arbitrary encoded inputs.
+
+The two proof environments reuse the specification by copying it.
+The repository checks that the copies of \texttt{Spec.lean} are byte-identical
+and that the copies of \texttt{Strict.lean} differ only in their imports.
+Each environment is built separately and its imported declarations are
+audited for nonstandard axioms. These checks establish properties of the
+formal artifacts; they do not establish the faithfulness of the formalization
+to the intended mathematical claims.

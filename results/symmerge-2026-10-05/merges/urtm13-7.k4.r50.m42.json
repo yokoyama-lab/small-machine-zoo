@@ -1,0 +1,39 @@
+{
+ "record": "urtm13-7.k4.r50.m42.json",
+ "classes": [
+  [
+   "b",
+   "c8_y"
+  ],
+  [
+   "y1",
+   "c5_y1"
+  ],
+  [
+   "n1",
+   "c10_y"
+  ],
+  [
+   "*",
+   "c5_n1"
+  ],
+  [
+   "$",
+   "c8_b"
+  ],
+  [
+   "c3_n1",
+   "c5_b"
+  ],
+  [
+   "c4_n1",
+   "c9_n"
+  ],
+  [
+   "c6_y1",
+   "c9_y"
+  ]
+ ],
+ "nsyms": 42,
+ "note": "tools/gen_symmerge_lean.py derive (DSATUR, seed 0)"
+}

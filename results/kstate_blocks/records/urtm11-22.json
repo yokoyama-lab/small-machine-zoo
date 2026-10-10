@@ -1,0 +1,91 @@
+{
+ "machine": "urtm15-6.txt",
+ "blocks": [
+  3,
+  2
+ ],
+ "groups": [
+  [
+   "O+1",
+   "D-1"
+  ],
+  [
+   "D+1",
+   "O-1"
+  ],
+  [
+   "O+2",
+   "D-2"
+  ],
+  [
+   "D+2",
+   "O-2"
+  ]
+ ],
+ "status": "OPTIMAL",
+ "V": 8,
+ "wall": 4.9,
+ "cutoff": null,
+ "obj": 22,
+ "bound": 22,
+ "blk": {
+  "begin_": 2,
+  "copy_y_": 3,
+  "copy_n_": 3,
+  "copy_next_1_": 1,
+  "copy_end_1_": 2,
+  "copy_end_2_": 1,
+  "cycle_end_": 1,
+  "case_n_3_": 3,
+  "case_n_4_": 2,
+  "case_y_1_": 1,
+  "case_y_2_": 1,
+  "copy_start_": 2,
+  "copy_next_2_": 2,
+  "case_n_1_": 2,
+  "case_n_2_": 1
+ },
+ "v": {
+  "begin_": 1,
+  "copy_y_": 1,
+  "copy_n_": 2,
+  "copy_next_1_": 3,
+  "copy_end_1_": 2,
+  "copy_end_2_": 1,
+  "cycle_end_": 2,
+  "case_n_3_": 3,
+  "case_n_4_": 3,
+  "case_y_1_": 1,
+  "case_y_2_": 2,
+  "copy_start_": 3,
+  "copy_next_2_": 1,
+  "case_n_1_": 2,
+  "case_n_2_": 3
+ },
+ "sigma": {
+  "+1": 1,
+  "+2": 3,
+  "+3": 1,
+  "-1": 3,
+  "-2": 1
+ },
+ "eps": {
+  "+1": 1,
+  "+2": -1,
+  "+3": 1,
+  "-1": -1,
+  "-2": 1
+ },
+ "built_symbols": 22,
+ "states": 11,
+ "rules": 174,
+ "verify_ok": true,
+ "verify": [
+  "  lockstep 10/10 ok"
+ ],
+ "local": [
+  true,
+  279
+ ],
+ "tag": "urtm15m6.epsB32"
+}

@@ -1,0 +1,8 @@
+name = "urtm"
+defaultTargets = ["URTM"]
+
+[[lean_lib]]
+name = "URTM"
+
+[[lean_lib]]
+name = "PaperTraces"

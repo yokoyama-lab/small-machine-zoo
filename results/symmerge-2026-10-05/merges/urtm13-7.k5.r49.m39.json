@@ -1,0 +1,47 @@
+{
+ "record": "urtm13-7.k5.r49.m39.json",
+ "classes": [
+  [
+   "b",
+   "c3_n"
+  ],
+  [
+   "y",
+   "c8_n1"
+  ],
+  [
+   "n",
+   "c8_y1"
+  ],
+  [
+   "y1",
+   "c2_n"
+  ],
+  [
+   "n1",
+   "c8_b"
+  ],
+  [
+   "*",
+   "c2_b"
+  ],
+  [
+   "$",
+   "c2_y"
+  ],
+  [
+   "c1_b",
+   "c5_b"
+  ],
+  [
+   "c1_y",
+   "c5_y1"
+  ],
+  [
+   "c3_b",
+   "c6_b"
+  ]
+ ],
+ "nsyms": 39,
+ "note": "tools/gen_symmerge_lean.py derive (DSATUR, seed 0)"
+}

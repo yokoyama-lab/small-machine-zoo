@@ -1,0 +1,82 @@
+{
+ "machine": "urtm15-6.txt",
+ "blocks": [
+  2,
+  2
+ ],
+ "groups": [
+  [
+   "D-1",
+   "O+2"
+  ],
+  [
+   "H-2",
+   "O+1"
+  ],
+  [
+   "D-2",
+   "H-1"
+  ],
+  [
+   "O-1",
+   "D+2"
+  ],
+  [
+   "O-2",
+   "H+1"
+  ]
+ ],
+ "status": "OPTIMAL",
+ "V": 10,
+ "wall": 35.2,
+ "cutoff": 37,
+ "obj": 32,
+ "bound": 32,
+ "blk": {
+  "begin_": 1,
+  "copy_y_": 2,
+  "copy_n_": 2,
+  "copy_next_1_": 1,
+  "copy_end_1_": 2,
+  "copy_end_2_": 2,
+  "cycle_end_": 1,
+  "case_n_3_": 1,
+  "case_n_4_": 2,
+  "case_y_1_": 1,
+  "case_y_2_": 1,
+  "copy_start_": 1,
+  "copy_next_2_": 2,
+  "case_n_1_": 1,
+  "case_n_2_": 1
+ },
+ "v": {
+  "begin_": 5,
+  "copy_y_": 1,
+  "copy_n_": 3,
+  "copy_next_1_": 4,
+  "copy_end_1_": 5,
+  "copy_end_2_": 4,
+  "cycle_end_": 2,
+  "case_n_3_": 3,
+  "case_n_4_": 2,
+  "case_y_1_": 2,
+  "case_y_2_": 3,
+  "copy_start_": 4,
+  "copy_next_2_": 1,
+  "case_n_1_": 1,
+  "case_n_2_": 5
+ },
+ "sigma": {
+  "+1": 2,
+  "+2": 1,
+  "-1": 5,
+  "-2": 1
+ },
+ "eps": {
+  "+1": 1,
+  "+2": 1,
+  "-1": -1,
+  "-2": 1
+ },
+ "family": "all(class<=2)"
+}

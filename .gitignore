@@ -1,0 +1,16 @@
+**/.lake/
+__pycache__/
+*.pyc
+data/
+out/
+lean/URTM/Gen/
+lean/URTM/M*.lean
+lean/lake-manifest.json
+legacy/small-urtm/lean/lake-manifest.json
+*.aux
+*.log
+*.out
+*.toc
+*.fls
+*.fdb_latexmk
+*.synctex.gz

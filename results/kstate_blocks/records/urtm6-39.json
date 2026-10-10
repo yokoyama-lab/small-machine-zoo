@@ -1,0 +1,73 @@
+{
+ "machine": "urtm10-8.txt",
+ "blocks": [
+  2,
+  2
+ ],
+ "groups": [
+  [
+   "D-1",
+   "O+2"
+  ],
+  [
+   "H-2",
+   "O+1"
+  ],
+  [
+   "D-2",
+   "H-1"
+  ],
+  [
+   "O-1",
+   "D+2",
+   "D+1"
+  ],
+  [
+   "O-2",
+   "H+1"
+  ]
+ ],
+ "status": "OPTIMAL",
+ "V": 8,
+ "wall": 8.0,
+ "cutoff": 40,
+ "obj": 39,
+ "bound": 39,
+ "blk": {
+  "begin_": 2,
+  "case_y_2_": 2,
+  "copy_y_1_": 1,
+  "copy_n_1_": 2,
+  "copy_end_": 2,
+  "case_y_1_": 1,
+  "case_y_n_": 2,
+  "copy_start_": 1,
+  "copy_y_2_": 1,
+  "copy_n_2_": 2
+ },
+ "v": {
+  "begin_": 2,
+  "case_y_2_": 1,
+  "copy_y_1_": 1,
+  "copy_n_1_": 4,
+  "copy_end_": 3,
+  "case_y_1_": 2,
+  "case_y_n_": 4,
+  "copy_start_": 3,
+  "copy_y_2_": 1,
+  "copy_n_2_": 3
+ },
+ "sigma": {
+  "+1": 1,
+  "+2": 4,
+  "-1": 1,
+  "-2": 4
+ },
+ "eps": {
+  "+1": 1,
+  "+2": -1,
+  "-1": 1,
+  "-2": -1
+ },
+ "family": "all(class<=18)"
+}
