@@ -42,9 +42,10 @@ python3 tools/verify.py --target traces
 Build logs are saved under `out/verification/`. The nonexistence target includes
 the exhaustive three-state proof, not just the two-state theorem. The traces
 target includes the large `(3,36654)` examples. Allow substantial time and
-memory for a first build; the development project reported a peak near 28 GB
-for a broader default build, so a machine with 32 GB or more is a reasonable
-starting point, not a measured minimum for this extracted package.
+memory for a first build. Release validation used a machine with 64 GB of RAM;
+individual Lean processes for the intermediate-value and blank-symbol checks
+used about 13 GB and 20 GB, respectively, while running concurrently. These are
+observations from this build, not guaranteed upper bounds or a measured minimum.
 
 `LEAN_NUM_THREADS` controls Lean worker threads; the script defaults it to 4.
 Mathlib caches accelerate dependency setup. The URTM modules are built from
@@ -72,3 +73,25 @@ faithfully capture Morita's intended definitions. Rebuilding a final constructio
 does not replay the AI conversation or establish that the search was optimal.
 The source-manifest hashes record extraction provenance; changing a hash together
 with its file would not independently validate the change.
+
+## Initial snapshot validation (2026-10-10)
+
+All three targets built successfully from the extracted URTM sources with the
+pinned Lean and Mathlib versions. Mathlib dependencies used their build caches.
+The imported-environment audits reported:
+
+| Target | Declarations | Theorems | Additional axioms / flagged declarations |
+|---|---:|---:|---|
+| existence | 10,603 | 7,041 | None / none |
+| nonexistence | 8,257 | 6,654 | None / none |
+| traces | 6,388 | 3,761 | None / none |
+
+The allowed axioms were `propext`, `Classical.choice`, and `Quot.sound`.
+No imported project declaration was unsafe, opaque, or marked `implemented_by`
+or `extern`. The copied `Spec` and `Strict` definitions passed the agreement
+checks. Source-code linter warnings did not cause build or audit failures.
+
+Generation was also repeated from the files selected for distribution, with
+Python site packages disabled. All 78 retained generated files matched the
+files used for verification. The source PDF matched its pinned SHA-256.
+Both manuscript PDFs built without LaTeX warnings or undefined references.
