@@ -27,7 +27,9 @@ python3 tools/verify.py
 ```
 
 The default command builds all three targets below, checks equality of copied
-definitions, and audits the imported theorem environments for axioms outside
+definitions, checks that the entry modules `LeanUniv.lean`, `URTMMeta.lean`, and
+`PaperTraces.lean` import exactly the roots listed in `docs/source-manifest.json`,
+and audits the imported theorem environments for axioms outside
 `propext`, `Classical.choice`, and `Quot.sound`. Any failed build or unexpected
 axiom makes the command fail; it never substitutes a missing proof.
 
@@ -41,7 +43,8 @@ python3 tools/verify.py --target traces
 
 Build logs are saved under `out/verification/`. The nonexistence target includes
 the exhaustive three-state proof, not just the two-state theorem. The traces
-target includes the large `(3,36654)` examples. Allow substantial time and
+target includes the large `(3,36654)` examples, both by running the table and
+through the step counts of Lemmas 5.9 and 5.10. Allow substantial time and
 memory for a first build. Release validation used a machine with 64 GB of RAM;
 individual Lean processes for the intermediate-value and blank-symbol checks
 used about 13 GB and 20 GB, respectively, while running concurrently. These are
@@ -62,7 +65,7 @@ python3 tools/build_paper.py
 ```
 
 This produces `paper/note.pdf` and `paper/full.pdf`. The latter combines the
-current short paper with `paper/details.tex`; it is not maintained as a second
+current paper with `paper/details.tex`; it is not maintained as a second
 independent copy of the main text. Both files are built twice for references.
 
 ## What this checks
@@ -95,3 +98,42 @@ Generation was also repeated from the files selected for distribution, with
 Python site packages disabled. All 78 retained generated files matched the
 files used for verification. The source PDF matched its pinned SHA-256.
 Both manuscript PDFs built without LaTeX warnings or undefined references.
+
+## Snapshot update validation (2026-10-27)
+
+The update added the roots `LeanUniv.FinalFewSym`, `LeanUniv.FinalMerge`,
+`URTM.CTSH4_48Main`, and `URTM.Gen.W3_36654Same`. Starting from a fresh clone,
+`tools/prepare.sh` downloaded the source PDF, matched its pinned SHA-256,
+generated the tables, and obtained the Mathlib caches. All three targets then
+built from the URTM sources with the pinned Lean and Mathlib versions, and the
+default `python3 tools/verify.py` passed. The imported-environment audits
+reported:
+
+| Target | Declarations | Theorems | Additional axioms / flagged declarations |
+|---|---:|---:|---|
+| existence | 11,144 | 7,396 | None / none |
+| nonexistence | 8,258 | 6,655 | None / none |
+| traces | 6,829 | 4,099 | None / none |
+
+The allowed axioms were `propext`, `Classical.choice`, and `Quot.sound`, so no
+proof uses `sorry` or `native_decide`. The copied `Spec` and `Strict`
+definitions passed the agreement checks, and the entry modules matched the
+manifest roots. Source-code linter warnings did not cause failures.
+
+Each target was built separately with `LEAN_NUM_THREADS=4` under a 40 GB memory
+limit, on a machine with 64 GB of RAM that was also running unrelated jobs.
+The observed wall-clock times were about 2 h 23 min for existence, 43 min for
+nonexistence, and 11 min for traces (the trace target reused modules already
+built for existence). The longest single modules were `LeanUniv.Num3_600`
+(about 2 h) and `LeanUniv.Values13_7` (about 75 min). The largest Lean process
+used about 21 GB for existence, 9 GB for nonexistence, and 8 GB for traces.
+These are observations from this build, not guaranteed bounds.
+
+As a mutation check, the statement of `exists_urtm_92_2_of_10_8` was changed
+to claim 91 states. `python3 tools/verify.py --target existence` then failed
+with a type mismatch in `FinalFewSym.lean`; after restoring the file, the full
+verification passed again. Generation was repeated from the files selected for
+distribution, with Python site packages disabled; all 96 retained generated
+files matched the files used for verification. Both manuscript PDFs built
+without LaTeX errors, warnings, undefined references, or overfull or underfull
+boxes.

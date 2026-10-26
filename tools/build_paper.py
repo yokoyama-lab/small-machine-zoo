@@ -12,7 +12,9 @@ note = (paper/'note.tex').read_text()
 marker = r'\begin{thebibliography}'
 assert note.count(marker) == 1
 full = note.replace(marker, '\\appendix\n'+(paper/'details.tex').read_text()+'\n'+marker)
-full = full.replace(r'\date{October 5, 2026}', r'\date{October 5, 2026\\Extended version}')
+date = r'\date{October 2026}'
+assert full.count(date) == 1
+full = full.replace(date, r'\date{October 2026\\Extended version}')
 (out/'full.tex').write_text(full)
 for name, source in [('note', paper/'note.tex'), ('full',out/'full.tex')]:
     for _ in range(2):

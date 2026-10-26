@@ -66,7 +66,8 @@ the proof for the merged table also establishes the required relationship
 to its pre-merge table. The relevant intermediate-value theorems are in
 \texttt{LeanUniv.FinalValues}.
 
-The automated search was modeled on autoresearch~\cite{Karpathy26}.
+The automated search was modeled on Karpathy's autoresearch
+(\url{https://github.com/karpathy/autoresearch}).
 An interactive AI session prepared the search program, fixed evaluator,
 and instructions at the human's request. After the human started a session,
 the agent edited the search program and the evaluator checked candidates
@@ -140,8 +141,8 @@ the same direction; the two-state argument does not apply unchanged.
 
 \section{Outline of the three-state two-symbol proof}
 
-The proof normalizes the tables and checks 359,829 normalized tables with
-the Lean kernel. It handles most tables by certificates constraining visits
+The proof normalizes the tables and checks the 359,829 keys of the normal
+forms with the Lean kernel. It handles most tables by certificates constraining visits
 outside a window and by finite-state bounds. Other cases reduce to bounded
 halting for a two-state machine after removing a state, or require a
 separate argument about their behavior.

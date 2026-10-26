@@ -1,5 +1,5 @@
 {
-  "source_commit": "bfff87da70d64f9c8dbedab8663d988f4aae5c8a",
+  "source_commit": "64900a1bfb13af4ba1d94cc1db1bb5f98b233cc2",
   "existence_roots": [
     "LeanUniv.FinalAgree",
     "LeanUniv.FinalBook",
@@ -11,7 +11,10 @@
     "LeanUniv.FinalBlank3_600",
     "LeanUniv.FinalString",
     "LeanUniv.FinalFormulas",
-    "LeanUniv.FinalValues"
+    "LeanUniv.FinalValues",
+    "LeanUniv.FinalFewSym",
+    "LeanUniv.FinalMerge",
+    "URTM.CTSH4_48Main"
   ],
   "nonexistence_roots": [
     "URTMMeta.Corners",
@@ -300,7 +303,7 @@
     "legacy/small-urtm/lean-meta/URTMMeta/Uniform.lean": "5266a8ed7560397d22ec7bacbff6f28433ea4553cad623f80fb04a54597c46f0",
     "legacy/small-urtm/lean-meta/URTMMeta/GeneralTwo.lean": "978849d26de5d42ce38a1fed21088d9f747791417cd4614d7d9db35a91ecd62f",
     "legacy/small-urtm/lean-meta/URTMMeta/Pav73.lean": "a1ae442959838c6beec26fcdaa64d1c8b7f4e34a424e0617dd09c7d26e2e9742",
-    "legacy/small-urtm/lean-meta/URTMMeta/Corners.lean": "327f4fa2b19e785e49baa0b09be8d79c0a71b7fc52b1de9dc5f2acc3b112c400",
+    "legacy/small-urtm/lean-meta/URTMMeta/Corners.lean": "52b3335f3a26275ddfb11e62044235d8c90a85f5a6eb8ccc889a5936c4f8eaf7",
     "LICENSE": "8ff6eb52aa12821e61b215f4a74c3c27c9aeaed62b7d58f6162ad9f540260b72",
     "tools/fetch_data.sh": "ff51a3206e3b515bce671e9a59906c847fd2be4910fe28464b754549404477fe",
     "lean-univ/lean-toolchain": "efac0b94923b2d8b6840cd35be9177ad0fc5ab2332f4f4311c98712cee92fdee",
@@ -308,7 +311,6 @@
     "lean/lean-toolchain": "efac0b94923b2d8b6840cd35be9177ad0fc5ab2332f4f4311c98712cee92fdee",
     "legacy/small-urtm/lean/lean-toolchain": "efac0b94923b2d8b6840cd35be9177ad0fc5ab2332f4f4311c98712cee92fdee",
     "legacy/small-urtm/lean-meta/lean-toolchain": "efac0b94923b2d8b6840cd35be9177ad0fc5ab2332f4f4311c98712cee92fdee",
-    "legacy/small-urtm/lean-meta/lake-manifest.json": "45aeb57b02d75ed5df6bbdbed69de329df8640d689307fa02f8c41042a6275e1",
     "tools/gen_ctsh_lean.py": "05a6e431889451cbd3f098f79fad7b65cfb4a1b15e48a5ec2abce23da9b5675c",
     "tools/gen_lean.py": "fd45ce7599ebd8bac8402a23e03668af477f7901755ba614313b2342db33b926",
     "tools/kstate_sparse_k4.py": "9b7290a3d7c6934aa4469048eca0e63ab6f6b84fbb20f3ddab8032a5f525796c",
@@ -368,7 +370,37 @@
     "legacy/small-urtm/tools/check_urtm.py": "7c9b53033256d2df13b5fa7fc024b2be6b17bf7ecd133a904ca252fbd856df9b",
     "autoresearch/frontier/search_lib/records/urtm13-7.85.base.json": "0d8822d22b3cf20a05fba00018a421ffcda5cc15f22f3ec1cbe347cc08417545",
     "results/fewsym/records/urtm24-4.2.base.json": "425090a44688a0177eca6ac442339f283510917079ece8459519fbed72d29ec2",
-    "results/fewsym/records/urtm13-7.2.base.json": "ca5fe54b3d55e4f2dea4c2b9fec5b308d970017b328051dfb62a37ba6ee2f74e"
+    "results/fewsym/records/urtm13-7.2.base.json": "ca5fe54b3d55e4f2dea4c2b9fec5b308d970017b328051dfb62a37ba6ee2f74e",
+    "lean-univ/LeanUniv/FewSymGen.lean": "b34b0a67177ec8abc18f06819cf1dbf29486e533663e1444734754aa9f76f920",
+    "lean-univ/LeanUniv/FinalFewSym.lean": "f5331ca43cd4759e9431e9f334cd31756e0fa674b1b4635c25c494c93698a3c0",
+    "lean-univ/LeanUniv/FinalMerge.lean": "601b0161eb2ebb71722f087095499603769eb68442726f6889bc141a7af6d539",
+    "lean-univ/LeanUniv/MergeBlocks.lean": "11196e3f1c5610d5d80b3b9092306f4213723fc2baab3374e9292d0fd624672b",
+    "lean-univ/LeanUniv/U108_2_15_6.lean": "489be668001c9ed15356dbba57574b37b63e791a1b9cccf7345f06e6bcb5a68d",
+    "lean-univ/LeanUniv/U115_2_17_5.lean": "81f14278ffbc1b3a8cae14b2b6543cd331b30acb8bf6c58757828ccaf47bd1e0",
+    "lean-univ/LeanUniv/U115_2_32_3.lean": "34c7f3eefe95d5e40cdd5f782e749ba2c46815b189002d1a4240d809b80cbb7a",
+    "lean-univ/LeanUniv/U92_2_10_8.lean": "fb1e9b6e97e66a3ab9547443513893b66f30e4b5bfa16f9632a64ac8a168b32d",
+    "lean-univ/LeanUniv/U92_2_24_4.lean": "dcd7f3d1723de644d8ab3a22bee9e239095279eb212dc1afa9b52b3e65393ef4",
+    "lean/URTM/CTSH108_2_15_6Main.lean": "5a46329985271e28ed338233894217be3e3f48add03eb82723cc559ca8fbb30a",
+    "lean/URTM/CTSH115_2_17_5Main.lean": "235ff5d65b941dc77b735880053fccb61520c23ddc00044c8365411e6cf67797",
+    "lean/URTM/CTSH115_2_32_3Main.lean": "b57a11ab661ba0b4078b35dcf4aecb4329c0e8e1198a40ccd0ee26e17e37c416",
+    "lean/URTM/CTSH3_36654Cost.lean": "f55b1de1d84b9899a34e113dd9c4b5776296e59209cf501801250b2eb4a844dd",
+    "lean/URTM/CTSH4_48Main.lean": "b02f7cc097c8f40f31a139fb6dd9a267a106b234db242f646ab4ff1d7171dbe4",
+    "lean/URTM/CTSH92_2_10_8Main.lean": "da300fb8d38d330376caaf245aac83d78fb121ad7295b63baf55c8b3a7ad7684",
+    "lean/URTM/CTSH92_2_24_4Main.lean": "f80fd6122c1b2d66099ab38eaf56fbbaf0679bbea305533d58e501c70981ed19",
+    "lean/URTM/Conv510Exact.lean": "09d6dd8d2d36e6d4c7c06b6c68e266ad72e8f07bc9929902edab62a839b54644",
+    "lean/URTM/Conv59Exact.lean": "500a1c6b52685706dcfcad99cdbf82d115d9e0a36fa602919ece08bb278f6560",
+    "lean/URTM/KRunW.lean": "946f1eb912fd14dc38b8c31fc7a838e983b08584040924beed8c6a9aa2b25be6",
+    "lean/URTM/StepW.lean": "527ac0ff83bd2beabb1d2b07aeaa46434f052265fe169d017d16f511eba01fa6",
+    "results/fewsym/records/urtm10-8.92.base.json": "cd88b3e8c4fcd26d43462f4d932918083c602e4d6628c15634eb29db4535f7a1",
+    "results/fewsym/records/urtm10-8.92.merge.json": "064081f73c91a875d1e31e7d04dc2a2d1ad220e948abda73430c990bb88bda48",
+    "results/fewsym/records/urtm15-6.108.base.json": "7cac13e7c32cc345257caf561954e086f71298a87aa0c8c543d2274d9394f753",
+    "results/fewsym/records/urtm15-6.108.merge.json": "41faa00d91f9fff0de50fdc2e790512189eb6b103903318d79d2ab2f46ae817e",
+    "results/fewsym/records/urtm17-5.115.base.json": "1d4c2de37fe8576636c488a7ad4fd14a28ebae105067b77c9b2212b683c3b5ea",
+    "results/fewsym/records/urtm17-5.115.merge.json": "b8b74133fd04bd8d842bd03a41d2c4c13e3fb086d9bb5e5285d8eb5129d17144",
+    "results/fewsym/records/urtm24-4.92.base.json": "4244d0e1174b13219ce642b548ccca1ee33dd23e74faab638f9a1794788d2e0e",
+    "results/fewsym/records/urtm24-4.92.merge.json": "5398e146318bf8e9b792b286307f1f8ee4c7d6693aa8f6eb2652a5e6e5c552f8",
+    "results/fewsym/records/urtm32-3.115.base.json": "efe961b1bbee49c97d60ae4dfa9d7e31b8280c6da73c9a0421569b8e41dea391",
+    "results/fewsym/records/urtm32-3.115.merge.json": "cb8cd3ccf2d8cf97a25ab4c57852f16327f8c3c8511638d48bf10eca33665f8f"
   },
   "adapted_files": [
     "tools/gen_all_lean.sh",
@@ -377,6 +409,7 @@
     "lean-univ/LeanUniv.lean",
     "legacy/small-urtm/lean/lakefile.toml",
     "legacy/small-urtm/lean-meta/lakefile.toml",
+    "legacy/small-urtm/lean-meta/lake-manifest.json",
     "legacy/small-urtm/lean-meta/URTMMeta.lean",
     "lean/URTM.lean",
     "legacy/small-urtm/lean/URTM.lean",
@@ -393,6 +426,7 @@
     "URTM.Gen.C32_3",
     "URTM.Gen.C4_168",
     "URTM.Gen.C138_2",
-    "URTM.Gen.S3_36654"
+    "URTM.Gen.S3_36654",
+    "URTM.Gen.W3_36654Same"
   ]
 }

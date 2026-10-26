@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Build the paper targets and check their axiom dependencies; fail closed."""
 import argparse
+import json
 import os
 from pathlib import Path
 import subprocess
@@ -30,6 +31,17 @@ def check_copies():
         raise SystemExit('FAIL: Strict.lean copies differ beyond import paths')
     print('PASS: copied Spec and Strict definitions', flush=True)
 
+def check_roots():
+    manifest = json.loads((ROOT/'docs/source-manifest.json').read_text())
+    for key, entry in [('existence_roots','lean-univ/LeanUniv.lean'),
+                       ('nonexistence_roots','legacy/small-urtm/lean-meta/URTMMeta.lean'),
+                       ('trace_roots','lean/PaperTraces.lean')]:
+        imported = [x.split()[1] for x in (ROOT/entry).read_text().splitlines()
+                    if x.startswith('import ')]
+        if sorted(imported) != sorted(manifest[key]):
+            raise SystemExit(f'FAIL: {entry} does not import exactly the {key} of the manifest')
+    print('PASS: entry modules import exactly the manifest roots', flush=True)
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--target', choices=['all','existence','nonexistence','traces'], default='all')
@@ -37,6 +49,7 @@ def main():
     logs = ROOT / 'out/verification'
     logs.mkdir(parents=True, exist_ok=True)
     check_copies()
+    check_roots()
     for name, project, target in [
         ('existence','lean-univ','LeanUniv'),
         ('nonexistence','legacy/small-urtm/lean-meta','URTMMeta'),

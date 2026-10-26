@@ -1,12 +1,11 @@
-# Small universal reversible Turing machines
+# Smaller universal reversible Turing machines
 
-Companion materials for **Small Universal Reversible Turing Machines Constructed
-by AI and Formally Verified in Lean without Human Inspection of the Formalization**,
-Tetsuo Yokoyama, Nanzan University.
+Companion materials for **Smaller Universal Reversible Turing Machines and the
+Nonexistence of Two-State Ones**, Tetsuo Yokoyama, Nanzan University.
 
-- [Short paper (PDF)](paper/note.pdf) · [LaTeX](paper/note.tex)
-- [Extended paper (PDF)](paper/full.pdf), with construction details, proof outlines,
-  and comparison with prior work · [Appendix source](paper/details.tex)
+- [Paper (PDF)](paper/note.pdf) · [LaTeX](paper/note.tex)
+- [Full version (PDF)](paper/full.pdf), with construction details and proof
+  outlines · [Appendix source](paper/details.tex)
 - [Claims and Lean entry points](docs/claims.md)
 - [Build and verification instructions](docs/verification.md)
 
@@ -15,12 +14,14 @@ The seven new state–symbol pairs are `(3,600)`, `(4,42)`, `(5,39)`, `(6,30)`,
 they give 13 non-dominated points. The formalization also proves nonexistence
 of URTMs with at most two states and of three-state, two-symbol URTMs, under
 the definitions and conditions stated in the paper. These are upper bounds
-by construction, not claims of global minimality.
+by construction, not claims of global minimality. The other theorems of the
+paper that are formalized are listed with their Lean names in
+[docs/claims.md](docs/claims.md).
 
-The paper's protocol uses AI for construction, search, formalization, and proofs.
-Lean checks the formal theorems. This does not establish that the formalization
-faithfully expresses the intended mathematics; the author did not inspect that
-correspondence. Read the qualifications in the paper with the results.
+Lean checks the formal theorems relative to the definitions. This does not
+establish that the definitions faithfully capture Morita's definitions, in
+particular his definition of universality. Read the qualifications in the paper
+with the results.
 
 ## Reproduce
 

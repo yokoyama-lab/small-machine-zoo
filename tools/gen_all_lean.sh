@@ -114,6 +114,14 @@ for spec in 10-8.6-37:KB6_37:K10_8 17-5.8-28:KB8_28:K17_5 15-6.9-27:KB9_27:K15_6
 done
 python3 tools/gen_fewsym_lean.py "$AR/urtm13-7.85.merge.json" --module FS85_2 --base K13_7 > lean/URTM/Gen/FS85_2.lean
 kmods+=("Gen.FS85_2")
+# 他の 5 台の記号削減の記録（2 記号化の LNS、docs/32 §3）: (10,8)・(24,4) → (92,2)、(15,6) → (108,2)、(17,5)・(32,3) → (115,2)。
+# CTSH の模倣は CTSH<m>_2_<元>Main.lean、Def. 7.1 の万能性は lean-univ の U<m>_2_<元>.lean（共通部分は FewSymGen.lean）
+for spec in 10-8.92:FS92_2_10_8:K10_8 24-4.92:FS92_2_24_4:K24_4 15-6.108:FS108_2_15_6:K15_6 \
+    17-5.115:FS115_2_17_5:K17_5 32-3.115:FS115_2_32_3:K32_3; do
+  IFS=: read -r rec km base <<< "$spec"
+  python3 tools/gen_fewsym_lean.py "results/fewsym/records/urtm$rec.merge.json" --module "$km" --base "$base" > "lean/URTM/Gen/$km.lean"
+  kmods+=("Gen.$km")
+done
 # 記号の併合（results/symmerge-2026-10-05、tools/gen_symmerge_lean.py）: 記録のブロック化の表の生成モジュール。
 # CTSH<k>_<m>Main と URTM.SymMergeAll は同じ道具が書く追跡ファイル（lean-univ/tests/check.sh (2c) が照合する）
 smods=$(python3 tools/gen_symmerge_lean.py kb)

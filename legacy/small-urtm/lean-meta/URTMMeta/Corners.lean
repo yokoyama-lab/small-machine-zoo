@@ -93,6 +93,22 @@ theorem no_le_two_state_URTMStrict {U : List Quint}
     (hdet : Deterministic U) (hrev : Reversible U) (hn : NStates U ≤ 2) : ¬ IsUTMStrict U :=
   fun h => no_le_two_state_URTM hdet hrev hn h.isUTM
 
+/-- **系（クラス版、一般の表）**: 列挙のある TM `tm n` で、出発状態が 2 種類以下の決定的かつ可逆な表の
+    どれにも模倣されないものがある。停止先の数・0 シフト・記号数は制限しない（`SpecThm.lean` の
+    `two_state_class_not_universal` は停止先が 1 つの `TwoStateRTM` に限った形）。 -/
+theorem le_two_state_class_not_universal :
+    ∃ n, ∀ U : List Quint, Deterministic U → Reversible U → NStates U ≤ 2 → ¬ Simulates U (tm n) := by
+  refine ⟨tmIndex tblU, fun U hdet hrev hn hs => ?_⟩
+  obtain ⟨q₀, q₁, hne, hsrc⟩ := sources_cover_of_le_two (U := U) hn
+  rw [tm_tmIndex_tblU] at hs
+  obtain ⟨f, hf, hfe⟩ := simulates_halting_computable_general hdet hrev hne hsrc hs
+  apply tblU_undecidable
+  refine ComputablePred.computable_iff.mpr ⟨fun x => f (zidU x), hf.comp zidU_primrec.to_comp, ?_⟩
+  funext x
+  apply propext
+  rw [← halts_toID_iff tblU_det 0]
+  exact hfe (zidU x) (isIDOf_of_IDOf (IDOf_tblU_zidU x) 0)
+
 /-! ### 記号が空白だけの表: 1 歩・テープの不変・並進 -/
 
 /-- 記号が空白だけ（`NSyms U ≤ 1`）なら、五つ組はどれも 0 を読んで 0 を書く。 -/
