@@ -52,6 +52,7 @@ published trace checks. It is a substantial build; see the
 | `tools/` | Fetching source data, regenerating tables, and verification |
 | `results/`, `autoresearch/frontier/search_lib/records/` | Construction parameters used by the generators |
 | `paper/` | Short and extended manuscript sources and PDFs |
+| `tables/` | Plain-text quintuple tables of the seven new URTMs |
 
 The two proof environments use different `URTM` packages. They are deliberately
 kept separate; the verification script compares the definitions copied between
