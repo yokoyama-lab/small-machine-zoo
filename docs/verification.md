@@ -137,3 +137,32 @@ distribution, with Python site packages disabled; all 96 retained generated
 files matched the files used for verification. Both manuscript PDFs built
 without LaTeX errors, warnings, undefined references, or overfull or underfull
 boxes.
+
+## Snapshot update validation (2026-10-29)
+
+The update added the roots `LeanUniv.Final4_48` and `URTMMeta.ThreeStrictSpec`.
+The validation started from a fresh clone of the committed snapshot. The
+public repository of the source PDF was down for maintenance (HTTP 503) at the
+time, so `tools/fetch_data.sh` stored the maintenance page instead of the PDF,
+and its SHA-256 check rejected it before any table was generated. The
+validation therefore used a local copy of the PDF downloaded on an earlier
+date, whose SHA-256 matches the pinned value
+`e36b9edd31d80d52d6f4cdc7433510e4c1ff3d9cf0359386ae3d3bd63f4b9524`. With that
+file in `data/`, `tools/prepare.sh` generated the tables and obtained the
+Mathlib caches, and each of the three targets built from the URTM sources and
+passed `tools/verify.py`. The imported-environment audits reported:
+
+| Target | Declarations | Theorems | Additional axioms / flagged declarations |
+|---|---:|---:|---|
+| existence | 11,185 | 7,424 | None / none |
+| nonexistence | 8,275 | 6,671 | None / none |
+| traces | 6,829 | 4,099 | None / none |
+
+The copied `Spec` and `Strict` definitions passed the agreement checks, and
+the entry modules matched the manifest roots. Each target was built separately
+with `LEAN_NUM_THREADS=4` under a 40 GB memory limit on a machine with 64 GB of
+RAM. The observed wall-clock times were about 37 min for existence, 40 min for
+nonexistence, and 10 min for traces; the longest single modules were
+`LeanUniv.Values13_7` (about 26 min) and `LeanUniv.Num3_600` (about 12 min).
+These are observations from this build, not guaranteed bounds. Both manuscript
+PDFs built without LaTeX errors, warnings, or undefined references.
