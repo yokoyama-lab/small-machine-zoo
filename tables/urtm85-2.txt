@@ -1,5 +1,5 @@
 % URTM(85,2): a universal reversible Turing machine with 85 states and 2 symbols
-% (Appendix A of the paper). Obtained from Morita's URTM(13,7) by the two-symbol conversion
+% (Section 3.5 of the paper). Obtained from Morita's URTM(13,7) by the two-symbol conversion
 % of the paper (3-bit codes, path types, merging of equivalent states).
 % 153 quintuples [p, s, t, d, q]: in state p reading s, write t, move d, enter q.
 % d is - (left) or + (right). There are no halting quintuples: the machine halts where no
@@ -7,6 +7,7 @@
 % Encoding: a cell of URTM(13,7) is three consecutive cells; the symbols b, y, n, Y, N, *, $
 % of URTM(13,7) are written, from the left cell, as 000, 100, 101, 001, 010, 110, 111.
 % The head is on the leftmost of the three cells for the head cell of URTM(13,7).
+% One step of URTM(13,7) is simulated in 3, 5, or 7 steps.
 % The two halting quintuples of URTM(13,7) (reading the blank) correspond to state 2 and
 % state 7 reading 0.
 initial_state(2).
