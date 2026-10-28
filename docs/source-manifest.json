@@ -1,5 +1,5 @@
 {
-  "source_commit": "64900a1bfb13af4ba1d94cc1db1bb5f98b233cc2",
+  "source_commit": "f28072d0427b2bf6e0d571a6fc2d1733e0b00d4a",
   "existence_roots": [
     "LeanUniv.FinalAgree",
     "LeanUniv.FinalBook",
@@ -14,7 +14,8 @@
     "LeanUniv.FinalValues",
     "LeanUniv.FinalFewSym",
     "LeanUniv.FinalMerge",
-    "URTM.CTSH4_48Main"
+    "URTM.CTSH4_48Main",
+    "LeanUniv.Final4_48"
   ],
   "nonexistence_roots": [
     "URTMMeta.Corners",
@@ -22,7 +23,8 @@
     "URTMMeta.Uniform",
     "URTMMeta.ThreeStrictAll",
     "URTMMeta.MoritaOverSingle",
-    "URTMMeta.SpecThm"
+    "URTMMeta.SpecThm",
+    "URTMMeta.ThreeStrictSpec"
   ],
   "copied_sha256": {
     "lean-univ/LeanUniv/Agree.lean": "b01e7adb12cae91cd6fe0fe742b860c067974faabe0cdad19901c8ed91e6a9b5",
@@ -57,7 +59,7 @@
     "lean-univ/LeanUniv/FinalSymMergeBlank.lean": "74924815269d9fec930a3f761654a79510213d5545f98ae49d476dff23f3fd1a",
     "lean-univ/LeanUniv/FinalSymMergeBook.lean": "174ea83427e2189b495b4dbd861cd2b191e02e1007d956b4488d17ee85b9c319",
     "lean-univ/LeanUniv/FinalSymMergeMoritaCount.lean": "ff03f7bec14c23e605318ae9e8bf57e3f07def4e6fb3a805060ef7bd1c221e90",
-    "lean-univ/LeanUniv/FinalValues.lean": "7e43c17e2c4289e9e725bf2bd1b64a6a0b3f58ed798f91d7f67c69706377b19c",
+    "lean-univ/LeanUniv/FinalValues.lean": "91977abda4a58877009f1d2b5148dcf227aea3737fa943e07cfe85218154d13c",
     "lean-univ/LeanUniv/Finite.lean": "c5789f0c9104b8818d577329a09666df5384f12437e3e64a57caf356f67e3dfe",
     "lean-univ/LeanUniv/GenDec.lean": "8a0123086f6fe68aaf06fc49288ab586f21b48df04e8cc7d892b5cc524d405b1",
     "lean-univ/LeanUniv/KToSpec.lean": "ff239d032be89aa275322e436a65100561ec9bd2c4ec9cb778c72120b5107811",
@@ -400,7 +402,12 @@
     "results/fewsym/records/urtm24-4.92.base.json": "4244d0e1174b13219ce642b548ccca1ee33dd23e74faab638f9a1794788d2e0e",
     "results/fewsym/records/urtm24-4.92.merge.json": "5398e146318bf8e9b792b286307f1f8ee4c7d6693aa8f6eb2652a5e6e5c552f8",
     "results/fewsym/records/urtm32-3.115.base.json": "efe961b1bbee49c97d60ae4dfa9d7e31b8280c6da73c9a0421569b8e41dea391",
-    "results/fewsym/records/urtm32-3.115.merge.json": "cb8cd3ccf2d8cf97a25ab4c57852f16327f8c3c8511638d48bf10eca33665f8f"
+    "results/fewsym/records/urtm32-3.115.merge.json": "cb8cd3ccf2d8cf97a25ab4c57852f16327f8c3c8511638d48bf10eca33665f8f",
+    "lean-univ/LeanUniv/Final4_48.lean": "0c26d37e5018ebe03a0ecfb249921cf3e8c99899c68395f964feb8f87c413708",
+    "lean-univ/LeanUniv/U4_48.lean": "4b4cb894fce5fb5d02029d41744c9309241f5286a669682ddd46ed51655893c6",
+    "lean/URTM/CTSH4_48BMain.lean": "caa772a434fc6abf44982a4d1abaa27736d888888f0c70416dbb6b5e24c0d4aa",
+    "results/kstate_blocks/records/urtm4-48.json": "24811395dde17b5499653998028570c021f84a7ec6addd625f886e9224cc9e9f",
+    "legacy/small-urtm/lean-meta/URTMMeta/ThreeStrictSpec.lean": "c46b878dad73769c73fcab1288f60ee94061a9d31010947a59e05de23f29fe68"
   },
   "adapted_files": [
     "tools/gen_all_lean.sh",

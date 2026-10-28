@@ -4,11 +4,12 @@ This repository is a fresh source snapshot for the accompanying paper. It does
 not carry the development repository's Git history or private research logs.
 
 - Formalization and generator source revision:
-  `64900a1bfb13af4ba1d94cc1db1bb5f98b233cc2`. The previous snapshot (2026-10-10)
-  used `bfff87da70d64f9c8dbedab8663d988f4aae5c8a`.
-- Manuscript source revision: `f36351a` of the manuscript repository.
-  `paper/note.tex` is `arxiv_ai_lean_v4_en.tex` at that revision with its
-  source comments removed.
+  `f28072d0427b2bf6e0d571a6fc2d1733e0b00d4a`. The earlier snapshots used
+  `64900a1bfb13af4ba1d94cc1db1bb5f98b233cc2` (2026-10-27) and
+  `bfff87da70d64f9c8dbedab8663d988f4aae5c8a` (2026-10-10).
+- Manuscript source revision: `2f6b0ae` of the manuscript repository.
+  `paper/note.tex` is `arxiv_v4_en.tex` at that revision with its source
+  comments removed (the file was named `arxiv_ai_lean_v4_en.tex` before).
 - The full version combines that paper with `paper/details.tex`, an appendix
   assembled from the existing construction and proof notes. It is not an
   independently inspected proof of the formalization.
@@ -41,6 +42,18 @@ retained file changed between the two source revisions
 of `legacy/small-urtm/lean-meta`; this package keeps its earlier path
 dependency on `../lean`, so `lake-manifest.json` there is listed among the
 adapted files.
+
+The 2026-10-29 update re-extracted from revision `f28072d0` by the same
+rules. It added the roots `LeanUniv.Final4_48` (universality of the
+reverse-counting machine with four states and 48 symbols, through the same
+table written as a block conversion; the construction record
+`results/kstate_blocks/records/urtm4-48.json` and one line of the generator
+script were added) and `URTMMeta.ThreeStrictSpec` (the three-state two-symbol
+theorem for tables that may list a quintuple more than once). One retained
+file changed between the two source revisions only in a documentation comment
+(`LeanUniv/FinalValues.lean`, which now names a module of the development
+repository that is not part of this package). All other retained files are
+unchanged.
 
 The extraction preserves the two separate proof environments and their relative
 paths. The verification script checks the copied specification and universality

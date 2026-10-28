@@ -28,8 +28,8 @@ kmods+=("Gen.KS13_7")
 python3 tools/gen_eps_lean.py data/urtm/urtm10-8.txt results/kstate5/urtm10-8.k4.eps-.json --module KE10_8 --base K10_8 > lean/URTM/Gen/KE10_8.lean
 kmods+=("Gen.KE10_8")
 # ブロック分け × 役割の併合 × ε（lean/URTM/KStateBlocks.lean、tools/kstate_blocks.py の解 results/kstate_blocks/records/*.json、docs/22）:
-# (10,8) → (4,46)・(6,39)、(15,6) → (5,45)・(7,32)・(11,22)、(17,5) → (8,30)、(32,3) → (12,21)
-for spec in 4-46:K10_8 6-39:K10_8 5-45:K15_6 7-32:K15_6 11-22:K15_6 8-30:K17_5 12-21:K32_3; do
+# (10,8) → (4,46)・(4,48)（1 ブロックずつ、ε 逆向きの 4 状態化と同じ表）・(6,39)、(15,6) → (5,45)・(7,32)・(11,22)、(17,5) → (8,30)、(32,3) → (12,21)
+for spec in 4-46:K10_8 4-48:K10_8 6-39:K10_8 5-45:K15_6 7-32:K15_6 11-22:K15_6 8-30:K17_5 12-21:K32_3; do
   n=${spec%%:*}; km="KB${n/-/_}"
   python3 tools/gen_blocks_lean.py "results/kstate_blocks/records/urtm$n.json" --module "$km" --base "${spec##*:}" > "lean/URTM/Gen/$km.lean"
   kmods+=("Gen.$km")

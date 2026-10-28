@@ -4,3 +4,4 @@ import URTMMeta.Uniform
 import URTMMeta.ThreeStrictAll
 import URTMMeta.MoritaOverSingle
 import URTMMeta.SpecThm
+import URTMMeta.ThreeStrictSpec

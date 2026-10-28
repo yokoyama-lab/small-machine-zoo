@@ -24,8 +24,9 @@
     CP-SAT outside Lean); both simulate every CTSH, and the 92-state table is the image of the 135-state
     table under a renaming of the states.
   * `shared3_32_3` (18476), `pruned3_32_3` (1820): Morita's 1WU machine of (32,3) with the 3-state conversion
-    with one kind of counter; for 1820 the numbering and `need` are imported from the generator. Only the
-    number of symbols is claimed (no simulation theorem for these two 3-state machines).
+    with one kind of counter; for 1820 the numbering and `need` are imported from the generator. The 18476
+    machine simulates every CTSH (`URTM.CTSH.U3_18476.urtm3_18476_simulates_ctsh` in
+    `lean/URTM/CTSH3_18476Main.lean`); for 1820 only the number of symbols is claimed.
   * `three_32_3_659` (659): the improved 3-state conversion, not mirrored; it simulates every CTSH
     (`Sim3_659`, the composition of `CTSH3_600Main` without the mirror).
   * `three_32_3_600_eq` (600): the mirrored conversion, as an equality (`FinalFormulas.three_32_3` gave the bound).
@@ -178,7 +179,8 @@ open URTM.CTSH.U3_600 (f32)
 /-- **18476** (↑ and ↓ merged). Morita's 1WU machine of (32,3) (`That`, Lemma 5.9: `N = 298` symbols, states
     numbered `1..61` by Morita's numbering `idx3`, `M = 62`), and the 3-state conversion with one kind of
     counter keeping every counter `1..M − 1` (`Conv3P.conv` with `need x = 61`): exactly `N·M = 298·62 = 18476`
-    symbols. Only the number of symbols is claimed. -/
+    symbols. The simulation of every CTSH by this machine is `URTM.CTSH.U3_18476.urtm3_18476_simulates_ctsh`
+    (`lean/URTM/CTSH3_18476Main.lean`). -/
 theorem shared3_32_3 :
     allW.length = 298 ∧ nsym (Conv3P.conv That .L .bl idx3 (fun _ => 61) allW) = 298 * 62 ∧ 298 * 62 = 18476 :=
   ⟨Values32_3.allW_length, Values32_3.shared_32_3, rfl⟩
