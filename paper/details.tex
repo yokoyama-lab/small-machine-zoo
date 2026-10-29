@@ -18,7 +18,8 @@ symbol--counter pairs gives $n+\sum_{i\in V}|X_i|$, where $V$ is the set of
 counter values used and $X_i$ is the set of original symbols used with value $i$.
 For the conversion from $(10,8)$, the respective symbol counts are 168, 88,
 48, and 46. The last value is the block construction before the later
-symbol-merging improvements.
+symbol-merging improvements. The 88-, 48-, and 46-symbol tables are each
+proved universal in Lean.
 
 The corresponding formal statements are collected in
 \texttt{LeanUniv.FinalFormulas}. The expression for reverse counting is an
@@ -46,8 +47,9 @@ For the source $(32,3)$, the successive recorded symbol counts are 36,654,
 size calculation: adequacy of its counter limits throughout every run was
 not proved. The 659-symbol table rebuilds the intermediate machine using
 one symbol per cell. Reflecting the source machine left to right gives the
-600-symbol table. Simulation and universality of the final $(3,600)$ witness
-are established by the corresponding Lean theorems.
+600-symbol table. Simulation and universality of the 659-symbol table and
+of the final $(3,600)$ witness are established by the corresponding Lean
+theorems.
 
 \subsection{Two-symbol conversion and automated search}
 

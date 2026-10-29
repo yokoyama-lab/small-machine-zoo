@@ -1,0 +1,48 @@
+{
+ "record": "urtm13-7.k5.r49.m38.json",
+ "classes": [
+  [
+   "b",
+   "c6_y1"
+  ],
+  [
+   "y",
+   "c6_n1"
+  ],
+  [
+   "n",
+   "c3_n1"
+  ],
+  [
+   "y1",
+   "c1_b",
+   "c9_b"
+  ],
+  [
+   "n1",
+   "c3_*"
+  ],
+  [
+   "*",
+   "c9_n"
+  ],
+  [
+   "$",
+   "c9_y"
+  ],
+  [
+   "c1_y",
+   "c2_n1"
+  ],
+  [
+   "c2_y1",
+   "c8_b"
+  ],
+  [
+   "c2_*",
+   "c8_n"
+  ]
+ ],
+ "nsyms": 38,
+ "note": "from results/symmerge-relaxed-2026-10-29/cand/kbr_urtm13-7.5-49.m38.color.json (CP-SAT coloring that allows merged rules to coincide; results/symmerge-relaxed-2026-10-29)"
+}

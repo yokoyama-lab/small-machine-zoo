@@ -6,6 +6,9 @@
     urtm<m>-<n>.k<k>.r<raw>.m<merged>.json（基底 (m,n)、状態 k、併合前の記号 raw、併合後の記号 merged）
   * RESULTS/merges/<stem>.json — 併合の写像。{"classes": [[代表, 他の記号, ...], ...]}（Python の記号名。
     1 つにまとめる記号の類。代表は平の記号があればそれ。`derive` が作る）
+  * urtm13-7.k4.r50.m41・urtm13-7.k5.r49.m38 の 2 台は results/symmerge-relaxed-2026-10-29 の候補
+    （cand/kbr_urtm13-7.{4-50.m41,5-49.m38}.json をそのまま写し、merges は .color.json の彩色の色ごとの類。
+    併合で 2 規則が同じ規則になるのを許した併合なので、下の検算 1・2 の緩和を使う）
 
 出力（1 台ごと。<name> = <k>_<merged>）:
   * lean/URTM/Gen/KB<name>.lean        — tools/gen_blocks_lean.py の出力（gitignore。gen_all_lean.sh も呼ぶ）
@@ -34,8 +37,15 @@
   names univ|zoo|axioms  最終定理 / CTSH 定理 / Axioms の行の名前を出す（check.sh・check_pins.sh が呼ぶ）
 
 検算（verify。results/symmerge-2026-10-04/README.md の条件と、Lean の一般定理が要る条件）:
-  1. 類の中のどの 2 記号も、同じ状態が両方を読まない（試験例で実在の状態のまま止まった (状態, 記号) も「読む」）
-  2. 同じ状態へ両方を書いて入らない
+  1. 類の中のどの 2 記号も、同じ状態が両方を読まない（試験例で実在の状態のまま止まった (状態, 記号) も「読む」）。
+     ただし両方を読む 2 規則が併合で同じ規則になるなら許す
+  2. 同じ状態へ両方を書いて入らない。ただし両方を書く 2 規則が併合で同じ規則になるなら許す
+     （1・2 の緩和は results/symmerge-relaxed-2026-10-29。同じ規則になった 2 本は表の中で重なるだけで、
+     決定性・可逆性は条件 6 が併合した表そのもので数え、Lean も decide +kernel で確かめる。一般定理
+     isUTMStrict_mapQ は衝突の条件を仮定しないので、1・2 は Lean の証明には使われない検算である。
+     止まった (状態, 記号) は規則が無いので緩和しない。重なった規則があるときは、Lean の表を
+     U = (mapQ h UB).dedup とし、LeanUniv/SymMergeDedup.lean の isUTMStrict_congr（メンバーが同じ表は
+     IsUTMStrict も同じ）で mapQ h UB の万能性から移す。重なりが無い表の生成物は変わらない）
   3. 試験例の停止時のテープに両方は現れない
   4. 類の中の平の記号は高々 1 つで、代表は平の記号（Lean では F = 平の記号の全体、h はその上で恒等、s = id）
   5. 併合後の記号数がファイル名の merged と一致し、試験例で元の表と併合した表のステップ数・停止の種類・
@@ -166,10 +176,27 @@ class Rec:
         h = dict(self.pairs())
         return UB, [(p, h.get(s, s), h.get(t, t), d, q) for (p, s, t, d, q) in UB]
 
+    def merged(self):
+        """Lean の U: mapQ h UB。併合で同じ規則になった五つ組があれば、Mathlib の List.dedup と同じく
+        重なりの最後の 1 つだけを残す（pwFilter は右から畳むので後ろが残る）。"""
+        _, U0 = self.numbered()
+        if len(set(U0)) == len(U0):
+            return U0
+        seen, out = set(), []
+        for r in reversed(U0):
+            if r not in seen:
+                seen.add(r)
+                out.append(r)
+        return out[::-1]
+
+    def has_repeats(self):
+        _, U0 = self.numbered()
+        return len(set(U0)) != len(U0)
+
     def book(self):
         """(H, B): H = U のうち出ていく五つ組を持たない状態へ入る五つ組（U の並び。Lean の
         `U.filter (fun r => decide (r.q ∉ U.map Quint.p))`）、B = dropT U H。"""
-        _, U = self.numbered()
+        U = self.merged()
         src = {r[0] for r in U}
         H = [r for r in U if r[4] not in src]
         return H, [r for r in U if r not in H]
@@ -207,9 +234,9 @@ def test_runs(R, delta, recode=None):
     return out
 
 
-def conflict_graph(R):
-    """README（results/symmerge-2026-10-04）の衝突グラフ: 同じ状態が読む / 同じ状態へ書いて入る /
-    試験例の停止時のテープに共に現れる。止まった (状態, 記号) も読むに数える。"""
+def conflict_sources(R):
+    """衝突の出どころ: (reads, writes, finals)。reads[p] = 状態 p が読む記号（試験例で止まった (状態, 記号) を含む）、
+    writes[q] = 状態 q へ入る五つ組が書く記号、finals = 試験例の停止時のテープに現れる記号の集合の列。"""
     reads, writes = defaultdict(set), defaultdict(set)
     for (p, s, t, d, q) in R.g.quints:
         reads[p].add(s)
@@ -221,12 +248,52 @@ def conflict_graph(R):
             reads[stuck[0]].add(stuck[1])
         if why in R.T.pseudo:
             finals.append(set(tape))
+    return reads, writes, finals
+
+
+def conflict_graph(R):
+    """README（results/symmerge-2026-10-04）の衝突グラフ: 同じ状態が読む / 同じ状態へ書いて入る /
+    試験例の停止時のテープに共に現れる。止まった (状態, 記号) も読むに数える。"""
+    reads, writes, finals = conflict_sources(R)
     adj = {x: set() for x in R.g.symbols}
     for grp in list(reads.values()) + list(writes.values()) + finals:
         for x in grp:
             if x in adj:
                 adj[x] |= (grp & adj.keys()) - {x}
     return adj
+
+
+def class_conflicts(R, rep):
+    """検算 1〜3: 同じ類の 2 記号の衝突のうち許されないもの（frozenset の集合）と、併合で 2 規則が同じ規則に
+    なるので許した組の数。読む側は (p, x)・(p, y) の 2 規則、書く側は (q, x)・(q, y) へ書いて入る 2 規則の像が
+    一致するときだけ許す（止まった (状態, 記号) は規則が無いので許さない）。停止時のテープは従来どおり。"""
+    reads, writes, finals = conflict_sources(R)
+    by_read = {(p, s): (p, s, t, d, q) for (p, s, t, d, q) in R.g.quints}
+    by_write = {(q, t): (p, s, t, d, q) for (p, s, t, d, q) in R.g.quints}
+
+    def img(r):
+        return None if r is None else (r[0], rep.get(r[1], r[1]), rep.get(r[2], r[2]), r[3], r[4])
+
+    bad, excused = set(), set()
+    for src, idx in ((reads, by_read), (writes, by_write)):
+        for st, grp in src.items():
+            g = sorted(grp)
+            for i, x in enumerate(g):
+                for y in g[i + 1:]:
+                    if rep.get(x, x) != rep.get(y, y):
+                        continue
+                    a, b = img(idx.get((st, x))), img(idx.get((st, y)))
+                    if a is not None and a == b:
+                        excused.add(frozenset((x, y)))
+                    else:
+                        bad.add(frozenset((x, y)))
+    for grp in finals:
+        g = sorted(grp & set(R.g.symbols))
+        for i, x in enumerate(g):
+            for y in g[i + 1:]:
+                if rep.get(x, x) == rep.get(y, y):
+                    bad.add(frozenset((x, y)))
+    return bad, len(excused - bad)
 
 
 def dsatur(nodes, adj, order_key):
@@ -299,7 +366,7 @@ def verify(R):
     classes = R.classes()
     rep = R.rep()
     syms = set(R.g.symbols)
-    adj = conflict_graph(R)
+    bad, _ = class_conflicts(R, rep)
     for c in classes:
         if len(c) < 2:
             errs.append(f"class {c} has fewer than 2 symbols")
@@ -313,7 +380,7 @@ def verify(R):
             errs.append(f"class {c}: the representative is not the plain symbol {pl[0]}")
         for i, x in enumerate(c):
             for y in c[i + 1:]:
-                if y in adj.get(x, ()):
+                if frozenset((x, y)) in bad:
                     errs.append(f"class {c}: {x} and {y} conflict")
     merged = {rep.get(x, x) for x in syms}
     if len(merged) != R.m:
@@ -355,7 +422,7 @@ def verify(R):
 def verify_book(R):
     """検算 7（SymMergeBook<name> の有限の事実。Lean は同じことを decide +kernel で確かめる）。"""
     errs = []
-    _, U = R.numbered()
+    U = R.merged()
     H, B = R.book()
     srcB = {r[0] for r in B}
     if len(H) != 2 or any(r[3] != "0" for r in H):
@@ -459,6 +526,39 @@ end URTM.CTSH.SM{n}
 def univ_text(R):
     B, n = R.B, R.name
     pairs = ", ".join(f"({a}, {b})" for a, b in R.pairs())
+    rep_doc, rep_imp = "", ""
+    u_def = f"""/-- **URTM({R.k},{R.m})**: the unmerged table with the classes merged. The counts are those of
+    `Spec.NStates`/`Spec.NSyms`; with the halting quintuples as Morita counts them, the table is `B` of
+    `SymMergeBook{R.name}`. -/
+def U : List Quint := mapQ h UB
+"""
+    u_strict = "  isUTMStrict_mapQ (s := id) strong U_det (symMap_primrec _) Primrec.id rfl rfl (by decide)\n"
+    if R.has_repeats():
+        _, U0 = R.numbered()
+        U = R.merged()
+        rep_doc = f"""
+  The merge makes {len(U0) - len(U)} pairs of quintuples coincide (the merging condition of
+  results/symmerge-relaxed-2026-10-29: two quintuples may share their merged read symbol in a state, or
+  their merged written symbol into a state, when they become the same quintuple). The list
+  `U0 = mapQ h UB` has {len(U0)} entries with these repeated; the table `U = U0.dedup` has {len(U)} quintuples
+  (`U_length`). Universality is carried from `U0` to `U` by `SymMergeDedup.isUTMStrict_congr` (same
+  members, `U_mem`).
+"""
+        rep_imp = "import LeanUniv.SymMergeDedup\n"
+        u_def = f"""/-- The merged list, with the coinciding quintuples repeated ({len(U0)} entries). -/
+def U0 : List Quint := mapQ h UB
+
+/-- **URTM({R.k},{R.m})**: the unmerged table with the classes merged, repeats removed. The counts are those of
+    `Spec.NStates`/`Spec.NSyms`; with the halting quintuples as Morita counts them, the table is `B` of
+    `SymMergeBook{R.name}`. -/
+def U : List Quint := U0.dedup
+
+theorem U_mem : ∀ r, r ∈ U ↔ r ∈ U0 := fun _ => List.mem_dedup
+theorem U_length : U0.length = {len(U0)} ∧ U.length = {len(U)} := by decide +kernel
+"""
+        u_strict = ("  (SymMergeDedup.isUTMStrict_congr U_mem).mpr\n"
+                    "    (isUTMStrict_mapQ (s := id) strong ((SymMergeDedup.deterministic_congr U_mem).mp U_det)\n"
+                    "      (symMap_primrec _) Primrec.id rfl rfl (by decide))\n")
     return f"""/-
   Generated by {GEN_NOTE} from {RESULTS}/records/{R.stem}.json and
   {RESULTS}/merges/{R.stem}.json. Do not edit.
@@ -468,14 +568,14 @@ def univ_text(R):
   merged into its first symbol (a counter is sent to the plain symbol of its class), {R.raw} → {R.m} symbols.
   Classes (record names; Lean numbers):
 {classes_doc(R)}
-
+{rep_doc}
   Universality: `SymMerge.isUTMStrict_mapQ` from the strong form `BlockHalt.{B['block']}` of `UB`,
   whose CTSH theorem is `URTM.CTSH.SM{n}.blocks_simulates_ctsh` (lean/URTM/CTSH{n}Main.lean). The counts,
   determinism and reversibility are checked by `decide +kernel`.
 -/
 import LeanUniv.BlockHalt
 import URTM.CTSH{n}Main
-
+{rep_imp}
 namespace URTM.Univ.SymMerge{n}
 open URTM URTM.CTSH URTM.Univ.KToSpec URTM.Univ.SymMerge
 open URTM.KState (HaltsIn)
@@ -507,17 +607,14 @@ theorem strong : IsUTMStrictHalt UB (List.range {B['n']}) :=
 /-- The merge (Lean numbers): each listed symbol is sent to the representative of its class. -/
 def h : ℕ → ℕ := symMap [{pairs}]
 
-/-- **URTM({R.k},{R.m})**: the unmerged table with the classes merged. -/
-def U : List Quint := mapQ h UB
-
+{u_def}
 theorem U_counts : Spec.NStates U = {R.k} ∧ Spec.NSyms U = {R.m} := by decide +kernel
 theorem U_det : Spec.Deterministic U := by decide +kernel
 theorem U_rev : Spec.Reversible U := by decide +kernel
 
 /-- **URTM({R.k},{R.m}) is a UTM in the strict sense of Morita Def. 7.1.** -/
 theorem isUTMStrict_U : Spec.IsUTMStrict U :=
-  isUTMStrict_mapQ (s := id) strong U_det (symMap_primrec _) Primrec.id rfl rfl (by decide)
-
+{u_strict}
 end URTM.Univ.SymMerge{n}
 """
 
@@ -526,6 +623,23 @@ def book_text(R):
     """lean-univ/LeanUniv/SymMergeBook<name>.lean。"""
     B, n = R.B, R.name
     H, Bt = R.book()
+    b_doc = ""
+    b_strict = f"""  SymMergeBook.isUTMStrict_drop_mapQ (s := id)
+    (SymMergeBook.{block_at(B)} spB TpyB hsim UB_det (by decide +kernel) (by decide +kernel)
+      (by decide +kernel))
+    U_det (symMap_primrec _) Primrec.id rfl rfl (by decide) (by decide +kernel) (by decide +kernel)
+    (by decide +kernel)
+"""
+    if R.has_repeats():
+        b_doc = (f"\n    `U` is `SymMerge{n}.U0` with its repeated quintuples removed; the theorem is proved for\n"
+                 f"    `dropT SymMerge{n}.U0 H` and carried to `B` by `SymMergeDedup.isUTMStrict_congr`.")
+        b_strict = f"""  (SymMergeDedup.isUTMStrict_congr (SymMergeDedup.mem_dropT_congr SymMerge{n}.U_mem H)).mpr
+    (SymMergeBook.isUTMStrict_drop_mapQ (s := id)
+      (SymMergeBook.{block_at(B)} spB TpyB hsim UB_det (by decide +kernel) (by decide +kernel)
+        (by decide +kernel))
+      ((SymMergeDedup.deterministic_congr SymMerge{n}.U_mem).mp U_det) (symMap_primrec _) Primrec.id
+      rfl rfl (by decide) (by decide +kernel) (by decide +kernel) (by decide +kernel))
+"""
     hs = ", ".join(f"⟨{p}, {s}, {t}, .{DIR[d]}, {q}⟩" for (p, s, t, d, q) in H)
     return f"""/-
   Generated by {GEN_NOTE} from {RESULTS}/records/{R.stem}.json and
@@ -543,7 +657,7 @@ def book_text(R):
   * `B_counts`: {R.k} states and {R.m} symbols, as `U` (`SymMerge{n}.U_counts`).
   * `isUTMStrict_B`: `SymMergeBook.isUTMStrict_drop_mapQ`, from the strong form with the initial state
     `SymMergeBook.{block_at(B)}` of `UB` (the hypotheses of `SymMerge{n}.strong`); the encoder is
-    that of `SymMerge{n}.isUTMStrict_U`, the decoder first puts the halting ID back into the pseudo-state.
+    that of `SymMerge{n}.isUTMStrict_U`, the decoder first puts the halting ID back into the pseudo-state.{b_doc}
   * `B_blank`, `U_blank`, `U_countDesc`: the blank and the counts read off the tables
     (`FinalSymMergeBlank`, `FinalSymMergeMoritaCount`).
   The finite facts are checked by `decide +kernel`.
@@ -572,12 +686,7 @@ theorem B_rev : Spec.Reversible B := reversible_dropT _ U_rev
 
 /-- **URTM({R.k},{R.m}) without the halting quintuples is a UTM in the strict sense of Morita Def. 7.1.** -/
 theorem isUTMStrict_B : Spec.IsUTMStrict B :=
-  SymMergeBook.isUTMStrict_drop_mapQ (s := id)
-    (SymMergeBook.{block_at(B)} spB TpyB hsim UB_det (by decide +kernel) (by decide +kernel)
-      (by decide +kernel))
-    U_det (symMap_primrec _) Primrec.id rfl rfl (by decide) (by decide +kernel) (by decide +kernel)
-    (by decide +kernel)
-
+{b_strict}
 /-- The blank is read in `B`, every symbol of `B` is read and written, and the counts of `B` are
     the numbers of distinct symbols and states that occur. -/
 theorem B_blank :

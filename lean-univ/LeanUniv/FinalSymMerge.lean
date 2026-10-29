@@ -7,8 +7,10 @@
   Each witness is `SymMerge<k>_<m>.U`; universality goes through the general theorem
   `SymMerge.isUTMStrict_mapQ`. No hypotheses. Minimality is not claimed.
 -/
+import LeanUniv.SymMerge4_41
 import LeanUniv.SymMerge4_42
 import LeanUniv.SymMerge4_43
+import LeanUniv.SymMerge5_38
 import LeanUniv.SymMerge5_39
 import LeanUniv.SymMerge6_30
 import LeanUniv.SymMerge7_28
@@ -18,6 +20,12 @@ import LeanUniv.SymMerge9_21
 
 namespace URTM.Univ.FinalSymMerge
 open URTM URTM.Spec
+
+theorem exists_urtm_4_41 :
+    ∃ U : List Quint, Deterministic U ∧ Reversible U ∧ NStates U = 4 ∧ NSyms U = 41 ∧
+      IsUTMStrict U :=
+  ⟨SymMerge4_41.U, SymMerge4_41.U_det, SymMerge4_41.U_rev, SymMerge4_41.U_counts.1,
+    SymMerge4_41.U_counts.2, SymMerge4_41.isUTMStrict_U⟩
 
 theorem exists_urtm_4_42 :
     ∃ U : List Quint, Deterministic U ∧ Reversible U ∧ NStates U = 4 ∧ NSyms U = 42 ∧
@@ -30,6 +38,12 @@ theorem exists_urtm_4_43 :
       IsUTMStrict U :=
   ⟨SymMerge4_43.U, SymMerge4_43.U_det, SymMerge4_43.U_rev, SymMerge4_43.U_counts.1,
     SymMerge4_43.U_counts.2, SymMerge4_43.isUTMStrict_U⟩
+
+theorem exists_urtm_5_38 :
+    ∃ U : List Quint, Deterministic U ∧ Reversible U ∧ NStates U = 5 ∧ NSyms U = 38 ∧
+      IsUTMStrict U :=
+  ⟨SymMerge5_38.U, SymMerge5_38.U_det, SymMerge5_38.U_rev, SymMerge5_38.U_counts.1,
+    SymMerge5_38.U_counts.2, SymMerge5_38.isUTMStrict_U⟩
 
 theorem exists_urtm_5_39 :
     ∃ U : List Quint, Deterministic U ∧ Reversible U ∧ NStates U = 5 ∧ NSyms U = 39 ∧

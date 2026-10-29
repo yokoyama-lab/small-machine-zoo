@@ -48,7 +48,9 @@ theorem strong : IsUTMStrictHalt UB (List.range 8) :=
 /-- The merge (Lean numbers): each listed symbol is sent to the representative of its class. -/
 def h : ℕ → ℕ := symMap [(43, 2), (50, 3), (51, 38)]
 
-/-- **URTM(4,43)**: the unmerged table with the classes merged. -/
+/-- **URTM(4,43)**: the unmerged table with the classes merged. The counts are those of
+    `Spec.NStates`/`Spec.NSyms`; with the halting quintuples as Morita counts them, the table is `B` of
+    `SymMergeBook4_43`. -/
 def U : List Quint := mapQ h UB
 
 theorem U_counts : Spec.NStates U = 4 ∧ Spec.NSyms U = 43 := by decide +kernel

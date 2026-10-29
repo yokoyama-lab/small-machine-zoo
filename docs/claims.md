@@ -24,12 +24,15 @@ The paper's `rho` is named `s` in the symbol-merging source. Its machine index
 | Symbol-count formulas: `(2m+1)n`, `(m+1)n`, the reverse-counting bound `(max(m+,m-)+1)n`, the block formula, `N(2M-1)`, and the formula of the improved three-state conversion | `URTM.Univ.FinalFormulas.morita4_formula`, `kstate4_formula`, `eps4_formula`, `blocks_formula`, `morita3_formula`, `three_formula` in [FinalFormulas.lean](../lean-univ/LeanUniv/FinalFormulas.lean); `URTM.Univ.FinalValues.three_formula_eq` in [FinalValues.lean](../lean-univ/LeanUniv/FinalValues.lean) |
 | State count of the `k`-bit two-symbol conversion | `morita2_formula` (two bits) in FinalFormulas.lean; `morita2k_formula` in FinalValues.lean |
 | `(10,8)` gives 168, 88, and 48 symbols under the three four-state conversions | `morita4_10_8`, `kstate4_10_8`, `eps4_10_8` in FinalFormulas.lean |
+| The disjoint-ranges machine with four states and 88 symbols is universal in the sense of the definition | `URTM.Univ.Final4_88.exists_urtm_4_88` in [Final4_88.lean](../lean-univ/LeanUniv/Final4_88.lean); the witness is the four-state conversion of `(10,8)` with its states renamed to `Fin 4` (`URTM.Univ.U4_88.U_is_conv` in [U4_88.lean](../lean-univ/LeanUniv/U4_88.lean)); CTSH simulation `URTM.CTSH.U4_88B.urtm4_88B_simulates_ctsh` in [CTSH4_88BMain.lean](../lean/URTM/CTSH4_88BMain.lean), carried over by the renaming lemmas of [KStateRen.lean](../lean/URTM/KStateRen.lean) |
 | The reverse-counting machine with four states and 48 symbols simulates an arbitrary CTSH, and it is universal in the sense of the definition | `URTM.CTSH.U4_48.urtm4_48_simulates_ctsh` in [CTSH4_48Main.lean](../lean/URTM/CTSH4_48Main.lean); general theorem `URTM.KStateEps.econv_main` in [KStateEps.lean](../lean/URTM/KStateEps.lean); universality `URTM.Univ.Final4_48.exists_urtm_4_48` in [Final4_48.lean](../lean-univ/LeanUniv/Final4_48.lean), through the same table as a block conversion (`URTM.CTSH.U4_48B.same_as_eps` in [CTSH4_48BMain.lean](../lean/URTM/CTSH4_48BMain.lean)) |
 | The six machines of the block-decomposition table, their counts, and their universality | `URTM.Univ.FinalBlocks.exists_urtm_<m>_<n>` in [FinalBlocks.lean](../lean-univ/LeanUniv/FinalBlocks.lean); `blocks_<m>_<n>` in FinalFormulas.lean |
 | Merging the fixed tables of the block-decomposition table removes one to three symbols | `URTM.Univ.FinalMerge.exists_urtm_4_45`, `5_42`, `6_36`, `7_31`, `8_26` in [FinalMerge.lean](../lean-univ/LeanUniv/FinalMerge.lean) (five of the six tables; see the list at the end) |
 | Theorem (symbol merging) | `URTM.Univ.SymMerge.isUTMStrict_mapQ` in [SymMerge.lean](../lean-univ/LeanUniv/SymMerge.lean) |
-| Numbers of symbols before and after symbol merging | `UB_counts` and `U_counts` in `SymMerge<m>_<n>.lean`, for example [SymMerge4_42.lean](../lean-univ/LeanUniv/SymMerge4_42.lean) |
+| Relaxed conflict condition: quintuples that become the same quintuple after merging are kept as one | `URTM.Univ.SymMergeDedup.isUTMStrict_congr` in [SymMergeDedup.lean](../lean-univ/LeanUniv/SymMergeDedup.lean) (tables with the same members agree on `IsUTMStrict`); used for `(4,41)` and `(5,38)`, whose table `U` is the merged table with its repeated quintuples removed ([SymMerge4_41.lean](../lean-univ/LeanUniv/SymMerge4_41.lean), [SymMerge5_38.lean](../lean-univ/LeanUniv/SymMerge5_38.lean)) |
+| Numbers of symbols before and after symbol merging | `UB_counts` and `U_counts` in `SymMerge<m>_<n>.lean`, for example [SymMerge4_41.lean](../lean-univ/LeanUniv/SymMerge4_41.lean) |
 | Three states: 36,654, 18,476, 1,820, 659, and 600 symbols for `(32,3)` | `morita3_32_3`, `three_32_3` in FinalFormulas.lean; `shared3_32_3`, `pruned3_32_3`, `three_32_3_659`, `three_32_3_600_eq` in FinalValues.lean |
+| The 659-symbol three-state table from `(32,3)` (without reflection) is universal in the sense of the definition | `URTM.Univ.Final3_659.exists_urtm_3_659` in [Final3_659.lean](../lean-univ/LeanUniv/Final3_659.lean); the witness is the conversion (`URTM.Univ.U3_659.U_is_conv` in [Num3_659.lean](../lean-univ/LeanUniv/Num3_659.lean)); CTSH simulation `URTM.Univ.Sim3_659.urtm3_659_simulates_ctsh` in [Sim3_659.lean](../lean-univ/LeanUniv/Sim3_659.lean); universality proof in [U3_659.lean](../lean-univ/LeanUniv/U3_659.lean) |
 | Two symbols: `(24,4)` gives `(138,2)`; `(13,7)` gives 169, 149, 135, and 92 states | `morita2_24_4` in FinalFormulas.lean; `morita2_13_7`, `codeopt2_13_7`, `fewsym135_13_7`, `fewsym92_13_7` in FinalValues.lean |
 | The two-symbol tables with 92, 92, 108, 115, and 115 states from `(10,8)`, `(24,4)`, `(15,6)`, `(17,5)`, and `(32,3)` are universal | `URTM.Univ.FinalFewSym.exists_urtm_92_2_of_10_8`, `exists_urtm_92_2_of_24_4`, `exists_urtm_108_2_of_15_6`, `exists_urtm_115_2_of_17_5`, `exists_urtm_115_2_of_32_3` in [FinalFewSym.lean](../lean-univ/LeanUniv/FinalFewSym.lean); CTSH simulation in `CTSH<m>_2_<m'>_<n'>Main.lean`, for example [CTSH92_2_10_8Main.lean](../lean/URTM/CTSH92_2_10_8Main.lean) |
 
@@ -39,7 +42,7 @@ The paper's `rho` is named `s` in the symbol-merging source. Its machine index
 |---|---|
 | Theorem (existence) for all 13 points | `URTM.Univ.FinalAgree.records_spec` in [FinalAgree.lean](../lean-univ/LeanUniv/FinalAgree.lean) |
 | `(3,600)` | `URTM.Univ.Final3_600.exists_urtm_3_600` |
-| `(4,42)`, `(5,39)`, `(6,30)`, `(7,28)`, `(8,21)` | `URTM.Univ.FinalSymMerge.exists_urtm_<m>_<n>` |
+| `(4,41)`, `(5,38)`, `(6,30)`, `(7,28)`, `(8,21)` | `URTM.Univ.FinalSymMerge.exists_urtm_<m>_<n>` (the same file keeps `exists_urtm_4_42` and `exists_urtm_5_39`, earlier points now dominated by `(4,41)` and `(5,38)`) |
 | `(85,2)` | `URTM.Univ.Final85_2.exists_urtm_85_2` |
 | `(10,8)` | `URTM.Univ.Final10_8.exists_urtm_10_8` |
 | `(13,7)`, `(15,6)`, `(17,5)`, `(24,4)`, `(32,3)` | `URTM.Univ.FinalMorita.exists_urtm_<m>_<n>` |
@@ -84,6 +87,9 @@ are not a proof of universality by themselves.
 - The improved three-state conversion applied to the other five original
   machines gives between 802 and 1,209 symbols. These counts were computed
   outside Lean.
+- The entries of the table of the conversions applied to each URTM (Table 5
+  of the paper) other than those listed above with Lean identifiers are not
+  mapped to Lean theorems here.
 - The search table with 137 states before state merging. Lean checks the
   merged `(85,2)` table, not the table before merging.
 - Merging the fixed `(9,27)` table (to 26 symbols). The other five tables of

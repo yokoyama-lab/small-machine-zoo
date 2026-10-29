@@ -4,10 +4,11 @@ This repository is a fresh source snapshot for the accompanying paper. It does
 not carry the development repository's Git history or private research logs.
 
 - Formalization and generator source revision:
-  `f28072d0427b2bf6e0d571a6fc2d1733e0b00d4a`. The earlier snapshots used
-  `64900a1bfb13af4ba1d94cc1db1bb5f98b233cc2` (2026-10-27) and
+  `f82eb315c9060980af5b9e99471db85f9792c575`. The earlier snapshots used
+  `f28072d0427b2bf6e0d571a6fc2d1733e0b00d4a` (2026-10-29),
+  `64900a1bfb13af4ba1d94cc1db1bb5f98b233cc2` (2026-10-27), and
   `bfff87da70d64f9c8dbedab8663d988f4aae5c8a` (2026-10-10).
-- Manuscript source revision: `2f6b0ae` of the manuscript repository.
+- Manuscript source revision: `eeeb4bb` of the manuscript repository.
   `paper/note.tex` is `arxiv_v4_en.tex` at that revision with its source
   comments removed (the file was named `arxiv_ai_lean_v4_en.tex` before).
 - The full version combines that paper with `paper/details.tex`, an appendix
@@ -54,6 +55,28 @@ file changed between the two source revisions only in a documentation comment
 (`LeanUniv/FinalValues.lean`, which now names a module of the development
 repository that is not part of this package). All other retained files are
 unchanged.
+
+The 2026-10-30 update re-extracted from revision `f82eb315` by the same
+rules. It added the roots `LeanUniv.Final4_88` (universality of the
+disjoint-ranges machine with four states and 88 symbols) and
+`LeanUniv.Final3_659` (universality of the three-state machine with 659
+symbols, the improved conversion of `(32,3)` without reflection). The new
+record points `(4,41)` and `(5,38)` replace `(4,42)` and `(5,39)` as points of
+the paper and among the 13 witnesses of `LeanUniv/FinalAgree.lean`; the
+existing symbol-merging roots import them. Their merges allow two quintuples
+to become the same quintuple, and the new module
+`LeanUniv/SymMergeDedup.lean` carries universality across the removal of
+repeated quintuples. The construction records and merge files of the two new
+points were added to `results/symmerge-2026-10-05/`. Between the two source
+revisions, `tools/gen_symmerge_lean.py` changed (the relaxed conflict
+condition), the four `FinalSymMerge*` modules gained the new points,
+`FinalAgree.lean` changed its witnesses, and the eight existing
+`SymMerge<k>_<m>.lean` modules and `Final4_48.lean` changed only in a
+documentation comment. Some comments of the new and changed files name a
+directory of the development repository that is not part of this package
+(`results/symmerge-relaxed-2026-10-29`). All other retained files are
+unchanged. The plain-text tables of `(4,41)` and `(5,38)` in `tables/`
+replace those of `(4,42)` and `(5,39)`.
 
 The extraction preserves the two separate proof environments and their relative
 paths. The verification script checks the copied specification and universality

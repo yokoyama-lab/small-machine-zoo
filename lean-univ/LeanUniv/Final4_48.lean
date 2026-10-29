@@ -9,7 +9,7 @@
   (`URTM.CTSH.U4_48B.same_as_eps`). The chain tm n → TRM → 2-TS → CTSH is the one of (10,8); the exit
   layer is the machine's CTSH theorem. No hypotheses.
 
-  URTM(4,48) is dominated by URTM(4,46) and URTM(4,42). Minimality is not claimed.
+  URTM(4,48) is dominated by URTM(4,46) and URTM(4,41). Minimality is not claimed.
 -/
 import LeanUniv.U4_48
 

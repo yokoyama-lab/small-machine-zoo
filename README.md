@@ -9,7 +9,7 @@ Nonexistence of Two-State Ones**, Tetsuo Yokoyama, Nanzan University.
 - [Claims and Lean entry points](docs/claims.md)
 - [Build and verification instructions](docs/verification.md)
 
-The seven new state–symbol pairs are `(3,600)`, `(4,42)`, `(5,39)`, `(6,30)`,
+The seven new state–symbol pairs are `(3,600)`, `(4,41)`, `(5,38)`, `(6,30)`,
 `(7,28)`, `(8,21)`, and `(85,2)`. Together with six of Morita's earlier machines,
 they give 13 non-dominated points. The formalization also proves nonexistence
 of URTMs with at most two states and of three-state, two-symbol URTMs, under
