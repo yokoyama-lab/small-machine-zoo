@@ -166,3 +166,40 @@ nonexistence, and 10 min for traces; the longest single modules were
 `LeanUniv.Values13_7` (about 26 min) and `LeanUniv.Num3_600` (about 12 min).
 These are observations from this build, not guaranteed bounds. Both manuscript
 PDFs built without LaTeX errors, warnings, or undefined references.
+
+## Snapshot update validation (2026-10-30)
+
+The update added the roots `LeanUniv.Final4_88` and `LeanUniv.Final3_659`,
+and the existing roots now import the symbol-merging points `(4,41)` and
+`(5,38)`. The validation copied the files of the snapshot into a new
+directory. The public repository of the source PDF again returned HTTP 503,
+so the validation used the local copy of the PDF described above, whose
+SHA-256 matches the pinned value. With that file in `data/`,
+`tools/prepare.sh` generated the tables and obtained the Mathlib caches. The
+generated modules were identical to those generated at the source revision.
+Each of the three targets then built from the URTM sources and passed
+`tools/verify.py`. The imported-environment audits reported:
+
+| Target | Declarations | Theorems | Additional axioms / flagged declarations |
+|---|---:|---:|---|
+| existence | 11,553 | 7,733 | None / none |
+| nonexistence | 8,275 | 6,671 | None / none |
+| traces | 6,829 | 4,099 | None / none |
+
+The copied `Spec` and `Strict` definitions passed the agreement checks, and
+the entry modules matched the manifest roots. Each target was built separately
+with `LEAN_NUM_THREADS=4` under a 45 GB memory limit on a machine with 64 GB of
+RAM, in the order nonexistence, existence, traces; the traces target reused
+the modules of `lean/` built for the existence target. The observed wall-clock
+times were about 43 min for nonexistence, 15 min for existence, and 11 min for
+traces, with peak resident memory of about 9 GB, 22 GB, and 9 GB. The longest
+single module was `LeanUniv.Values13_7` (about 8 min). These are observations
+from this build, not guaranteed bounds.
+
+The tables of the five merged machines in `tables/` were compared with the
+tables `B` of `LeanUniv.SymMergeBook<k>_<m>` evaluated in the built
+environment, after mapping the symbol names back to their Lean numbers. For
+`(4,41)`, `(5,38)`, `(6,30)`, `(7,28)`, and `(8,21)` the quintuples agree as
+sets and in order (142, 141, 160, 160, and 149 quintuples). Both manuscript
+PDFs built without LaTeX errors, warnings, undefined references, or overfull
+or underfull boxes.
