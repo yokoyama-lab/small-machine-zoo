@@ -203,3 +203,47 @@ environment, after mapping the symbol names back to their Lean numbers. For
 sets and in order (142, 141, 160, 160, and 149 quintuples). Both manuscript
 PDFs built without LaTeX errors, warnings, undefined references, or overfull
 or underfull boxes.
+
+## Snapshot update validation (2026-10-30, second update)
+
+The update added the root `LeanUniv.Final3_18476`, and the existing roots now
+import the symbol-merging point `(5,37)`. Only the existence target imports
+changed or new files. The 132 source files of the nonexistence target and the
+101 source and generated files of the traces target are byte-identical to
+those validated for the previous update, so those two targets were not
+rebuilt. The source PDF in `data/` matched its pinned SHA-256.
+`tools/gen_all_lean.sh` regenerated the tables; the generated modules that
+were already present were unchanged, and relative to the previous update the
+only new generated module is `URTM.Gen.KB5_37`.
+
+The existence target was built incrementally in a working copy that held an
+earlier build of the snapshot, under a 40 GB memory limit with
+`LEAN_NUM_THREADS=1`. Lake rebuilt the 51 modules whose sources or imports
+differed from that build (including `URTM.Gen.KB5_37`, `LeanUniv.SymMerge5_37`, `LeanUniv.NumCount`,
+`LeanUniv.Num3_18476`, `LeanUniv.U3_18476`, and `LeanUniv.Final3_18476`) and
+reused the others by their recorded source hashes; it took 15 min with a peak
+resident memory of about 19 GB. `URTM.Gen.V3_36654`, newly imported by this
+target, was then removed from the build directory and rebuilt (101 s, about
+8 GB). `python3 tools/verify.py --target existence` passed both times. The
+imported-environment audit reported:
+
+| Target | Declarations | Theorems | Additional axioms / flagged declarations |
+|---|---:|---:|---|
+| existence | 12,313 | 8,436 | None / none |
+
+The copied `Spec` and `Strict` definitions passed the agreement checks, and
+the entry modules matched the manifest roots. With comments removed, no Lean
+file of the package contains `sorry`, `admit`, `axiom`, `native_decide`, or the other
+forbidden tokens outside comments; the only matches are in the audit drivers
+`tests/AxSweep.lean`. As a mutation check, the statement of
+`exists_urtm_3_18476` was changed to claim 18,475 symbols; the existence
+target then failed with a type mismatch in `Final3_18476.lean`, and passed
+again after the file was restored.
+
+The tables of the five merged machines in `tables/` were compared with the
+tables `B` of `LeanUniv.SymMergeBook<k>_<m>` evaluated in the built
+environment, as before. For `(4,41)`, `(5,37)`, `(6,30)`, `(7,28)`, and
+`(8,21)` the quintuples agree as sets and in order (142, 145, 160, 160, and
+149 quintuples); with one quintuple removed from the `(5,37)` table, the
+comparison failed. Both manuscript PDFs built without LaTeX errors, warnings,
+undefined references, or overfull or underfull boxes.
