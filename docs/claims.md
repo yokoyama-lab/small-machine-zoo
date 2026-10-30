@@ -47,7 +47,7 @@ The paper's `rho` is named `s` in the symbol-merging source. Its machine index
 | `(10,8)` | `URTM.Univ.Final10_8.exists_urtm_10_8` |
 | `(13,7)`, `(15,6)`, `(17,5)`, `(24,4)`, `(32,3)` | `URTM.Univ.FinalMorita.exists_urtm_<m>_<n>` |
 | A machine that simulates an arbitrary CTSH, with primitive recursive encoding and readout, satisfies `IsUTMStrict` | `URTM.Univ.ChainGen.isUTMStrict_of_ctsh` in [ChainGen.lean](../lean-univ/LeanUniv/ChainGen.lean) |
-| Proposition (agreement) | `URTM.Univ.Agree.isUTMStrict_agree` in [Agree.lean](../lean-univ/LeanUniv/Agree.lean); for the 13 witnesses, `URTM.Univ.FinalAgree.records_agree` |
+| Agreement of the witnesses (a sentence in Section 4; it follows directly from Definition 4) | `URTM.Univ.Agree.isUTMStrict_agree` in [Agree.lean](../lean-univ/LeanUniv/Agree.lean); for the 13 witnesses, `URTM.Univ.FinalAgree.records_agree` |
 | The theorem also holds without the two halting quintuples | [FinalBook.lean](../lean-univ/LeanUniv/FinalBook.lean), [FinalSymMergeBook.lean](../lean-univ/LeanUniv/FinalSymMergeBook.lean) |
 | Every target is a source state, the blank occurs, every symbol is read and written, and the counts under Morita's convention | [FinalBlank.lean](../lean-univ/LeanUniv/FinalBlank.lean), [FinalBlank3_600.lean](../lean-univ/LeanUniv/FinalBlank3_600.lean), [FinalSymMergeBlank.lean](../lean-univ/LeanUniv/FinalSymMergeBlank.lean), [FinalMoritaCount.lean](../lean-univ/LeanUniv/FinalMoritaCount.lean), [FinalSymMergeMoritaCount.lean](../lean-univ/LeanUniv/FinalSymMergeMoritaCount.lean) |
 
@@ -58,7 +58,7 @@ The paper's `rho` is named `s` in the symbol-merging source. Its machine index
 | Theorem (halting of two-state RTMs), uniform in the table | `URTM.Spec.halting_decidable_uniform` in [Uniform.lean](../legacy/small-urtm/lean-meta/URTMMeta/Uniform.lean), with `TwoStateRTM` in Spec.lean |
 | Corollary, first part | `URTM.Spec.no_le_two_state_URTM`, `no_le_two_state_URTMStrict` in [Corners.lean](../legacy/small-urtm/lean-meta/URTMMeta/Corners.lean) |
 | Corollary, second part: one `tm(i)` that no deterministic and reversible table with at most two states simulates | `URTM.Spec.le_two_state_class_not_universal` in Corners.lean. `URTM.Spec.two_state_class_not_universal` in [SpecThm.lean](../legacy/small-urtm/lean-meta/URTMMeta/SpecThm.lean) is the special case with a single halting target |
-| Theorem (at most one symbol) | `URTM.Spec.no_one_symbol_UTM` in Corners.lean |
+| (Not stated in the paper, as it is immediate: the tape never changes) A table with at most one symbol is not universal | `URTM.Spec.no_one_symbol_UTM` in Corners.lean |
 | Theorem (at most one left-moving quintuple), and the mirror image | `URTM.Spec.no_URTM_oneL`, `no_URTM_oneR` in [Pav73.lean](../legacy/small-urtm/lean-meta/URTMMeta/Pav73.lean) |
 | Theorem (three states and two symbols) | `URTM.Meta.no_three_two_URTMStrict_spec` in [ThreeStrictSpec.lean](../legacy/small-urtm/lean-meta/URTMMeta/ThreeStrictSpec.lean), with `Spec.Deterministic` and `Spec.Reversible` of Spec.lean. Its proof removes repeated quintuples (`URTM.Meta.isUTMStrict_congr_mem`: tables with the same members agree on `IsUTMStrict`) and applies `URTM.Meta.no_three_two_URTMStrict_all` in [ThreeStrictAll.lean](../legacy/small-urtm/lean-meta/URTMMeta/ThreeStrictAll.lean), whose hypothesis `RTM32` in [ThreeNorm.lean](../legacy/small-urtm/lean/URTM/ThreeNorm.lean) uses the Boolean `deterministic` and `reversible` checks |
 | The string-ID form is not vacuous: the `(85,2)` witness satisfies it | `URTM.Meta.Sat.exists_moritaOver_single_of_strict` in [MoritaOverSingle.lean](../legacy/small-urtm/lean-meta/URTMMeta/MoritaOverSingle.lean), together with `exists_urtm_85_2` in the other environment |
@@ -98,5 +98,3 @@ are not a proof of universality by themselves.
   merging of roles is an argument in the paper.
 - The table of independently counted states and symbols is, as the paper
   states, a count outside the proof assistant.
-- The agreement of a simulator and a checker implemented independently of Lean
-  with the formalized model (`tools/simulate.py`, `tools/check_urtm.py`).

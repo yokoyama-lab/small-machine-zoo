@@ -1,7 +1,7 @@
-\documentclass[a4paper,11pt]{article}
+\documentclass{article}
+\usepackage{arxiv}
+\raggedbottom
 \usepackage[T1]{fontenc}
-\usepackage{lmodern}
-\usepackage[margin=25mm]{geometry}
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage{booktabs}
 \usepackage{microtype}
@@ -32,6 +32,7 @@
 
 \title{Smaller Universal Reversible Turing Machines\\
  and the Nonexistence of Two-State Ones}
+\renewcommand{\shorttitle}{Smaller Universal Reversible Turing Machines}
 \author{Tetsuo Yokoyama\\Nanzan University}
 \date{October 2026}
 
@@ -40,17 +41,9 @@
 
 \begin{abstract}
 A reversible Turing machine (RTM) is a Turing machine in which every instantaneous description has at most one predecessor.
-Morita's book (2017) lists nine universal RTMs (URTMs); we write URTM$(m,n)$ for one with $m$ states and $n$ symbols.
-We construct seven URTMs: URTM$(3,600)$, URTM$(4,41)$, URTM$(5,38)$, URTM$(6,30)$, URTM$(7,28)$, URTM$(8,21)$, and URTM$(85,2)$. Compared with each of the nine, each of them has fewer states or fewer symbols; that is, none of them is \emph{dominated} by any of the nine.
-Three of Morita's nine are dominated by the new machines, and the remaining six together with the seven new ones give 13 points none of which dominates another.
-The new machines come from improved versions of Morita's conversions to three states, to four states, and to two symbols.
-Morita's conversions to three and four states carry the number of a state of the original machine on the tape as a counter. We use disjoint ranges of state numbers by the direction of entry, counting in opposite directions for the two directions, a block decomposition of state numbers that adds a few states to remove symbols, and the merging of symbols that are never read by the same state and never written into the same state.
-For example, for an original machine with $m$ states and $n$ symbols, the improved conversion to three states uses $O(mn^2)$ symbols instead of $O(m^2n^3)$, and it turns URTM$(32,3)$ into URTM$(3,600)$ instead of URTM$(3,36654)$.
-On the negative side, we show that the halting problem of RTMs with at most two states is decidable for finite instantaneous descriptions, by a single procedure that also takes the machine as input.
-Consequently, there is no URTM with at most two states, which answers a question left open by Morita.
-We also show that no three-state, two-symbol RTM is universal.
-All these results are formalized in Lean~4 with Mathlib.
-Universality is formalized after Morita's definition, with computable encoding and decoding functions, which we give explicitly for all 13 points.
+Writing URTM$(m,n)$ for a universal RTM with $m$ states and $n$ symbols, we construct URTM$(3,600)$, URTM$(4,41)$, URTM$(5,38)$, URTM$(6,30)$, URTM$(7,28)$, URTM$(8,21)$, and URTM$(85,2)$; each of them has fewer states or fewer symbols than each of the nine URTMs in Morita's book (2017).
+They come from improved versions of Morita's conversions to three states, to four states, and to two symbols; for example, the improved conversion to three states uses $O(mn^2)$ symbols instead of $O(m^2n^3)$.
+We also show that the halting problem of RTMs with at most two states is decidable for finite instantaneous descriptions, so that there is no URTM with at most two states, which answers a question left open by Morita, and that no three-state, two-symbol RTM is universal.
 \end{abstract}
 
 \section{Introduction}
@@ -72,10 +65,10 @@ In a later survey, after recalling that two-state TMs are universal in the irrev
 \begin{itemize}
 \item \emph{New upper bounds} (Section~\ref{sec:constr}).
 We give seven URTMs, $(3,600)$, $(4,41)$, $(5,38)$, $(6,30)$, $(7,28)$, $(8,21)$, and $(85,2)$, none of which is dominated by Morita's nine points; that is, compared with each of the nine points, each of them has fewer states or fewer symbols (Figure~\ref{fig:compare}).
-The three-state machine improves the conversion of Morita's Theorem~5.6, the machines with four to eight states come from a block decomposition of the conversion of Theorem~5.5 followed by symbol merging, and the two-symbol machine optimizes the conversion of Theorem~5.4.
+The three-state machine improves the conversion of Morita's Theorem~5.6~\cite{Morita17}, the machines with four to eight states come from a block decomposition of the conversion of Morita's Theorem~5.5 followed by symbol merging, and the two-symbol machine optimizes the conversion of Morita's Theorem~5.4.
 The block decomposition gives a sequence of machines with four to nine states in which more states mean fewer symbols (Table~\ref{tab:blocks}); no conversion in the book yields five to nine states.
 \item \emph{Universality in the sense of Morita's definition} (Section~\ref{sec:univ}).
-Morita's Definition~7.1 asks for total recursive encoding and decoding functions, but the book does not give them for its URTMs.
+Morita's Definition~7.1~\cite{Morita17} asks for total recursive encoding and decoding functions, but the book does not give them for its URTMs.
 We give computable encodings and decodings for all 13 non-dominated points and prove universality in this sense.
 \item \emph{Nonexistence for two states} (Section~\ref{sec:twostate}).
 The halting problem of RTMs with at most two states is decidable for finite instantaneous descriptions, uniformly in the machine.
@@ -157,7 +150,7 @@ The URTMs of Morita and his coauthors are collected in~\cite[Ch.~7]{Morita17}, t
 Turing machines and universal Turing machines have been formalized in Isabelle/HOL~\cite{XuZhangUrban13}, Matita~\cite{AspertiRicciotti15}, and Coq~\cite{ForsterKunzeWuttke20}, and Mathlib contains a universal partial recursive function. %
 These formalizations treat general constructions rather than small machines, and none of them is about reversible computation.
 Closest to our two-state result is Dudenhefner's decision procedure, certified in Coq, for the halting problem of reversible two-counter machines with a particular instruction set; it contrasts with Morita's result that reversible two-counter machines with another instruction set are universal~\cite{Dudenhefner22}.
-To our knowledge, small URTMs and their universality in the sense of Definition~7.1 have not been formalized before.
+To our knowledge, small URTMs and their universality in the sense of Morita's Definition~7.1 have not been formalized before.
 
 \section{Preliminaries}
 \label{sec:prelim}
@@ -180,7 +173,7 @@ $T$ is \emph{deterministic} if any two quintuples of $T$ with the same source st
 $T$ is \emph{reversible} if any two distinct quintuples of $T$ with the same target state have the same direction and different written symbols.
 \end{definition}
 
-This is Morita's Definition~5.4, specialized to the quintuple form.
+This is Morita's Definition~5.4~\cite{Morita17}, specialized to the quintuple form.
 By reversibility, all quintuples entering a state move in the same direction (the unique shift-direction property, \cite[Lemma~5.5]{Morita17}).
 For an RTM $T$ we write $Q_+$ and $Q_-$ for the sets of states entered by right moves and by left moves, and $m_+=|Q_+|$, $m_-=|Q_-|$. A state entered only by zero-shifts, or not entered by any quintuple, belongs to neither set.
 
@@ -754,7 +747,6 @@ Figure~\ref{fig:symbol-conflicts} illustrates these conflicts. Each panel is a s
 
 The condition for a conflict can be relaxed as follows. If two quintuples from the same state read $x$ and $y$, have the same direction and the same target state, and write two symbols that are also merged into one, then after merging the two quintuples become the same quintuple. The same holds for two quintuples that enter the same state writing $x$ and $y$ if they have the same source state and the same direction and read two symbols that are also merged into one. Such a pair need not be treated as a conflict, since the two equal quintuples are kept as one. The counts in the example above are for the condition before relaxing.
 
-The following general statement is not taken from the literature; we prove it here.
 
 \begin{theorem}[Symbol merging]
 \label{thm:merge}
@@ -767,7 +759,7 @@ Here $h$ is the map of the coloring, which sends each symbol to its color, that 
 Applied to the fixed tables of Table~\ref{tab:blocks}, merging removes one to three symbols.
 Much more is gained by choosing the blocks and values again, by simulated annealing, with the number of colors after merging as the objective.
 All five best results come from URTM$(13,7)$ (Table~\ref{tab:merge}). The two with four and five states were chosen again with the number of colors under the relaxed condition as the objective; under the condition before relaxing, the same tables need 43 and 40 colors.
-Their tables are not printed here; they are provided as text files, with the classes of merged symbols and the roles merged into each state, at \url{https://github.com/yokoyama-lab/small-machine-zoo/tree/main/tables}.
+Their tables are not printed here; they are provided as text files in the directory tables of the repository \url{https://github.com/yokoyama-lab/small-machine-zoo}, together with a description that gives the classes of merged symbols and the roles merged into each state.
 We do not claim minimality, either of the coloring or over the choices of blocks.
 
 \begin{table}[tb]
@@ -795,17 +787,17 @@ Morita's conversion to three states~\cite[Sect.~5.3.5]{Morita17} has two stages 
 \begin{figure}[tb]
 \centering
 \begin{tikzpicture}[x=1mm,y=1mm,font=\footnotesize]
-\node[flterm,text width=66mm] (T) at (0,0) {Original machine $T$: $m$ states, $n$ symbols\\ moves both ways and rewrites the tape};
-\node[flbox,text width=66mm,fill=blue!8] (H) at (0,-40) {One-way-updating machine $\hat T$: $M=m_+n+2n+2$ states, $N=mn^2+n^2+1$ symbols\\ rewrites only while sweeping right and returns to the left end in one state without rewriting; one sweep is one step of $T$};
-\node[flterm,text width=66mm] (D) at (0,-80) {Three-state machine $T^\dagger$ (states $\rmL$, $\rmR_0$, $\rmR_1$)\\ $N(2M-1)$ symbols};
-\draw[flarr] (T) -- node[right,text width=60mm,align=left,xshift=1mm] {Lemma 5.9: pack two cells of $T$ into one pair, mark the state on a pair, and shift the content one cell to the right in every sweep} (H);
-\draw[flarr] (H) -- node[right,text width=60mm,align=left,xshift=1mm] {Lemma 5.10: number the states of $\hat T$ by $1,\dots,M-1$ and carry the number to the next cell as up and down counters} (D);
+\node[flbox,text width=66mm] (T) at (0,0) {Original machine $T$: $m$ states, $n$ symbols\\ moves both ways and rewrites the tape};
+\node[flbox,text width=66mm] (H) at (0,-40) {One-way-updating machine $\hat T$: $M=m_+n+2n+2$ states, $N=mn^2+n^2+1$ symbols\\ rewrites only while sweeping right and returns to the left end in one state without rewriting; one sweep is one step of $T$};
+\node[flbox,text width=66mm] (D) at (0,-80) {Three-state machine $T^\dagger$ (states $\rmL$, $\rmR_0$, $\rmR_1$)\\ $N(2M-1)$ symbols};
+\draw[flarr] (T) -- node[right,text width=60mm,align=left,xshift=1mm] {Morita's Lemma~5.9~\cite{Morita17}: pack two cells of $T$ into one pair, mark the state on a pair, and shift the content one cell to the right in every sweep} (H);
+\draw[flarr] (H) -- node[right,text width=60mm,align=left,xshift=1mm] {Morita's Lemma~5.10~\cite{Morita17}: number the states of $\hat T$ by $1,\dots,M-1$ and carry the number to the next cell as up and down counters} (D);
 \node[anchor=north west,align=left,font=\scriptsize] at (-34,-90) {For $(32,3)$: $m=32$, $n=3$, $m_+=18$, so $M=62$, $N=298$, and $298\cdot 123=36654$ symbols};
 \end{tikzpicture}
 \caption{The two stages of Morita's conversion to three states}
 \label{fig:three-pipeline}
 \end{figure}
-Lemma~5.9 turns $T$ into a \emph{one-way-updating} RTM $\hat T$, which rewrites the tape only while sweeping to the right and returns to the left end in a single state without rewriting.
+Morita's Lemma~5.9~\cite{Morita17} turns $T$ into a \emph{one-way-updating} RTM $\hat T$, which rewrites the tape only while sweeping to the right and returns to the left end in a single state without rewriting.
 To distinguish the blank of $T$ from the blank of $\hat T$ and to extend the used region one cell at a time, its tape packs two cells of $T$ into one cell.
 $\hat T$ has $N=mn^2+n^2+1$ symbols and $M=m_+n+2n+2$ states.
 The symbols are the blank of $\hat T$, the $n^2$ pairs $[s,t]$ holding the contents of two cells of $T$, and the $mn^2$ pairs $[[p,s],t]$ whose left component is the head cell of $T$ and which are marked with the state $p$ of $T$; thus $N=1+n^2+mn^2$.
@@ -816,7 +808,7 @@ The states are of four kinds, and $M=1+(n+1)+m_+n+n$.
 \item After a right-moving quintuple of $T$ is executed, $m_+n$ states remember the target state $q\in Q_+$ and the carried symbol and go to write the mark on the pair in the next cell. The target of a left move can be written as a mark on the pair in the current cell, so these states are needed only for the states in $Q_+$.
 \item After $T$ halts, $n$ states carry symbols to the right end.
 \end{itemize}
-Figure~\ref{fig:hat-flow} shows the transitions between these states (the rule names follow Morita).
+Figure~\ref{fig:hat-flow} shows the transitions between these states. The labels $\hat\delta_1,\dots,\hat\delta_{12}$ are the names that Morita gives to the rules in the proof of Lemma~5.9~\cite{Morita17}; we use them only to relate the figure to that proof.
 \begin{figure}[tb]
 \centering
 \begin{tikzpicture}[x=1mm,y=1mm,font=\footnotesize]
@@ -833,10 +825,10 @@ Figure~\ref{fig:hat-flow} shows the transitions between these states (the rule n
 \draw[flarr] ([xshift=20mm]QS.south) |- node[pos=0.25,right] {$\hat\delta_4$ halt} (HS.west);
 \draw[flarr] (QP.south) -- node[right] {$\hat\delta_7$ halt} (HS.north);
 \end{tikzpicture}
-\caption{Kinds of states of $\hat T$ in Lemma~5.9 and the transitions between them}
+\caption{Kinds of states of $\hat T$ in Morita's Lemma~5.9~\cite{Morita17} and the transitions between them}
 \label{fig:hat-flow}
 \end{figure}
-Lemma~5.10 then represents the state $q_i$ of $\hat T$ by a counter $[i,x]$ with an up or a down mark on the symbol under the head and uses three states $\rmL$, $\rmR_0$, $\rmR_1$, which gives $N(2M-1)$ symbols.
+Morita's Lemma~5.10~\cite{Morita17} then represents the state $q_i$ of $\hat T$ by a counter $[i,x]$ with an up or a down mark on the symbol under the head and uses three states $\rmL$, $\rmR_0$, $\rmR_1$, which gives $N(2M-1)$ symbols.
 Figure~\ref{fig:three-carry} shows how it executes a right-moving quintuple of $\hat T$; as in Fig.~\ref{fig:four} of Section~\ref{sec:four}, the number $j$ of the state is carried to the right by counting down the down-marked counter in cell $c$ while counting up the up-marked counter in cell $c+1$, and the execution takes $2j+1$ steps.
 For URTM$(32,3)$ we have $m=32$, $n=3$, and $m_+=18$, so $N=32\cdot 3^2+3^2+1=298$ and $M=18\cdot 3+2\cdot 3+2=62$; the result has $N(2M-1)=298\cdot 123=36654$ symbols, which gives URTM$(3,36654)$.
 Of these symbols, 85\% are counters that combine a marked pair, one of the $m_+n$ states of $\hat T$ entered after a right move, and an up or down mark.
@@ -879,14 +871,14 @@ We reduce the count in four steps.
 \draw[flarr] ([xshift=-8mm]L.south) -- node[left] {$\delta^\dagger_4$ (decrement)} ([xshift=-8mm]R1.north);
 \draw[flarr] ([xshift=8mm]R1.north) -- node[right] {$\delta^\dagger_5$ (increment)} ([xshift=8mm]L.south);
 \end{tikzpicture}
-\caption{Flowchart of all rules of the three-state machine of Lemma~5.10}
+\caption{Flowchart of all rules of the three-state machine of Morita's Lemma~5.10~\cite{Morita17}}
 \label{fig:dagger-flow}
 \end{figure}
 
 \paragraph{Shared counters.}
 In a one-way-updating machine all carries go to the right, so each of the three states always reads counters on a fixed side: $\rmL$ only on the source side, $\rmR_0$ and $\rmR_1$ only on the target side.
 In Fig.~\ref{fig:three-carry}, too, $\rmL$ reads only down-marked counters, and $\rmR_0$ and $\rmR_1$ read only up-marked ones.
-The same can be seen in Fig.~\ref{fig:dagger-flow}, which shows all rules of Lemma~5.10 as a flowchart (the rule names follow Morita).
+The same can be seen in Fig.~\ref{fig:dagger-flow}, which shows all rules of Morita's Lemma~5.10 as a flowchart. The labels $\delta^\dagger_1,\dots,\delta^\dagger_8$ are the names that Morita gives to these rules in the proof of Lemma~5.10~\cite{Morita17}; we use them only to relate the figure to that proof.
 Hence the up and down marks can be identified without losing determinism, and reversibility is preserved, since the written symbols of the rules entering each state remain distinct.
 The count drops from $N(2M-1)$ to $NM$; for $(32,3)$, where $N=298$ and $M=62$, it drops from $N(2M-1)=36654$ to $NM=298\cdot 62=18476$.
 
@@ -990,7 +982,7 @@ Applying the conversion to the mirror image $\mathrm{mir}(T)$ of $T$ (directions
 In the mirror image, a right-moving quintuple $[p,s,t,\mathrm{R},q]$ becomes the left-moving quintuple $[p,s,t,\mathrm{L},q]$, so $q$ moves from $Q_+$ to $Q_-$ and the pair $(q,t)$ leaves $R$. Conversely, a left-moving quintuple becomes right-moving, and its target enters $Q_+$ and its pair enters $R$ (Fig.~\ref{fig:mirror}(b)).
 Thus the roles of $m_+$ and $m_-$ and of the right-moving and left-moving targets are exchanged.
 In the symbol count, the coefficient of $m_-$ is $n(n+1)$, that of $|G|$ is $2n+1$, and that of $|R|$ is $n$, so the exchange changes the count.
-For $(32,3)$, $T$ itself has $m_-=14$ and $|R|=46$, and $|G|=47$ because the state in which $T$ starts is in $Q_+$; this gives 659 symbols. The mirror image has $m_-=18$ and $|R|=|G|=36$ (Fig.~\ref{fig:mirror}(c)). The increase of $m_-$ by 4 adds $4\cdot 12=48$ symbols, and the decreases of $|G|$ by 11 and of $|R|$ by 10 remove $77+30=107$, which gives 600 symbols, and hence URTM$(3,600)$. Its table has 1,572 quintuples; instead of printing it, we provide it as a text file at \url{https://github.com/yokoyama-lab/small-machine-zoo/tree/main/tables}.
+For $(32,3)$, $T$ itself has $m_-=14$ and $|R|=46$, and $|G|=47$ because the state in which $T$ starts is in $Q_+$; this gives 659 symbols. The mirror image has $m_-=18$ and $|R|=|G|=36$ (Fig.~\ref{fig:mirror}(c)). The increase of $m_-$ by 4 adds $4\cdot 12=48$ symbols, and the decreases of $|G|$ by 11 and of $|R|$ by 10 remove $77+30=107$, which gives 600 symbols, and hence URTM$(3,600)$. Its table has 1,572 quintuples; instead of printing it, we provide it as a text file in the same repository (Section~\ref{sec:merge}).
 Applied to the other five original machines, the improved conversion gives between 802 and 1,209 symbols, taking the better of the machine and its mirror image, so $(32,3)$ is the best starting point.
 
 \subsection{Two symbols}
@@ -1080,11 +1072,11 @@ These points are shown in Figure~\ref{fig:compare} (Section~\ref{sec:intro}).
 The six points from $(10,8)$ to $(32,3)$ are Morita's original machines, which remain non-dominated; the other seven are new.
 The witnesses are concrete rule tables: Morita's distributed tables~\cite{MoritaFiles} and the tables produced from them by the conversions of Section~\ref{sec:constr}.
 
-Table~\ref{tab:results} lists the numbers of symbols and states obtained by applying the conversions of Section~\ref{sec:constr} to each of Morita's six machines and to URTM$(85,2)$. The columns of the conversions that reduce states give numbers of symbols, and those of the conversions that reduce symbols give numbers of states. For each conversion, Morita's construction and ours are listed side by side. The column of Morita's four-state conversion gives the value of the formula $(2m+1)n$; Morita gives the table only for $(10,8)$. All other entries count the symbols or states of constructed tables. In the three-state column of our construction, the two values separated by ``/'' are for the machine itself and for its mirror image. Bold entries are points of Theorem~\ref{thm:exists}, and the machines marked $\ast$ are proved universal in the sense of Definition~\ref{def:univ}. An empty entry was not computed (reverse counting for $(85,2)$) or does not apply (a two-symbol conversion of a two-symbol machine). The results of the block decomposition and of symbol merging are in Tables~\ref{tab:blocks} and~\ref{tab:merge}.
+Table~\ref{tab:results} lists the numbers of symbols and states obtained by applying the conversions of Section~\ref{sec:constr} to each of Morita's six machines and to URTM$(85,2)$. The columns of the conversions that reduce states give numbers of symbols, and those of the conversions that reduce symbols give numbers of states. For each conversion, Morita's construction and ours are listed side by side. The column of Morita's four-state conversion gives the value of the formula $(2m+1)n$; Morita gives the table only for $(10,8)$. All other entries count the symbols or states of constructed tables. In the three-state column of our construction, the two values separated by ``/'' are for the machine itself and for its mirror image. Bold entries are points of Theorem~\ref{thm:exists}, and the machines marked $\ast$ are proved universal in the sense of Definition~\ref{def:univ}. An empty entry was not computed (reverse counting for $(85,2)$), and a dash marks a conversion that does not apply (a two-symbol conversion of a two-symbol machine). The results of the block decomposition and of symbol merging are in Tables~\ref{tab:blocks} and~\ref{tab:merge}.
 
 \begin{table}[tb]
 \centering
-\caption{Results of the conversions applied to each URTM}
+\caption{Computed results of the conversions applied to each URTM}
 \label{tab:results}
 \small
 \resizebox{\textwidth}{!}{%
@@ -1100,7 +1092,7 @@ $(15,6)$ & 186 & 96 & 53 & 77895 & 1038 / 935 & 174 & 108$^\ast$ \\
 $(17,5)$ & 175 & 90 & 55 & 55473 & 856 / 844 & 193 & 115$^\ast$ \\
 $(24,4)$ & 196 & 100 & 56 & 49323 & 832 / 802 & 138 & 92$^\ast$ \\
 $(32,3)$ & 195 & 99 & 57 & 36654 & 659$^\ast$ / \textbf{600}$^\ast$ & 182 & 115$^\ast$ \\
-$(85,2)$ & 342 & 172 &  & 68655 & 803 / 808 &  &  \\
+$(85,2)$ & 342 & 172 &  & 68655 & 803 / 808 & -- & -- \\
 \bottomrule
 \end{tabular}}
 \end{table}
@@ -1118,18 +1110,12 @@ We formalize the chain
 \[
   \mathrm{tm}(i)\ \longrightarrow\ \text{two-register machine}\ \longrightarrow\ \text{2-tag system}\ \longrightarrow\ \text{CTSH}\ \longrightarrow\ U,
 \]
-which follows the classical route of Cocke and Minsky~\cite{CockeMinsky64} and Morita's Theorem~7.2.
+which follows the classical route of Cocke and Minsky~\cite{CockeMinsky64} and Morita's Theorem~7.2~\cite{Morita17}.
 The first step stores the tape of $\mathrm{tm}(i)$ in two registers and normalizes the symbols of $\mathrm{tm}(i)$, which are arbitrary natural numbers, into binary; this replaces a separate conversion of the TM to two symbols.
 A general theorem then states that a machine that simulates an arbitrary CTSH and has a primitive recursive input encoding and a primitive recursive readout of the final string, independent of trailing blanks, satisfies $\mathrm{IsUTMStrict}$.
 Each machine supplies only its assignment of natural numbers to states and symbols, its encoding of CTSHs, and its readout of final strings.
 
-\begin{proposition}[Agreement]
-Let $U_1$ and $U_2$ be deterministic tables satisfying $\mathrm{IsUTMStrict}$ with encodings $c_1,c_2$ and decodings $d_1,d_2$.
-For every TM $\mathrm{tm}(i)$ and every input $a$ admitted in Definition~\ref{def:univ}, $U_1$ halts from $\mathrm{toID}(0,c_1(i,a))$ if and only if $U_2$ halts from $\mathrm{toID}(0,c_2(i,a))$, and if both halt, the decoded halting IDs are equal.
-In particular this holds for any two of the 13 witnesses of Theorem~\ref{thm:exists}.
-\end{proposition}
-
-The encoded inputs, the runs, and the numbers of steps differ between machines; only halting and the decoded result agree.
+It follows directly from Definition~\ref{def:univ} that any two of the 13 witnesses of Theorem~\ref{thm:exists} agree: for every TM $\mathrm{tm}(i)$ and every admitted input $a$, both halt on their encodings of $(i,a)$ or neither does, and if both halt, the decoded halting IDs are equal; the encoded inputs, the runs, and the numbers of steps differ between them.
 
 \paragraph{Halting quintuples.}
 The distributed tables of Morita's six points represent the halting entries of the tables in the book by two zero-shift quintuples into halting states that are not counted, and the tables of the five points obtained by symbol merging inherit these two quintuples through the conversions; the tables of $(85,2)$ and $(3,600)$ have no halting quintuples.
@@ -1208,6 +1194,7 @@ So the state records the direction of the last move; we call the state entered b
 Fix a boundary and the half-line $\mathcal{H}$ to its right.
 The head always enters $\mathcal{H}$ in state R and leaves it in state L, and the behavior inside $\mathcal{H}$ does not depend on the content outside.
 Hence the outcome of the $j$-th entry into $\mathcal{H}$ (leave, halt inside, or never return) and the content of $\mathcal{H}$ on leaving depend only on the initial content of $\mathcal{H}$ and on $j$.
+In particular, moving back and forth across the boundary carries no information into $\mathcal{H}$ beyond the number of entries, and the outside learns only at which entry the head comes back.
 Figure~\ref{fig:halfline} illustrates this.
 \item \emph{The head cannot go deep into a blank half-line.}
 Let $[k,\infty)$ be initially blank and consider a halting run.
@@ -1267,13 +1254,7 @@ Only step~1 uses reversibility; steps~2 to~6 use only determinism and the fact t
 In an irreversible two-state TM the same state can be entered from both sides, so a half-line can send more than one bit of information, and indeed such machines can be universal.
 With three states, two states can be entered by right moves (as $\rmR_0$ and $\rmR_1$ in Morita's conversion to three states); the state in which the head enters a half-line then carries information, and step~2 fails.
 
-\paragraph{Further nonexistence results.}
-\begin{theorem}
-\label{thm:onesym}
-If $U$ is deterministic and $\mathrm{NSyms}(U)\le 1$, then $\neg\mathrm{IsUTM}(U)$, even if $U$ is not reversible.
-\end{theorem}
-The tape never changes, so a halting run halts within a bounded number of steps.
-
+\paragraph{A further nonexistence result.}
 \begin{theorem}
 \label{thm:oneL}
 Let $U$ be deterministic and reversible with at most one left-moving quintuple $\ell$, and assume that no zero-shift quintuple has the source state of $\ell$ as its target.
@@ -1301,6 +1282,8 @@ As a check that the transfer is not vacuous, applying it to the witness for $(85
 \paragraph{Proof outline.}
 Every table is first reduced to a normal form by renaming states and symbols and by removing the quintuples that enter a state other than $q_0,q_1,q_2$, which changes the halting time by at most one step.
 A normal form is determined by assigning to each of the six entries (three states, two symbols) either no quintuple or one of the six pairs of a written symbol and a target state, together with the direction in which each of the three states is entered; we call this a \emph{key} (by reversibility, the assignments of the entries with quintuples are distinct). There are 359,829 keys.
+Figure~\ref{fig:key} shows an example of a key. The rows are the states and the columns the read symbols; each entry gives the written symbol and the target state, and -- means that there is no quintuple.
+The direction of each quintuple is the direction in which its target state is entered. Hence this key represents the table of the five quintuples $[q_0,0,\sigma,\rmR,q_1]$, $[q_0,\sigma,0,\rmR,q_2]$, $[q_1,0,\sigma,\rmL,q_0]$, $[q_2,0,\sigma,\rmR,q_2]$ and $[q_2,\sigma,0,\rmL,q_0]$.
 For each of them, a decision procedure checked by the kernel either produces a certificate or marks the table as exceptional.
 A certificate is a finite set of patterns of visits outside a window that is closed under the transitions of the table.
 It implies, by the pigeonhole principle, that a halting run halts within a computable number of steps, so that halting is decidable and the table is not universal.
@@ -1311,30 +1294,49 @@ The exceptional keys are handled by general arguments:
 \item if some state is entered by a zero-shift, then that quintuple can be composed with the next one, eliminating the state and again reducing to a two-state machine;
 \end{itemize}
 and the remaining keys by arguments for each type of behavior; the last of them are closed by showing that the head of a halting run stays within a bounded distance of the initial window.
-Counted outside the proof assistant up to renaming of states and left-right reflection, the exceptional keys form 178 classes of 2,136 tables, and the last group consists of 10 classes.
+Counted outside the proof assistant up to renaming of states and left-right reflection, the exceptional keys form 178 classes of 2,280 tables, and the last group consists of 10 classes.
+Figure~\ref{fig:three-flow} shows this flow and the number of classes at each stage.
+\begin{figure}[tb]
+\centering
+\begin{tabular}{c|cc|c}
+ & $0$ & $\sigma$ & entered by \\ \hline
+$q_0$ & $\sigma,q_1$ & $0,q_2$ & $\rmL$ \\
+$q_1$ & $\sigma,q_0$ & -- & $\rmR$ \\
+$q_2$ & $\sigma,q_2$ & $0,q_0$ & $\rmR$ \\
+\end{tabular}
+\caption{An example of a key}
+\label{fig:key}
+\end{figure}
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}[x=1mm,y=1mm,font=\footnotesize,node distance=3.5mm]
+\node[flterm,text width=84mm] (S) at (0,0) {Start: a deterministic reversible table using only $q_0,q_1,q_2$ and $0,\sigma$};
+\node[flbox,text width=84mm] (N) [below=of S] {Reduce to a normal form by renaming states and symbols and removing quintuples\\ A normal form is determined by its key; there are 359,829 keys};
+\node[fldec,text width=84mm,fill=blue!8] (D) [below=of N] {Test\quad does the decision procedure checked by the kernel produce a certificate?};
+\node[flbox,text width=84mm] (G) [below=8mm of D] {178 classes of exceptional keys; general arguments close 110 of them:\\ a state has no entering quintuple (6 classes)\\ every quintuple entering a state comes from that state (48 classes)\\ a state is entered by a zero-shift (56 classes)};
+\node[flbox,text width=84mm] (R) [below=8mm of G] {Close them by arguments for each type of behavior\\ In the last group of 10 classes, the head of a halting run stays within a bounded distance of the initial window};
+\node[flterm,text width=84mm] (X) [below=of R] {End: halting is decidable, so the table is not universal};
+\draw[flarr] (S) -- (N); \draw[flarr] (N) -- (D);
+\draw[flarr] (D) -- node[right] {no} (G);
+\draw[flarr] (G) -- node[right] {remaining 68 classes} (R);
+\draw[flarr] (R) -- (X);
+\draw[flarr] (D.east) -- node[above] {yes} ++(8,0) |- (X.east);
+\draw[semithick] (G.east) -- ++(8,0);
+\end{tikzpicture}
+\caption{Flow of the proof that three-state two-symbol tables are not universal}
+\label{fig:three-flow}
+\end{figure}
 
 \section{Formalization}
 \label{sec:formal}
 
-All definitions of Section~\ref{sec:prelim} and all theorems of Sections~\ref{sec:constr} to~\ref{sec:threetwo} are formalized in Lean~4 with Mathlib.
-Computability in Definition~\ref{def:univ} is Mathlib's notion of computable functions.
-Every theorem is accepted by the Lean kernel, contains no \texttt{sorry}, and depends only on the standard axioms (propositional extensionality, the axiom of choice, and the soundness of quotients); in particular, all computations used in proofs are checked by the kernel.
-The formalization also proves formulas for the numbers of symbols of the conversions as functions of the original table: the block formula, $(2m+1)n$ for Morita's four-state conversion, $(m+1)n$ for disjoint ranges, $N(2M-1)$ for Morita's three-state conversion, the formula of Section~\ref{sec:three}, and the state count of the $k$-bit two-symbol conversion; the reverse-counting expression is proved as an upper bound.
-It also proves the exact step counts of Morita's Lemmas~5.9 and~5.10.
+All definitions of Section~\ref{sec:prelim} and all theorems of Sections~\ref{sec:constr} to~\ref{sec:threetwo} are formalized in Lean~4 with Mathlib; computability in Definition~\ref{def:univ} is Mathlib's notion of computable functions.
+Every theorem is accepted by the Lean kernel, contains no \texttt{sorry}, and depends only on the standard axioms; all computations used in proofs are checked by the kernel.
+The formalized machine model reproduces the halting step counts of the test runs that Morita distributes with his nine URTMs~\cite{MoritaFiles}, with one exception: a test for URTM$(13,7)$ states 1,073 steps, whereas recomputation gives 1,173, as does the same test for URTM$(10,8)$, which the book says takes the same time.
 
-\paragraph{Validation against published runs.}
-Morita distributes description files with the rule tables and test runs of his nine URTMs and a Prolog simulator~\cite{MoritaFiles}.
-The formalized machine model reproduces, by kernel computation, the halting step counts of all published test runs.
-This includes the three runs of URTM$(3,36654)$, a table with 37,936 quintuples, which take 471,798, 2,348,492, and 57,220 steps; these counts are obtained both by running the table and, independently, from the run of $(32,3)$ and the exact step counts of Lemmas~5.9 and~5.10, and the kernel checks that the two routes prove the same statement.
-One published count differs: a test for URTM$(13,7)$ states 1,073 steps, whereas recomputation gives 1,173. The book states that URTM$(13,7)$ and URTM$(10,8)$ take the same time to simulate a given CTSH, and the same test in the distributed file of URTM$(10,8)$ also takes 1,173 steps.
-A simulator and a checker implemented independently of Lean agree with the formalized model on the tested runs.
-
-\paragraph{Trusted base.}
-The kernel guarantees that the proofs are correct relative to the definitions.
-What remains to be trusted is that the definitions and theorem statements express the intended claims, in particular that Definition~\ref{def:univ} faithfully captures Morita's Definition~7.1; this correspondence cannot itself be checked mechanically.
-We have stated the definitions and the theorems in full in this paper so that the reader can compare them with the original.
-A further safeguard is that the same definitions are used on both sides: the existence results and the nonexistence results refer to the same notion of universality, so a definition that were trivially true or trivially false for all machines would contradict one of them.
-The Lean formalization and a full version, which includes further construction details and proofs, are available at \url{https://github.com/yokoyama-lab/small-machine-zoo}.
+What remains to be trusted is that the definitions and theorem statements express the intended claims, in particular that Definition~\ref{def:univ} captures Morita's Definition~7.1; we state them in full so that the reader can compare them with the original.
+Since the existence and the nonexistence results use the same definition, a definition that were trivially true or trivially false would contradict one of them.
+The formalization and a full version with further details are available in the same repository (Section~\ref{sec:merge}).
 
 \section{Conclusion}
 
@@ -1344,6 +1346,7 @@ The two-state result rests on the observation that, in a reversible machine with
 
 Several questions remain open.
 None of the new points is known to be minimal, and the lower and upper bounds are far apart: no URTM with at most two states exists, while the smallest known three-state URTM has 600 symbols.
+The numbers of symbols of the machines obtained by symbol merging come from a search over a limited set of block decompositions, starting tables, and annealing runs; trying further combinations may lower them.
 It is open whether some three-state, three-symbol or four-state, two-symbol RTM is universal.
 For irreversible UTMs, the smallest known machines have far fewer symbols for the same number of states, and it would be interesting to know whether reversibility forces this difference.
 

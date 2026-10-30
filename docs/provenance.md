@@ -8,9 +8,11 @@ not carry the development repository's Git history or private research logs.
   `f28072d0427b2bf6e0d571a6fc2d1733e0b00d4a` (2026-10-29),
   `64900a1bfb13af4ba1d94cc1db1bb5f98b233cc2` (2026-10-27), and
   `bfff87da70d64f9c8dbedab8663d988f4aae5c8a` (2026-10-10).
-- Manuscript source revision: `eeeb4bb` of the manuscript repository.
+- Manuscript source revision: `1a6e9dd` of the manuscript repository.
   `paper/note.tex` is `arxiv_v4_en.tex` at that revision with its source
-  comments removed (the file was named `arxiv_ai_lean_v4_en.tex` before).
+  comments removed (the file was named `arxiv_ai_lean_v4_en.tex` before). It uses
+  the preprint style `paper/arxiv.sty` (kourgeorge/arxiv-style, MIT license,
+  unchanged below its license notice).
 - The full version combines that paper with `paper/details.tex`, an appendix
   assembled from the existing construction and proof notes. It is not an
   independently inspected proof of the formalization.
