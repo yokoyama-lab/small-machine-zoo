@@ -17,6 +17,7 @@
 import LeanUniv.SymMergeBook4_41
 import LeanUniv.SymMergeBook4_42
 import LeanUniv.SymMergeBook4_43
+import LeanUniv.SymMergeBook5_37
 import LeanUniv.SymMergeBook5_38
 import LeanUniv.SymMergeBook5_39
 import LeanUniv.SymMergeBook6_30
@@ -84,6 +85,25 @@ theorem book_urtm_4_43 :
   ⟨rfl, SymMergeBook4_43.B_book.1, SymMergeBook4_43.B_book.2.1, SymMergeBook4_43.B_book.2.2, SymMergeBook4_43.B_det, SymMergeBook4_43.B_rev,
     SymMergeBook4_43.B_counts.1, SymMergeBook4_43.B_counts.2, SymMergeBook4_43.B_counts.1.trans SymMerge4_43.U_counts.1.symm,
     SymMergeBook4_43.B_counts.2.trans SymMerge4_43.U_counts.2.symm, SymMergeBook4_43.isUTMStrict_B⟩
+
+theorem exists_urtm_5_37_book :
+    ∃ U : List Quint, Deterministic U ∧ Reversible U ∧ NStates U = 5 ∧ NSyms U = 37 ∧
+      IsUTMStrict U :=
+  ⟨SymMergeBook5_37.B, SymMergeBook5_37.B_det, SymMergeBook5_37.B_rev, SymMergeBook5_37.B_counts.1, SymMergeBook5_37.B_counts.2,
+    SymMergeBook5_37.isUTMStrict_B⟩
+
+theorem book_urtm_5_37 :
+    SymMergeBook5_37.B = dropT SymMerge5_37.U SymMergeBook5_37.H ∧
+    SymMergeBook5_37.H = SymMerge5_37.U.filter (fun r => decide (r.q ∉ SymMerge5_37.U.map Quint.p)) ∧
+    SymMergeBook5_37.B.length + 2 = SymMerge5_37.U.length ∧
+    (∀ r ∈ SymMergeBook5_37.B, r.q ∈ SymMergeBook5_37.B.map Quint.p) ∧
+    Deterministic SymMergeBook5_37.B ∧ Reversible SymMergeBook5_37.B ∧
+    NStates SymMergeBook5_37.B = 5 ∧ NSyms SymMergeBook5_37.B = 37 ∧
+    NStates SymMergeBook5_37.B = NStates SymMerge5_37.U ∧ NSyms SymMergeBook5_37.B = NSyms SymMerge5_37.U ∧
+    IsUTMStrict SymMergeBook5_37.B :=
+  ⟨rfl, SymMergeBook5_37.B_book.1, SymMergeBook5_37.B_book.2.1, SymMergeBook5_37.B_book.2.2, SymMergeBook5_37.B_det, SymMergeBook5_37.B_rev,
+    SymMergeBook5_37.B_counts.1, SymMergeBook5_37.B_counts.2, SymMergeBook5_37.B_counts.1.trans SymMerge5_37.U_counts.1.symm,
+    SymMergeBook5_37.B_counts.2.trans SymMerge5_37.U_counts.2.symm, SymMergeBook5_37.isUTMStrict_B⟩
 
 theorem exists_urtm_5_38_book :
     ∃ U : List Quint, Deterministic U ∧ Reversible U ∧ NStates U = 5 ∧ NSyms U = 38 ∧

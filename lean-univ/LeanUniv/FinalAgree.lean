@@ -7,7 +7,7 @@
   |---|---|---|---|
   | 0 | (3,600) | `U3_600.U` | `Final3_600.exists_urtm_3_600` |
   | 1 | (4,41) | `SymMerge4_41.U` | `FinalSymMerge.exists_urtm_4_41` |
-  | 2 | (5,38) | `SymMerge5_38.U` | `FinalSymMerge.exists_urtm_5_38` |
+  | 2 | (5,37) | `SymMerge5_37.U` | `FinalSymMerge.exists_urtm_5_37` |
   | 3 | (6,30) | `SymMerge6_30.U` | `FinalSymMerge.exists_urtm_6_30` |
   | 4 | (7,28) | `SymMerge7_28.U` | `FinalSymMerge.exists_urtm_7_28` |
   | 5 | (8,21) | `SymMerge8_21.U` | `FinalSymMerge.exists_urtm_8_21` |
@@ -45,17 +45,17 @@ namespace URTM.Univ.FinalAgree
 open URTM URTM.Spec URTM.Univ.Agree
 
 -- Unfolding `U := U0.dedup` during the unification after `fin_cases` hits the recursion limit, so keep it folded.
-attribute [local irreducible] SymMerge4_41.U SymMerge5_38.U
+attribute [local irreducible] SymMerge4_41.U SymMerge5_37.U
 
 /-- **The 13 record machines** (the witnesses of the 13 existence theorems), by increasing number of states:
-    (3,600) (4,41) (5,38) (6,30) (7,28) (8,21) (10,8) (13,7) (15,6) (17,5) (24,4) (32,3) (85,2). -/
+    (3,600) (4,41) (5,37) (6,30) (7,28) (8,21) (10,8) (13,7) (15,6) (17,5) (24,4) (32,3) (85,2). -/
 def W : Fin 13 → List Quint :=
-  ![U3_600.U, SymMerge4_41.U, SymMerge5_38.U, SymMerge6_30.U, SymMerge7_28.U, SymMerge8_21.U,
+  ![U3_600.U, SymMerge4_41.U, SymMerge5_37.U, SymMerge6_30.U, SymMerge7_28.U, SymMerge8_21.U,
     U10_8.U, U13_7.U, U15_6.U, U17_5.U, U24_4.U, U32_3.U, U85_2.U]
 
 /-- (number of states, number of symbols) of `W i`. -/
 def dims : Fin 13 → ℕ × ℕ :=
-  ![(3, 600), (4, 41), (5, 38), (6, 30), (7, 28), (8, 21), (10, 8), (13, 7), (15, 6), (17, 5), (24, 4),
+  ![(3, 600), (4, 41), (5, 37), (6, 30), (7, 28), (8, 21), (10, 8), (13, 7), (15, 6), (17, 5), (24, 4),
     (32, 3), (85, 2)]
 
 /-- **The 13 record machines are URTMs**: each `W i` is deterministic and reversible, has `(dims i).1` states
@@ -68,8 +68,8 @@ theorem records_spec : ∀ i : Fin 13,
   · exact ⟨U3_600.U_det, U3_600.U_rev, U3_600.U_counts.1, U3_600.U_counts.2, U3_600.isUTMStrict_U⟩
   · exact ⟨SymMerge4_41.U_det, SymMerge4_41.U_rev, SymMerge4_41.U_counts.1, SymMerge4_41.U_counts.2,
       SymMerge4_41.isUTMStrict_U⟩
-  · exact ⟨SymMerge5_38.U_det, SymMerge5_38.U_rev, SymMerge5_38.U_counts.1, SymMerge5_38.U_counts.2,
-      SymMerge5_38.isUTMStrict_U⟩
+  · exact ⟨SymMerge5_37.U_det, SymMerge5_37.U_rev, SymMerge5_37.U_counts.1, SymMerge5_37.U_counts.2,
+      SymMerge5_37.isUTMStrict_U⟩
   · exact ⟨SymMerge6_30.U_det, SymMerge6_30.U_rev, SymMerge6_30.U_counts.1, SymMerge6_30.U_counts.2,
       SymMerge6_30.isUTMStrict_U⟩
   · exact ⟨SymMerge7_28.U_det, SymMerge7_28.U_rev, SymMerge7_28.U_counts.1, SymMerge7_28.U_counts.2,

@@ -15,7 +15,7 @@ line: in state `p` reading `s`, write `t`, move `d` (`-` left, `+` right), and e
 |---|---|---|---|
 | `urtm3-600.txt` | URTM(3,600) | 1,572 | Section 3.4 |
 | `urtm4-41.txt` | URTM(4,41) | 142 | Section 3.3, Table 4 |
-| `urtm5-38.txt` | URTM(5,38) | 141 | Section 3.3, Table 4 |
+| `urtm5-37.txt` | URTM(5,37) | 145 | Section 3.3, Table 4 |
 | `urtm6-30.txt` | URTM(6,30) | 160 | Section 3.3, Table 4 |
 | `urtm7-28.txt` | URTM(7,28) | 160 | Section 3.3, Table 4 |
 | `urtm8-21.txt` | URTM(8,21) | 149 | Section 3.3, Table 4 |
@@ -33,7 +33,7 @@ symbol per cell, shared and pruned counters, mirrored). The states are `l`, `r0`
 
 ## The five machines obtained by symbol merging
 
-URTM(4,41), URTM(5,38), URTM(6,30), URTM(7,28), and URTM(8,21) are obtained from
+URTM(4,41), URTM(5,37), URTM(6,30), URTM(7,28), and URTM(8,21) are obtained from
 Morita's URTM(13,7) by block decomposition with `(b+,b-)` blocks, merging of roles,
 and symbol merging (Section 3.3 of the paper). They are given without their two
 halting quintuples; the formalization proves universality for this form as well
@@ -48,7 +48,7 @@ halting quintuples; the formalization proves universality for this form as well
 - Initial configuration: that of URTM(13,7), with the symbol `s` under the head
   replaced by the counter `[i,s]` given below and every symbol replaced by the first
   symbol of its class.
-- In the merges of URTM(4,41) and URTM(5,38), three pairs of quintuples become the
+- In the merges of URTM(4,41) and URTM(5,37), three pairs of quintuples become the
   same quintuple; each of them is listed once, as in the formalization.
 
 ### URTM(4,41)
@@ -59,13 +59,13 @@ halting quintuples; the formalization proves universality for this form as well
 - Initial configuration: the head symbol `s` becomes `[10,s]`; initial state 2.
 - The two halting quintuples of URTM(13,7) correspond to: state 2 reading [10,b]; state 3 reading [6,b].
 
-### URTM(5,38)
+### URTM(5,37)
 
-- Blocks `(b+,b-) = (3,2)`; 141 quintuples.
-- Merged classes: b = [6,y1]; y = [6,n1]; n = [3,n1]; y1 = [1,b] = [9,b]; n1 = [3,*]; * = [9,n]; $ = [9,y]; [1,y] = [2,n1]; [2,y1] = [8,b]; [2,*] = [8,n].
-- States and the roles they merge: state 0 = {H+1,G+2}; state 1 = {O+1,O+2,G-1,H-2,G-2}; state 2 = {G+1,H+3,O-1}; state 3 = {H+2,G+3,O-2}; state 4 = {O+3,H-1}.
-- Initial configuration: the head symbol `s` becomes `[9,s]`; initial state 3.
-- The two halting quintuples of URTM(13,7) correspond to: state 3 reading y1; state 4 reading [3,b].
+- Blocks `(b+,b-) = (3,2)`; 145 quintuples.
+- Merged classes: b = [3,n1] = [5,b]; n1 = [9,b]; [2,b] = [8,n1]; [2,y1] = [3,b] = [3,y1]; [3,$] = [5,y]; [4,b] = [7,b]; [4,y] = [9,n1]; [5,n] = [7,n1]; [6,b] = [9,*]; [6,n] = [9,y1].
+- States and the roles they merge: state 0 = {H+1}; state 1 = {O+1,O+3,H-1,G-2}; state 2 = {G+1,G+2,H+3,O-1}; state 3 = {H+2,G+3,O-2}; state 4 = {O+2,G-1,H-2}.
+- Initial configuration: the head symbol `s` becomes `[4,s]`; initial state 0.
+- The two halting quintuples of URTM(13,7) correspond to: state 0 reading [4,b]; state 1 reading n1.
 
 ### URTM(6,30)
 

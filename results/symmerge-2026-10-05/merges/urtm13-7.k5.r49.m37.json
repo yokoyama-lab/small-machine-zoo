@@ -1,0 +1,49 @@
+{
+ "record": "urtm13-7.k5.r49.m37.json",
+ "classes": [
+  [
+   "b",
+   "c3_n1",
+   "c5_b"
+  ],
+  [
+   "n1",
+   "c9_b"
+  ],
+  [
+   "c2_b",
+   "c8_n1"
+  ],
+  [
+   "c2_y1",
+   "c3_b",
+   "c3_y1"
+  ],
+  [
+   "c3_$",
+   "c5_y"
+  ],
+  [
+   "c4_b",
+   "c7_b"
+  ],
+  [
+   "c4_y",
+   "c9_n1"
+  ],
+  [
+   "c5_n",
+   "c7_n1"
+  ],
+  [
+   "c6_b",
+   "c9_*"
+  ],
+  [
+   "c6_n",
+   "c9_y1"
+  ]
+ ],
+ "nsyms": 37,
+ "note": "from results/symmerge-relaxed-fleet-2026-10-30/cand/kbr_urtm13-7.5-49.m37.color.json (CP-SAT coloring that allows merged rules to coincide; branch symmerge-fleet-1030)"
+}

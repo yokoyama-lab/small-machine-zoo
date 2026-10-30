@@ -10,6 +10,7 @@
 import LeanUniv.SymMerge4_41
 import LeanUniv.SymMerge4_42
 import LeanUniv.SymMerge4_43
+import LeanUniv.SymMerge5_37
 import LeanUniv.SymMerge5_38
 import LeanUniv.SymMerge5_39
 import LeanUniv.SymMerge6_30
@@ -38,6 +39,12 @@ theorem exists_urtm_4_43 :
       IsUTMStrict U :=
   ⟨SymMerge4_43.U, SymMerge4_43.U_det, SymMerge4_43.U_rev, SymMerge4_43.U_counts.1,
     SymMerge4_43.U_counts.2, SymMerge4_43.isUTMStrict_U⟩
+
+theorem exists_urtm_5_37 :
+    ∃ U : List Quint, Deterministic U ∧ Reversible U ∧ NStates U = 5 ∧ NSyms U = 37 ∧
+      IsUTMStrict U :=
+  ⟨SymMerge5_37.U, SymMerge5_37.U_det, SymMerge5_37.U_rev, SymMerge5_37.U_counts.1,
+    SymMerge5_37.U_counts.2, SymMerge5_37.isUTMStrict_U⟩
 
 theorem exists_urtm_5_38 :
     ∃ U : List Quint, Deterministic U ∧ Reversible U ∧ NStates U = 5 ∧ NSyms U = 38 ∧

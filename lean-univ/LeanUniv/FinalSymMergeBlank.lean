@@ -16,6 +16,7 @@
 import LeanUniv.SymMergeBook4_41
 import LeanUniv.SymMergeBook4_42
 import LeanUniv.SymMergeBook4_43
+import LeanUniv.SymMergeBook5_37
 import LeanUniv.SymMergeBook5_38
 import LeanUniv.SymMergeBook5_39
 import LeanUniv.SymMergeBook6_30
@@ -95,6 +96,29 @@ theorem blank_desc_4_43 :
     (Spec.symbols SymMerge4_43.U).dedup.length = Spec.NSyms SymMerge4_43.U ∧
     (∀ x ∈ Spec.symbols SymMerge4_43.U, (∃ r ∈ SymMerge4_43.U, r.s = x) ∧ (∃ r ∈ SymMerge4_43.U, r.t = x)) :=
   SymMergeBook4_43.U_blank
+
+theorem blank_book_5_37 :
+    (∃ r ∈ SymMergeBook5_37.B, r.s = 0) ∧
+    (Spec.symbols SymMergeBook5_37.B).dedup.length = Spec.NSyms SymMergeBook5_37.B ∧
+    (∀ x ∈ Spec.symbols SymMergeBook5_37.B, (∃ r ∈ SymMergeBook5_37.B, r.s = x) ∧ (∃ r ∈ SymMergeBook5_37.B, r.t = x)) ∧
+    (Spec.states SymMergeBook5_37.B).dedup.length = Spec.NStates SymMergeBook5_37.B :=
+  SymMergeBook5_37.B_blank
+
+theorem exists_urtm_5_37_blank :
+    ∃ U : List Quint, Spec.Deterministic U ∧ Spec.Reversible U ∧
+    Spec.NStates U = 5 ∧ Spec.NSyms U = 37 ∧ (∃ r ∈ U, r.s = 0) ∧
+    (Spec.symbols U).dedup.length = 37 ∧
+    (∀ x ∈ Spec.symbols U, (∃ r ∈ U, r.s = x) ∧ (∃ r ∈ U, r.t = x)) ∧
+    (Spec.states U).dedup.length = 5 ∧ Spec.IsUTMStrict U :=
+  ⟨SymMergeBook5_37.B, SymMergeBook5_37.B_det, SymMergeBook5_37.B_rev, SymMergeBook5_37.B_counts.1, SymMergeBook5_37.B_counts.2, SymMergeBook5_37.B_blank.1,
+    SymMergeBook5_37.B_blank.2.1.trans SymMergeBook5_37.B_counts.2, SymMergeBook5_37.B_blank.2.2.1,
+    SymMergeBook5_37.B_blank.2.2.2.trans SymMergeBook5_37.B_counts.1, SymMergeBook5_37.isUTMStrict_B⟩
+
+theorem blank_desc_5_37 :
+    (∃ r ∈ SymMerge5_37.U, r.s = 0) ∧
+    (Spec.symbols SymMerge5_37.U).dedup.length = Spec.NSyms SymMerge5_37.U ∧
+    (∀ x ∈ Spec.symbols SymMerge5_37.U, (∃ r ∈ SymMerge5_37.U, r.s = x) ∧ (∃ r ∈ SymMerge5_37.U, r.t = x)) :=
+  SymMergeBook5_37.U_blank
 
 theorem blank_book_5_38 :
     (∃ r ∈ SymMergeBook5_38.B, r.s = 0) ∧

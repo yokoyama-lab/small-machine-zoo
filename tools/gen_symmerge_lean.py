@@ -8,7 +8,9 @@
     1 つにまとめる記号の類。代表は平の記号があればそれ。`derive` が作る）
   * urtm13-7.k4.r50.m41・urtm13-7.k5.r49.m38 の 2 台は results/symmerge-relaxed-2026-10-29 の候補
     （cand/kbr_urtm13-7.{4-50.m41,5-49.m38}.json をそのまま写し、merges は .color.json の彩色の色ごとの類。
-    併合で 2 規則が同じ規則になるのを許した併合なので、下の検算 1・2 の緩和を使う）
+    併合で 2 規則が同じ規則になるのを許した併合なので、下の検算 1・2 の緩和を使う）。
+    urtm13-7.k5.r49.m37 も同じ形で、出どころは branch symmerge-fleet-1030 の
+    results/symmerge-relaxed-fleet-2026-10-30/cand/kbr_urtm13-7.5-49.m37{,.color}.json
 
 出力（1 台ごと。<name> = <k>_<merged>）:
   * lean/URTM/Gen/KB<name>.lean        — tools/gen_blocks_lean.py の出力（gitignore。gen_all_lean.sh も呼ぶ）

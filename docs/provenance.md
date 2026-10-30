@@ -4,11 +4,12 @@ This repository is a fresh source snapshot for the accompanying paper. It does
 not carry the development repository's Git history or private research logs.
 
 - Formalization and generator source revision:
-  `f82eb315c9060980af5b9e99471db85f9792c575`. The earlier snapshots used
+  `e6bc07d0a8768c28ee0868473c11f68df549749b`. The earlier snapshots used
+  `f82eb315c9060980af5b9e99471db85f9792c575` (2026-10-30, first update),
   `f28072d0427b2bf6e0d571a6fc2d1733e0b00d4a` (2026-10-29),
   `64900a1bfb13af4ba1d94cc1db1bb5f98b233cc2` (2026-10-27), and
   `bfff87da70d64f9c8dbedab8663d988f4aae5c8a` (2026-10-10).
-- Manuscript source revision: `1a6e9dd` of the manuscript repository.
+- Manuscript source revision: `001d7b2` of the manuscript repository.
   `paper/note.tex` is `arxiv_v4_en.tex` at that revision with its source
   comments removed (the file was named `arxiv_ai_lean_v4_en.tex` before). It uses
   the preprint style `paper/arxiv.sty` (kourgeorge/arxiv-style, MIT license,
@@ -79,6 +80,29 @@ directory of the development repository that is not part of this package
 (`results/symmerge-relaxed-2026-10-29`). All other retained files are
 unchanged. The plain-text tables of `(4,41)` and `(5,38)` in `tables/`
 replace those of `(4,42)` and `(5,39)`.
+
+The second 2026-10-30 update re-extracted from revision `e6bc07d0` by the
+same rules. It added the root `LeanUniv.Final3_18476` (universality of the
+three-state machine with 18,476 symbols, the intermediate machine of Morita's
+three-state conversion of `(32,3)` with the up and down marks shared and all
+counters kept). Its table is not written out; the new module
+`LeanUniv/NumCount.lean` carries the counts through an injective numbering.
+The new record point `(5,37)` replaces `(5,38)` as a point of the paper and
+among the 13 witnesses of `LeanUniv/FinalAgree.lean`; the four
+`FinalSymMerge*` modules gained it, and the theorems for `(5,38)` remain. Its
+construction record and merge file were added to
+`results/symmerge-2026-10-05/`, and its simulation module
+`URTM/CTSH5_37Main.lean` is new. The new root also brings four modules of
+`lean/` that were already in the previous source revision but outside the
+previous closure (`URTM/CTSH3_18476Main.lean`, `URTM/CTSH3_36654Rev.lean`,
+`URTM/Conv3PSim.lean`, `URTM/ConvRev.lean`), and the existence target now
+also imports the generated module `URTM.Gen.V3_36654`. Between the two
+source revisions, `tools/gen_symmerge_lean.py` changed only in its
+documentation, which names a
+directory and a branch of the development repository that are not part of
+this package; the merge file of `(5,37)` names the same directory. All other
+retained files are unchanged. The plain-text table of `(5,37)` in `tables/`
+replaces that of `(5,38)`.
 
 The extraction preserves the two separate proof environments and their relative
 paths. The verification script checks the copied specification and universality

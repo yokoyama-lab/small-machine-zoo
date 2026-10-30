@@ -17,6 +17,7 @@
 import LeanUniv.SymMergeBook4_41
 import LeanUniv.SymMergeBook4_42
 import LeanUniv.SymMergeBook4_43
+import LeanUniv.SymMergeBook5_37
 import LeanUniv.SymMergeBook5_38
 import LeanUniv.SymMergeBook5_39
 import LeanUniv.SymMergeBook6_30
@@ -72,6 +73,21 @@ theorem exists_urtm_4_43_moritaCount :
 theorem count_desc_4_43 :
     NStatesMorita SymMerge4_43.U = 4 + 2 ∧ NSymsMorita SymMerge4_43.U = 43 :=
   SymMergeBook4_43.U_countDesc
+
+theorem count_book_5_37 :
+    NStatesMorita SymMergeBook5_37.B = 5 ∧ NSymsMorita SymMergeBook5_37.B = 37 ∧ 0 ∈ Spec.symbols SymMergeBook5_37.B :=
+  ⟨SymMergeBook5_37.B_blank.2.2.2.trans SymMergeBook5_37.B_counts.1, SymMergeBook5_37.B_blank.2.1.trans SymMergeBook5_37.B_counts.2,
+    zero_mem_symbols SymMergeBook5_37.B_blank.1⟩
+
+theorem exists_urtm_5_37_moritaCount :
+    ∃ U : List Quint, Spec.Deterministic U ∧ Spec.Reversible U ∧
+    NStatesMorita U = 5 ∧ NSymsMorita U = 37 ∧ 0 ∈ Spec.symbols U ∧ Spec.IsUTMStrict U :=
+  ⟨SymMergeBook5_37.B, SymMergeBook5_37.B_det, SymMergeBook5_37.B_rev, count_book_5_37.1, count_book_5_37.2.1, count_book_5_37.2.2,
+    SymMergeBook5_37.isUTMStrict_B⟩
+
+theorem count_desc_5_37 :
+    NStatesMorita SymMerge5_37.U = 5 + 2 ∧ NSymsMorita SymMerge5_37.U = 37 :=
+  SymMergeBook5_37.U_countDesc
 
 theorem count_book_5_38 :
     NStatesMorita SymMergeBook5_38.B = 5 ∧ NSymsMorita SymMergeBook5_38.B = 38 ∧ 0 ∈ Spec.symbols SymMergeBook5_38.B :=
