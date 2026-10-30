@@ -1,9 +1,4 @@
-% URTM(3,600): a universal reversible Turing machine with 3 states and 600 symbols.
-% Obtained from Morita's URTM(32,3) by the three-state conversion of the paper
-% (one symbol per cell, shared and pruned counters, mirrored).
-% 1572 quintuples [p, s, t, d, q]: in state p reading s, write t, move d, enter q.
-% d is - (left) or + (right). There are no halting quintuples: the machine halts
-% where no quintuple applies. States are l, r0, r1; the initial state is l; the blank is b.
+% URTM(3,600): a universal reversible Turing machine. Described in README.md in this directory.
 initial_state(l).
 final_states([]).
 states([l,r0,r1]).

@@ -1,16 +1,4 @@
-% URTM(8,21): a universal reversible Turing machine with 8 states and 21 symbols
-% (Section 3.3 of the paper). Obtained from Morita's URTM(13,7) by block decomposition with
-% (b+,b-) = (4,4) blocks, merging of roles, and symbol merging; shown without the two
-% halting quintuples.
-% 149 quintuples [p, s, t, d, q]: in state p reading s, write t, move d, enter q.
-% d is - (left) or + (right). The machine halts where no quintuple applies.
-% Symbols: b, y, n, y1, n1, *, $ are the symbols of URTM(13,7) (y1 and n1 are written Y and N in the paper), and [i,s] is the counter
-% symbol with value i on s. Each merged symbol is named by the first symbol of its class.
-% Merged classes: b = [6,n]; y = [2,n1]; n = [6,b]; y1 = [2,b] = [3,y1]; n1 = [1,n] = [2,*]; * = [1,b]; $ = [1,y] = [3,n1]; [2,y] = [5,n1]; [2,n] = [5,b]; [2,y1] = [4,b]; [2,$] = [5,y]; [3,b] = [4,y1]; [3,y] = [5,n]; [3,n] = [5,y1]; [3,*] = [5,*]; [3,$] = [5,$].
-% States and the roles they merge: state 0 = {H+1,G+2,G+4,O-2,O-4}; state 1 = {O+1,O+2,O+3,G-1,H-4}; state 2 = {G+1,H+3}; state 3 = {H+2,G+3,O-1,O-3}; state 4 = {H+4}; state 5 = {O+4,G-2,H-3}; state 6 = {H-1,G-4}; state 7 = {H-2,G-3}.
-% Initial configuration: that of URTM(13,7), with the symbol s under the head replaced by
-% [1,s] and every symbol replaced by the first symbol of its class; initial state 3.
-% The two halting quintuples of URTM(13,7) correspond to: state 3 reading *; state 7 reading y1.
+% URTM(8,21): a universal reversible Turing machine. Described in README.md in this directory.
 initial_state(3).
 final_states([]).
 states([0,1,2,3,4,5,6,7]).
