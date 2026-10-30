@@ -1280,6 +1280,7 @@ For deterministic two-symbol tables, $\mathrm{IsUTMStrict}$ implies this formula
 As a check that the transfer is not vacuous, applying it to the witness for $(85,2)$ shows that at least one machine satisfies the string-ID form.
 
 \paragraph{Proof outline.}
+In every case we show that the head of a halting run stays within a distance of the initial window that is computable from the table and the window; then, since there are only finitely many configurations within that distance, a halting run halts within a computable number of steps and halting is decidable.
 Every table is first reduced to a normal form by renaming states and symbols and by removing the quintuples that enter a state other than $q_0,q_1,q_2$, which changes the halting time by at most one step.
 A normal form is determined by assigning to each of the six entries (three states, two symbols) either no quintuple or one of the six pairs of a written symbol and a target state, together with the direction in which each of the three states is entered; we call this a \emph{key} (by reversibility, the assignments of the entries with quintuples are distinct). There are 359,829 keys: choosing the $k$ entries that have quintuples and assigning them distinct pairs gives $\sum_{k=0}^{6}\binom{6}{k}^2k!=13{,}327$ possibilities, and each of the three states is entered in one of the three directions, so the number is $3^3\cdot 13{,}327=359{,}829$.
 Figure~\ref{fig:key} shows an example of a key. The rows are the states and the columns the read symbols; each entry gives the written symbol and the target state, and -- means that there is no quintuple.
@@ -1293,7 +1294,7 @@ The exceptional keys are handled by general arguments:
 \item if every quintuple entering some state comes from that state itself, then a halting run leaves that state within the width of the window plus one steps and never returns;
 \item if some state is entered by a zero-shift, then that quintuple can be composed with the next one, eliminating the state and again reducing to a two-state machine;
 \end{itemize}
-and the remaining keys by arguments for each type of behavior; the last of them are closed by showing that the head of a halting run stays within a bounded distance of the initial window.
+and the remaining keys by arguments for each type of behavior; the last of them are closed by showing this computable distance directly.
 Counted outside the proof assistant up to renaming of states and left-right reflection, the exceptional keys form 178 classes of 2,280 tables, and the last group consists of 10 classes.
 Figure~\ref{fig:three-flow} shows this flow and the number of classes at each stage.
 \begin{figure}[tb]
@@ -1314,8 +1315,8 @@ $q_2$ & $\sigma,q_2$ & $0,q_0$ & $\rmR$ \\
 \node[flbox,text width=84mm] (N) [below=of S] {Reduce to a normal form by renaming states and symbols and removing quintuples\\ A normal form is determined by its key; there are 359,829 keys};
 \node[fldec,text width=84mm,fill=blue!8] (D) [below=of N] {Test\quad does the decision procedure checked by the kernel produce a certificate?};
 \node[flbox,text width=84mm] (G) [below=8mm of D] {178 classes of exceptional keys; general arguments close 110 of them:\\ a state has no entering quintuple (6 classes)\\ every quintuple entering a state comes from that state (48 classes)\\ a state is entered by a zero-shift (56 classes)};
-\node[flbox,text width=84mm] (R) [below=8mm of G] {Close them by arguments for each type of behavior\\ In the last group of 10 classes, the head of a halting run stays within a bounded distance of the initial window};
-\node[flterm,text width=84mm] (X) [below=of R] {End: halting is decidable, so the table is not universal};
+\node[flbox,text width=84mm] (R) [below=8mm of G] {Close them by arguments for each type of behavior\\ The last group of 10 classes is closed by showing directly that the head of a halting run stays within a computable distance of the initial window};
+\node[flterm,text width=84mm] (X) [below=of R] {End: the head of a halting run stays within a computable distance of the initial window, so halting is decidable and the table is not universal};
 \draw[flarr] (S) -- (N); \draw[flarr] (N) -- (D);
 \draw[flarr] (D) -- node[right] {no} (G);
 \draw[flarr] (G) -- node[right] {remaining 68 classes} (R);
@@ -1352,13 +1353,14 @@ For irreversible UTMs, the smallest known machines have far fewer symbols for th
 
 \section*{Acknowledgments}
 We are grateful to the late Kenichi Morita, who introduced us to this problem.
+We thank Toya Makino for discussions.
+This paper was written in Japanese and translated into English with Claude.
 This work was supported by JST CREST Grant Number JPMJCR24I4, Japan.
 
 \begin{thebibliography}{99}
 \raggedright
 \bibitem{AspertiRicciotti15} A.~Asperti and W.~Ricciotti. A formalization of multi-tape Turing machines. \textit{Theoretical Computer Science}, 603:23--42, 2015. \url{https://doi.org/10.1016/j.tcs.2015.07.013}.
 \bibitem{Bennett73} C.~H. Bennett. Logical reversibility of computation. \textit{IBM Journal of Research and Development}, 17(6):525--532, 1973. \url{https://doi.org/10.1147/rd.176.0525}.
-\bibitem{Carneiro19} M.~Carneiro. Formalizing computability theory via partial recursive functions. In \textit{10th International Conference on Interactive Theorem Proving (ITP 2019)}, LIPIcs 141, pages 12:1--12:17, 2019. \url{https://doi.org/10.4230/LIPIcs.ITP.2019.12}.
 \bibitem{CockeMinsky64} J.~Cocke and M.~Minsky. Universality of tag systems with $P=2$. \textit{Journal of the ACM}, 11(1):15--20, 1964. \url{https://doi.org/10.1145/321203.321206}.
 \bibitem{Dudenhefner22} A.~Dudenhefner. Certified decision procedures for two-counter machines. In \textit{7th International Conference on Formal Structures for Computation and Deduction (FSCD 2022)}, LIPIcs 228, pages 16:1--16:18, 2022. \url{https://doi.org/10.4230/LIPIcs.FSCD.2022.16}.
 \bibitem{ForsterKunzeWuttke20} Y.~Forster, F.~Kunze, and M.~Wuttke. Verified programming of Turing machines in Coq. In \textit{Proc.\ 9th ACM SIGPLAN International Conference on Certified Programs and Proofs (CPP 2020)}, pages 114--128, 2020. \url{https://doi.org/10.1145/3372885.3373816}.
