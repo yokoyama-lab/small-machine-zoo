@@ -84,6 +84,26 @@ recipes needed to rebuild the final witnesses.
 The formal entry points are \texttt{halting\_decidable\_uniform} and
 \texttt{no\_le\_two\_state\_URTM}. This section summarizes the structure
 of the existing proof; the formal statements specify its scope.
+Figure~\ref{fig:halting-steps} shows how the six steps of the proof outline of
+Theorem~\ref{thm:halting} in the main text depend on each other.
+
+\begin{figure}[tb]
+\centering
+\begin{tikzpicture}[x=1mm,y=1mm,font=\footnotesize]
+\node[flbox,text width=72mm,align=center] (S1) at (0,0) {Step 1: the state is the direction of the last move\\ (the only use of reversibility)};
+\node[flbox,text width=54mm] (S2) at (-37,-17) {Step 2: a half-line reports only that the head came back};
+\node[flbox,text width=54mm] (S4) at (37,-17) {Step 4: each cell runs its own clock};
+\node[flbox,text width=54mm] (S3) at (-37,-34) {Step 3: the head cannot go deep into a blank half-line};
+\node[flbox,text width=54mm] (S5) at (37,-34) {Step 5: inside the window the machine is finite-state};
+\node[flbox,text width=72mm,align=center] (S6) at (0,-51) {Step 6: a computable bound on the steps of a halting run};
+\draw[flarr] (S1) -- (S2); \draw[flarr] (S1) -- (S4);
+\draw[flarr] (S2) -- (S3); \draw[flarr] (S2) -- (S5); \draw[flarr] (S4) -- (S5);
+\draw[flarr] (S3) -- (S6); \draw[flarr] (S5) -- (S6);
+\end{tikzpicture}
+\caption{Dependencies between the steps of the proof outline of Theorem~\ref{thm:halting}}
+\label{fig:halting-steps}
+\end{figure}
+
 
 First remove transitions into states with no outgoing transitions by the
 reduction described in the main text. Let $[a,b]$ contain the initial head
