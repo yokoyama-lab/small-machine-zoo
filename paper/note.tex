@@ -41,7 +41,7 @@
 
 \begin{abstract}
 A reversible Turing machine (RTM) is a Turing machine in which every instantaneous description has at most one predecessor.
-Writing URTM$(m,n)$ for a universal RTM with $m$ states and $n$ symbols, we construct URTM$(3,600)$, URTM$(4,41)$, URTM$(5,38)$, URTM$(6,30)$, URTM$(7,28)$, URTM$(8,21)$, and URTM$(85,2)$; each of them has fewer states or fewer symbols than each of the nine URTMs in Morita's book (2017).
+Writing URTM$(m,n)$ for a universal RTM with $m$ states and $n$ symbols, we construct URTM$(3,600)$, URTM$(4,41)$, URTM$(5,37)$, URTM$(6,30)$, URTM$(7,28)$, URTM$(8,21)$, and URTM$(85,2)$; each of them has fewer states or fewer symbols than each of the nine URTMs in Morita's book (2017).
 They come from improved versions of Morita's conversions to three states, to four states, and to two symbols; for example, the improved conversion to three states uses $O(mn^2)$ symbols instead of $O(m^2n^3)$.
 We also show that the halting problem of RTMs with at most two states is decidable for finite instantaneous descriptions, so that there is no URTM with at most two states, which answers a question left open by Morita, and that no three-state, two-symbol RTM is universal.
 \end{abstract}
@@ -64,7 +64,7 @@ In a later survey, after recalling that two-state TMs are universal in the irrev
 \paragraph{Contributions.}
 \begin{itemize}
 \item \emph{New upper bounds} (Section~\ref{sec:constr}).
-We give seven URTMs, $(3,600)$, $(4,41)$, $(5,38)$, $(6,30)$, $(7,28)$, $(8,21)$, and $(85,2)$, none of which is dominated by Morita's nine points; that is, compared with each of the nine points, each of them has fewer states or fewer symbols (Figure~\ref{fig:compare}).
+We give seven URTMs, $(3,600)$, $(4,41)$, $(5,37)$, $(6,30)$, $(7,28)$, $(8,21)$, and $(85,2)$, none of which is dominated by Morita's nine points; that is, compared with each of the nine points, each of them has fewer states or fewer symbols (Figure~\ref{fig:compare}).
 The three-state machine improves the conversion of Morita's Theorem~5.6~\cite{Morita17}, the machines with four to eight states come from a block decomposition of the conversion of Morita's Theorem~5.5 followed by symbol merging, and the two-symbol machine optimizes the conversion of Morita's Theorem~5.4.
 The block decomposition gives a sequence of machines with four to nine states in which more states mean fewer symbols (Table~\ref{tab:blocks}); no conversion in the book yields five to nine states.
 \item \emph{Universality in the sense of Morita's definition} (Section~\ref{sec:univ}).
@@ -97,7 +97,7 @@ The green lines mark our own nonexistence results (Sections~\ref{sec:twostate} a
 \draw[->] (0,0) -- (0,11.3) node[anchor=south,font=\small] {symbols};
 \foreach \x/\l in {0.840/2,1.260/3,1.680/4,2.100/5,2.520/6,2.940/7,3.360/8,3.780/9,4.200/10,5.460/13,6.300/15,7.140/17,10.080/24,13.440/32,14.150/85,15.150/138}
   \draw (\x,0) -- (\x,-0.08) node[below] {\l};
-\foreach \y/\l in {0.640/2,0.960/3,1.280/4,1.600/5,1.920/6,2.240/7,2.560/8,2.880/9,5.200/21,5.900/28,6.350/30,7.100/38,7.550/41,8.550/168,9.450/600,10.350/36654}
+\foreach \y/\l in {0.640/2,0.960/3,1.280/4,1.600/5,1.920/6,2.240/7,2.560/8,2.880/9,5.200/21,5.900/28,6.350/30,7.100/37,7.550/41,8.550/168,9.450/600,10.350/36654}
   \draw (0,\y) -- (-0.08,\y) node[left] {\l};
 \node[wave,rotate=90] at (13.800,0) {$\approx$};
 \node[wave,rotate=90] at (14.650,0) {$\approx$};
@@ -120,7 +120,7 @@ The green lines mark our own nonexistence results (Sections~\ref{sec:twostate} a
 \draw[->,cM,thin] (15.100,1.550) -- (15.150,0.720);
 \node[anchor=west,font=\tiny,text=cU,inner sep=1.5pt] at (1.260,9.450) {$(3,600)\leftarrow(32,3)$};
 \node[anchor=west,font=\tiny,text=cU,inner sep=1.5pt] at (1.680,7.550) {$(4,41)\leftarrow(13,7)$};
-\node[anchor=west,font=\tiny,text=cU,inner sep=1.5pt] at (2.100,7.100) {$(5,38)\leftarrow(13,7)$};
+\node[anchor=west,font=\tiny,text=cU,inner sep=1.5pt] at (2.100,7.100) {$(5,37)\leftarrow(13,7)$};
 \node[anchor=west,font=\tiny,text=cU,inner sep=1.5pt] at (2.520,6.350) {$(6,30)\leftarrow(13,7)$};
 \node[anchor=west,font=\tiny,text=cU,inner sep=1.5pt] at (2.940,5.900) {$(7,28)\leftarrow(13,7)$};
 \node[anchor=west,font=\tiny,text=cU,inner sep=1.5pt] at (3.360,5.200) {$(8,21)\leftarrow(13,7)$};
@@ -772,7 +772,7 @@ We do not claim minimality, either of the coloring or over the choices of blocks
 Point & Original & Blocks $(b_+,b_-)$ & Symbols before merging & Symbols after merging \\
 \midrule
 $(4,41)$ & $(13,7)$ & $(2,2)$ & 50 & 41 \\
-$(5,38)$ & $(13,7)$ & $(3,2)$ & 49 & 38 \\
+$(5,37)$ & $(13,7)$ & $(3,2)$ & 49 & 37 \\
 $(6,30)$ & $(13,7)$ & $(3,3)$ & 54 & 30 \\
 $(7,28)$ & $(13,7)$ & $(4,3)$ & 50 & 28 \\
 $(8,21)$ & $(13,7)$ & $(4,4)$ & 40 & 21 \\
@@ -886,7 +886,7 @@ The count drops from $N(2M-1)$ to $NM$; for $(32,3)$, where $N=298$ and $M=62$, 
 A counter $[k,x]$ is needed only if some state with number at least $k$ can read $x$ or is entered by writing $x$.
 Keeping only these counters gives $N+\sum_x\mathrm{need}(x)$ symbols, where $\mathrm{need}(x)$ is the largest such number.
 The sum depends on the numbering of the states of $\hat T$; states with the same set of relevant symbols can be kept adjacent, and the best order of these groups gives 1,820 symbols for $(32,3)$.
-The machines with 18,476 and 1,820 symbols measure the effect of these two steps. For the one with 18,476 symbols we prove that it simulates every CTSH (but not universality in the sense of Definition~\ref{def:univ}); for the one with 1,820 symbols we only count its symbols and prove neither that it simulates $T$ nor that the kept counters suffice along every run.
+The machines with 18,476 and 1,820 symbols measure the effect of these two steps. For the one with 18,476 symbols we prove universality in the sense of Definition~\ref{def:univ}; for the one with 1,820 symbols we only count its symbols and prove neither that it simulates $T$ nor that the kept counters suffice along every run.
 The machines of the next two steps also share and prune counters, but their universality is proved directly for the concrete tables.
 
 \paragraph{One symbol per cell.}
@@ -1063,7 +1063,7 @@ These five tables are also proved universal in the sense of Definition~\ref{def:
 \label{thm:exists}
 For each of the 13 points
 \begin{multline*}
-(m,n)\in\{(3,600),(4,41),(5,38),(6,30),(7,28),(8,21),(10,8),\\(13,7),(15,6),(17,5),(24,4),(32,3),(85,2)\},
+(m,n)\in\{(3,600),(4,41),(5,37),(6,30),(7,28),(8,21),(10,8),\\(13,7),(15,6),(17,5),(24,4),(32,3),(85,2)\},
 \end{multline*}
 there is a table $U$ that is deterministic and reversible, satisfies $\mathrm{NStates}(U)=m$ and $\mathrm{NSyms}(U)=n$, and satisfies $\mathrm{IsUTMStrict}(U)$.
 \end{theorem}
@@ -1148,8 +1148,8 @@ Table & Quint. & Sources & Target-only & Symbols & Zero-shifts \\
 \midrule
 Morita's 6 points, distributed & 59--84 & $m$ & 2 & $n$ & 2 \\
 same, tables in the book & 57--82 & $m$ & 0 & $n$ & 0 \\
-5 symbol-merging points, distributed & 143--162 & $m$ & 2 & $n$ & 2 \\
-same, without 2 quintuples & 141--160 & $m$ & 0 & $n$ & 0 \\
+5 symbol-merging points, distributed & 144--162 & $m$ & 2 & $n$ & 2 \\
+same, without 2 quintuples & 142--160 & $m$ & 0 & $n$ & 0 \\
 $(85,2)$ & 153 & 85 & 0 & 2 & 0 \\
 $(3,600)$ & 1,572 & 3 & 0 & 600 & 0 \\
 \bottomrule
@@ -1281,7 +1281,7 @@ As a check that the transfer is not vacuous, applying it to the witness for $(85
 
 \paragraph{Proof outline.}
 Every table is first reduced to a normal form by renaming states and symbols and by removing the quintuples that enter a state other than $q_0,q_1,q_2$, which changes the halting time by at most one step.
-A normal form is determined by assigning to each of the six entries (three states, two symbols) either no quintuple or one of the six pairs of a written symbol and a target state, together with the direction in which each of the three states is entered; we call this a \emph{key} (by reversibility, the assignments of the entries with quintuples are distinct). There are 359,829 keys.
+A normal form is determined by assigning to each of the six entries (three states, two symbols) either no quintuple or one of the six pairs of a written symbol and a target state, together with the direction in which each of the three states is entered; we call this a \emph{key} (by reversibility, the assignments of the entries with quintuples are distinct). There are 359,829 keys: choosing the $k$ entries that have quintuples and assigning them distinct pairs gives $\sum_{k=0}^{6}\binom{6}{k}^2k!=13{,}327$ possibilities, and each of the three states is entered in one of the three directions, so the number is $3^3\cdot 13{,}327=359{,}829$.
 Figure~\ref{fig:key} shows an example of a key. The rows are the states and the columns the read symbols; each entry gives the written symbol and the target state, and -- means that there is no quintuple.
 The direction of each quintuple is the direction in which its target state is entered. Hence this key represents the table of the five quintuples $[q_0,0,\sigma,\rmR,q_1]$, $[q_0,\sigma,0,\rmR,q_2]$, $[q_1,0,\sigma,\rmL,q_0]$, $[q_2,0,\sigma,\rmR,q_2]$ and $[q_2,\sigma,0,\rmL,q_0]$.
 For each of them, a decision procedure checked by the kernel either produces a certificate or marks the table as exceptional.
