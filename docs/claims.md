@@ -83,6 +83,24 @@ The original downloaded file is left unchanged; the generator records the
 corrected `(13,7)` count. Finite trace checks supplement the general proofs and
 are not a proof of universality by themselves.
 
+## Results after the paper
+
+The following existence theorems were proved after the paper, in the development
+repository, with the same `IsUTMStrict` and the same proof route (a CTSH
+simulation with primitive recursive encoding and readout). **Their Lean modules
+are not part of this source snapshot**; the tables are in [tables/](../tables/README.md).
+
+| Point | Lean identifier (development repository) | Construction |
+|---|---|---|
+| `(4,38)`, `(5,36)`, `(6,28)`, `(7,26)` | `URTM.Univ.FinalSymMerge.exists_urtm_4_38`, `exists_urtm_5_36`, `exists_urtm_6_28`, `exists_urtm_7_26` | Block decomposition and symbol merging that allows coinciding rules, from `(10,7)` (`(4,38)`, `(5,36)`) and from `(9,8)` (`(6,28)`, `(7,26)`) |
+| `(10,7)` | `URTM.Univ.Final10_7.exists_urtm_10_7` | From `(13,7)` through `(12,7)` and `(11,7)`: each time, a state is merged into another with tags on cells, and then symbols are merged |
+| `(9,8)` | `URTM.Univ.Final9_8.exists_urtm_9_8` | One more such step applied to `(10,7)` |
+
+With these, the non-dominated points are `(3,600)`, `(4,38)`, `(5,36)`,
+`(6,28)`, `(7,26)`, `(8,21)`, `(9,8)`, `(10,7)`, `(15,6)`, `(17,5)`, `(24,4)`,
+`(32,3)`, and `(85,2)`. These are upper bounds by construction, not claims of
+minimality.
+
 ## Statements without a Lean theorem in this repository
 
 - The improved three-state conversion applied to the other five original
