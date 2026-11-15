@@ -27,6 +27,11 @@ theorem count_book_10_8 :
   ⟨blank_book_10_8.2.2.2.trans B10_8_counts.1, blank_book_10_8.2.1.trans B10_8_counts.2,
     zero_mem_symbols blank_book_10_8.1⟩
 
+theorem count_book_9_14 :
+    NStatesMorita B9_14 = 9 ∧ NSymsMorita B9_14 = 14 ∧ 0 ∈ Spec.symbols B9_14 :=
+  ⟨blank_book_9_14.2.2.2.trans B9_14_counts.1, blank_book_9_14.2.1.trans B9_14_counts.2,
+    zero_mem_symbols blank_book_9_14.1⟩
+
 theorem count_book_13_7 :
     NStatesMorita B13_7 = 13 ∧ NSymsMorita B13_7 = 7 ∧ 0 ∈ Spec.symbols B13_7 :=
   ⟨blank_book_13_7.2.2.2.trans B13_7_counts.1, blank_book_13_7.2.1.trans B13_7_counts.2,
@@ -99,6 +104,11 @@ theorem exists_urtm_10_8_moritaCount :
     NStatesMorita U = 10 ∧ NSymsMorita U = 8 ∧ 0 ∈ Spec.symbols U ∧ Spec.IsUTMStrict U :=
   ⟨B10_8, B10_8_det, B10_8_rev, count_book_10_8.1, count_book_10_8.2.1, count_book_10_8.2.2, isUTMStrict_B10_8⟩
 
+theorem exists_urtm_9_14_moritaCount :
+    ∃ U : List Quint, Spec.Deterministic U ∧ Spec.Reversible U ∧
+    NStatesMorita U = 9 ∧ NSymsMorita U = 14 ∧ 0 ∈ Spec.symbols U ∧ Spec.IsUTMStrict U :=
+  ⟨B9_14, B9_14_det, B9_14_rev, count_book_9_14.1, count_book_9_14.2.1, count_book_9_14.2.2, isUTMStrict_B9_14⟩
+
 theorem exists_urtm_13_7_moritaCount :
     ∃ U : List Quint, Spec.Deterministic U ∧ Spec.Reversible U ∧
     NStatesMorita U = 13 ∧ NSymsMorita U = 7 ∧ 0 ∈ Spec.symbols U ∧ Spec.IsUTMStrict U :=
@@ -168,6 +178,10 @@ theorem exists_urtm_3_600_moritaCount :
 
 theorem count_desc_10_8 :
     NStatesMorita U10_8.U = 10 + 2 ∧ NSymsMorita U10_8.U = 8 := by
+  decide +kernel
+
+theorem count_desc_9_14 :
+    NStatesMorita U9_14.U = 9 + 2 ∧ NSymsMorita U9_14.U = 14 := by
   decide +kernel
 
 theorem count_desc_13_7 :

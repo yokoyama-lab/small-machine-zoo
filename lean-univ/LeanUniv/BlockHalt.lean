@@ -16,9 +16,16 @@
   * `isUTMStrictHalt_block`: the strong form from the body `StrictBody` of `strictBody_block`.
   * `isUTMStrictHalt_block10` / `13` / `15` / `17`: the same for the four bases, from the hypotheses
     of `Base10_8.isUTMStrict_block10` (resp. 13, 15, 17) and the determinism of the table.
+  * `isUTMStrictHalt_block11`: the same for the base `T11` (URTM(11,7), `Base11_7`; 2026-11-02), whose
+    numbering, encoder and readout are those of (13,7).
+  * `isUTMStrictHalt_block10_7`: the same for the base `T10` (URTM(10,7), `Base10_7`; 2026-11-04), whose
+    numbering and encoder are those of (13,7) and whose readout is the two-colour `MoritaGen2.readM2`.
 -/
 import LeanUniv.Base10_8
 import LeanUniv.Base13_7
+import LeanUniv.Base11_7
+import LeanUniv.Base10_7
+import LeanUniv.Base9_8
 import LeanUniv.Base15_6
 import LeanUniv.Base17_5
 import LeanUniv.SymMerge
@@ -177,6 +184,129 @@ theorem isUTMStrictHalt_block13 {k : ℕ} (sp : BSpec St k) (T' : Machine (Fin k
     (Base13_7.strictBody_block13 sp T' hsim hU0 hUA hUK)
 
 end B13
+
+section B11
+open URTM.Gen.K13_7 URTM.Univ.MoritaGen
+open URTM.CTSH.U13_7 (nm13)
+open URTM.CTSH.U11_7 (T11 encC11 finCfg11)
+open URTM.Univ.U13_7 (num lo13 hls)
+
+/-- **Block conversions of (11,7)** (the table `T11` of `U11_7`): the strong form, from the hypotheses
+    of `Base11_7.isUTMStrict_block11` and the determinism of the table. The numbering
+    (`Base13_7.numB`), the encoder and the readout are those of (13,7); only the final configurations
+    differ (`finCfg11`). The pseudo-states are `h0 = null`, `h1 = halt`. -/
+theorem isUTMStrictHalt_block11 {k : ℕ} (sp : BSpec St k) (T' : Machine (Fin k) Ps (KSym Sy))
+    (hsim : ∀ C w,
+      (∀ n vf mf, CHaltsIn C n (w, 0) (vf, mf) → ∃ M rm, n ≤ M ∧
+        HaltsIn T' M (benc T11 sp (encC11 C w)) (benc T11 sp (finCfg11 C vf mf rm))) ∧
+      ((∀ n f, ¬ CHaltsIn C n (w, 0) f) →
+        ∀ M c, ¬ HaltsIn T' M (benc T11 sp (encC11 C w)) c))
+    (hdet : Spec.Deterministic (numT (Base13_7.numB k) T'))
+    (hU0 : (rst T11 sp .h St.q0).val ∈ Spec.states (numT (Base13_7.numB k) T'))
+    (hUA : ∀ a ∈ [num.sym Sy.s6, 0, num.sym Sy.s5, 1, 2] ++ [1, 2],
+      a = 0 ∨ a ∈ Spec.symbols (numT (Base13_7.numB k) T'))
+    (hUK : ∀ a ∈ 0 :: [1, 2], 7 * (sp.v St.q0 + 1) + a = 0 ∨
+      7 * (sp.v St.q0 + 1) + a ∈ Spec.symbols (numT (Base13_7.numB k) T')) :
+    SymMerge.IsUTMStrictHalt (numT (Base13_7.numB k) T') (List.range 7) :=
+  isUTMStrictHalt_block num 7 Base13_7.sym_lt [.h0, .h1] (by intro p; cases p <;> decide) T11 sp
+    T' St.q0 encC11 finCfg11 (fun C => (((Sim.RA lo13 .s5 .s0 C 0).length + 2 : ℕ) : ℤ))
+    (encM (num.st (.go St.q0)) (num.sym Sy.s6) (num.sym Sy.s5)) (encM_primrec _ _ _)
+    (fun C w => by rw [Base11_7.henc]; exact encM_eq num lo13 .s5 .s0 (by decide) Base13_7.hlo .q0 .s6 C w)
+    (fun C w => by rw [Base11_7.henc])
+    (fun C w => (hsim C w).1) (fun C w => (hsim C w).2)
+    (fun C vf mf rm hf => by
+      obtain ⟨h, _, _, _, he, _⟩ := BlockGen.readM_fin num lo13 .s5 .s0 .h0 .h1 0 Base13_7.hlo hls
+        (fun h => k + [Ps.h0, Ps.h1].idxOf h)
+        (fun h => absurd (Nat.add_left_cancel h) (by decide)) finCfg11 Base11_7.hnullfin
+        Base11_7.hhaltfin C vf mf rm hf
+      exact ⟨h, by rw [he]⟩)
+    (readM (k + [Ps.h0, Ps.h1].idxOf Ps.h1) (num.sym Sy.s5) 0) (readM_primrec _ _ _) hdet
+    (Base11_7.strictBody_block11 sp T' hsim hU0 hUA hUK)
+
+end B11
+
+section B10_7
+open URTM.Gen.K13_7 URTM.Univ.MoritaGen URTM.Univ.MoritaGen2
+open URTM.CTSH.U13_7 (nm13)
+open URTM.CTSH.U10_7 (T10 encC10 finCfg10)
+open URTM.Univ.U13_7 (num lo13 hls)
+open URTM.Univ.U10_7 (hls3)
+
+/-- **Block conversions of (10,7)** (the table `T10` of `U10_7`): the strong form, from the hypotheses
+    of `Base10_7.isUTMStrict_block10_7` and the determinism of the table. The numbering
+    (`Base13_7.numB`) and the encoder are those of (13,7); the readout is `MoritaGen2.readM2` (the
+    separators ∗ and Y are both counted, one Y too many in `halt`) and the final configurations are
+    `finCfg10`. The pseudo-states are `h0 = null`, `h1 = halt`. -/
+theorem isUTMStrictHalt_block10_7 {k : ℕ} (sp : BSpec St k) (T' : Machine (Fin k) Ps (KSym Sy))
+    (hsim : ∀ C w,
+      (∀ n vf mf, CHaltsIn C n (w, 0) (vf, mf) → ∃ M rm, n ≤ M ∧
+        HaltsIn T' M (benc T10 sp (encC10 C w)) (benc T10 sp (finCfg10 C vf mf rm))) ∧
+      ((∀ n f, ¬ CHaltsIn C n (w, 0) f) →
+        ∀ M c, ¬ HaltsIn T' M (benc T10 sp (encC10 C w)) c))
+    (hdet : Spec.Deterministic (numT (Base13_7.numB k) T'))
+    (hU0 : (rst T10 sp .h St.q0).val ∈ Spec.states (numT (Base13_7.numB k) T'))
+    (hUA : ∀ a ∈ [num.sym Sy.s6, 0, num.sym Sy.s5, 1, 2] ++ [1, 2],
+      a = 0 ∨ a ∈ Spec.symbols (numT (Base13_7.numB k) T'))
+    (hUK : ∀ a ∈ 0 :: [1, 2], 7 * (sp.v St.q0 + 1) + a = 0 ∨
+      7 * (sp.v St.q0 + 1) + a ∈ Spec.symbols (numT (Base13_7.numB k) T')) :
+    SymMerge.IsUTMStrictHalt (numT (Base13_7.numB k) T') (List.range 7) :=
+  isUTMStrictHalt_block num 7 Base13_7.sym_lt [.h0, .h1] (by intro p; cases p <;> decide) T10 sp
+    T' St.q0 encC10 finCfg10 (fun C => (((Sim.RA lo13 .s5 .s0 C 0).length + 2 : ℕ) : ℤ))
+    (encM (num.st (.go St.q0)) (num.sym Sy.s6) (num.sym Sy.s5)) (encM_primrec _ _ _)
+    (fun C w => by rw [Base10_7.henc]; exact encM_eq num lo13 .s5 .s0 (by decide) Base13_7.hlo .q0 .s6 C w)
+    (fun C w => by rw [Base10_7.henc])
+    (fun C w => (hsim C w).1) (fun C w => (hsim C w).2)
+    (fun C vf mf rm hf => by
+      obtain ⟨h, _, _, _, he, _⟩ := Base10_7.readM2_fin num lo13 .s5 .s3 .s0 .h0 .h1 1 Base13_7.hlo
+        hls hls3 (fun h => k + [Ps.h0, Ps.h1].idxOf h)
+        (fun h => absurd (Nat.add_left_cancel h) (by decide)) finCfg10 Base10_7.hnullfin
+        Base10_7.hhaltfin C vf mf rm hf
+      exact ⟨h, by rw [he]⟩)
+    (readM2 (k + [Ps.h0, Ps.h1].idxOf Ps.h1) (num.sym Sy.s5) (num.sym Sy.s3) 1)
+    (readM2_primrec _ _ _ _) hdet (Base10_7.strictBody_block10_7 sp T' hsim hU0 hUA hUK)
+
+end B10_7
+
+section B9_8
+open URTM.Gen.K13_7 URTM.Univ.MoritaGen URTM.Univ.MoritaGen2
+open URTM.CTSH.U9_8 (Sy8 T9 encC9 finCfg9 lo9)
+open URTM.Univ.U9_8 (num hls hls3)
+open URTM.Univ.Base9_8 (hlo)
+
+/-- **Block conversions of (9,8)** (the table `T9` of `U9_8`): the strong form, from the hypotheses
+    of `Base9_8.isUTMStrict_block9_8` and the determinism of the table. The numbering
+    (`Base9_8.numB`) and the encoder are those of (13,7); the readout is `MoritaGen2.readM2` (the
+    separators ∗ and Y are both counted, one Y too many in `halt`) and the final configurations are
+    `finCfg9`. The pseudo-states are `h0 = null`, `h1 = halt`. -/
+theorem isUTMStrictHalt_block9_8 {k : ℕ} (sp : BSpec St k) (T' : Machine (Fin k) Ps (KSym Sy8))
+    (hsim : ∀ C w,
+      (∀ n vf mf, CHaltsIn C n (w, 0) (vf, mf) → ∃ M rm, n ≤ M ∧
+        HaltsIn T' M (benc T9 sp (encC9 C w)) (benc T9 sp (finCfg9 C vf mf rm))) ∧
+      ((∀ n f, ¬ CHaltsIn C n (w, 0) f) →
+        ∀ M c, ¬ HaltsIn T' M (benc T9 sp (encC9 C w)) c))
+    (hdet : Spec.Deterministic (numT (Base9_8.numB k) T'))
+    (hU0 : (rst T9 sp .h St.q0).val ∈ Spec.states (numT (Base9_8.numB k) T'))
+    (hUA : ∀ a ∈ [num.sym Sy8.s6, 0, num.sym Sy8.s5, 1, 2] ++ [1, 2],
+      a = 0 ∨ a ∈ Spec.symbols (numT (Base9_8.numB k) T'))
+    (hUK : ∀ a ∈ 0 :: [1, 2], 8 * (sp.v St.q0 + 1) + a = 0 ∨
+      8 * (sp.v St.q0 + 1) + a ∈ Spec.symbols (numT (Base9_8.numB k) T')) :
+    SymMerge.IsUTMStrictHalt (numT (Base9_8.numB k) T') (List.range 8) :=
+  isUTMStrictHalt_block num 8 Base9_8.sym_lt [.h0, .h1] (by intro p; cases p <;> decide) T9 sp
+    T' St.q0 encC9 finCfg9 (fun C => (((Sim.RA lo9 .s5 .s0 C 0).length + 2 : ℕ) : ℤ))
+    (encM (num.st (.go St.q0)) (num.sym Sy8.s6) (num.sym Sy8.s5)) (encM_primrec _ _ _)
+    (fun C w => by rw [Base9_8.henc]; exact encM_eq num lo9 .s5 .s0 (by decide) hlo .q0 .s6 C w)
+    (fun C w => by rw [Base9_8.henc])
+    (fun C w => (hsim C w).1) (fun C w => (hsim C w).2)
+    (fun C vf mf rm hf => by
+      obtain ⟨h, _, _, _, he, _⟩ := Base10_7.readM2_fin num lo9 .s5 .s3 .s0 .h0 .h1 1 hlo
+        hls hls3 (fun h => k + [Ps.h0, Ps.h1].idxOf h)
+        (fun h => absurd (Nat.add_left_cancel h) (by decide)) finCfg9 Base9_8.hnullfin
+        Base9_8.hhaltfin C vf mf rm hf
+      exact ⟨h, by rw [he]⟩)
+    (readM2 (k + [Ps.h0, Ps.h1].idxOf Ps.h1) (num.sym Sy8.s5) (num.sym Sy8.s3) 1)
+    (readM2_primrec _ _ _ _) hdet (Base9_8.strictBody_block9_8 sp T' hsim hU0 hUA hUK)
+
+end B9_8
 
 section B15
 open URTM.Gen.K15_6 URTM.Univ.MoritaGen

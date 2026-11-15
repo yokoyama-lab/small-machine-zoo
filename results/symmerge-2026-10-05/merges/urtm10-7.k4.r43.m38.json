@@ -1,0 +1,24 @@
+{
+ "record": "urtm10-7.k4.r43.m38.json",
+ "classes": [
+  [
+   "b",
+   "c8_*_t3"
+  ],
+  [
+   "y1",
+   "c8_y"
+  ],
+  [
+   "*_t3",
+   "c8_b",
+   "c9_b"
+  ],
+  [
+   "$",
+   "c9_n"
+  ]
+ ],
+ "nsyms": 38,
+ "note": "from the fleet's b22-s61.best.k4{,.exact}.json (family URTMSA wave 6, T20, 2026-11-03: the (2,2) block conversion of URTM(10,7), 43 symbols, 140 quintuples; CP-SAT colouring that allows merged rules to coincide, OPTIMAL with lower bound 38, one pair of quintuples coincides, 139 after dedup; verify5r 5/5 with two seeds). Classes are the colours with two or more symbols, representative = the plain symbol or the smallest Lean number (tools/gen_symmerge_lean.py derive's convention). T25, 2026-11-04"
+}

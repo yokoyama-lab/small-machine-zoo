@@ -104,6 +104,38 @@ this package; the merge file of `(5,37)` names the same directory. All other
 retained files are unchanged. The plain-text table of `(5,37)` in `tables/`
 replaces that of `(5,38)`.
 
+The 2026-11-16 update re-extracted from revision `5b079267` by the same
+rules. It added the roots `LeanUniv.Final10_7` and `LeanUniv.Final9_8`
+(universality of `(10,7)` and `(9,8)`), and the four `FinalSymMerge*`
+modules gained the symbol-merging points `(4,38)`, `(5,36)`, `(6,28)`, and
+`(7,26)` (and `(4,40)` and `(6,29)`, which they dominate). These are the six
+record points obtained after the paper. The new modules are the simulation
+proofs `URTM/CTSH11_7.lean`, `URTM/CTSH10_7.lean`, and `URTM/CTSH9_8.lean`
+(each table is defined as the image of its parent under a map in the same
+file), their block versions, the `CTSH<k>_<m>Main.lean` modules of the new
+block tables, and in `lean-univ/` the modules `Base*`, `U*`, `SymMerge*`,
+`SymMergeBook*`, `MoritaGen2`, and `Final*` for these machines. The
+existing roots now also import `(9,14)` (`LeanUniv/Final9_14.lean` and its
+dependencies), and `LeanUniv/FinalAgree.lean` has 14 witnesses, the paper's 13
+points and `(9,14)`. The description files of `(11,7)`, `(10,7)`, and `(9,8)`
+are not distributed: `tools/fetch_data.sh` (adapted) rebuilds them from
+Morita's `(13,7)` and the maps in the Lean modules with the new
+`tools/gen_child_desc.py`, and stops if their MD5 differs from the recorded
+one. The construction records and merge files of the six symbol-merging
+tables were added to `results/symmerge-2026-10-05/`, and the three
+description specifications to `results/chain-2026-11-01/`,
+`results/joint-2026-11-02/`, and `results/joint-2026-11-04/`. Between the two
+source revisions, the generators `tools/gen_blocks_lean.py` and
+`tools/gen_symmerge_lean.py` gained these bases (with the new helper
+`tools/gen_tagchain_lean.py`), `tools/fewsym.py` and `tools/simulate.py`
+changed, `LeanUniv/BlockHalt.lean` and `LeanUniv/SymMergeBook.lean` gained the
+block lemmas for the bases `(11,7)`, `(10,7)`, and `(9,8)`,
+`LeanUniv/Book.lean`, `LeanUniv/FinalBook.lean`, `LeanUniv/FinalBlank.lean`,
+and `LeanUniv/FinalMoritaCount.lean` gained `(9,14)`, and the generated modules that were already present were
+unchanged. Some comments of the new and changed files are in Japanese or name
+directories and tools of the development repository that are not part of this
+package. All other retained files are unchanged.
+
 The extraction preserves the two separate proof environments and their relative
 paths. The verification script checks the copied specification and universality
 definitions for agreement, builds the selected proof roots, and audits their

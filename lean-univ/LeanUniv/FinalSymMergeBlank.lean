@@ -13,13 +13,19 @@
   * `exists_urtm_<k>_<m>_blank`: these facts added to `exists_urtm_<k>_<m>_book`.
   * `blank_desc_<k>_<m>`: the first three for `U` (its two pseudo-states occur only as targets).
 -/
+import LeanUniv.SymMergeBook4_38
+import LeanUniv.SymMergeBook4_40
 import LeanUniv.SymMergeBook4_41
 import LeanUniv.SymMergeBook4_42
 import LeanUniv.SymMergeBook4_43
+import LeanUniv.SymMergeBook5_36
 import LeanUniv.SymMergeBook5_37
 import LeanUniv.SymMergeBook5_38
 import LeanUniv.SymMergeBook5_39
+import LeanUniv.SymMergeBook6_28
+import LeanUniv.SymMergeBook6_29
 import LeanUniv.SymMergeBook6_30
+import LeanUniv.SymMergeBook7_26
 import LeanUniv.SymMergeBook7_28
 import LeanUniv.SymMergeBook8_21
 import LeanUniv.SymMergeBook8_22
@@ -27,6 +33,52 @@ import LeanUniv.SymMergeBook9_21
 
 namespace URTM.Univ.FinalSymMergeBlank
 open URTM
+
+theorem blank_book_4_38 :
+    (∃ r ∈ SymMergeBook4_38.B, r.s = 0) ∧
+    (Spec.symbols SymMergeBook4_38.B).dedup.length = Spec.NSyms SymMergeBook4_38.B ∧
+    (∀ x ∈ Spec.symbols SymMergeBook4_38.B, (∃ r ∈ SymMergeBook4_38.B, r.s = x) ∧ (∃ r ∈ SymMergeBook4_38.B, r.t = x)) ∧
+    (Spec.states SymMergeBook4_38.B).dedup.length = Spec.NStates SymMergeBook4_38.B :=
+  SymMergeBook4_38.B_blank
+
+theorem exists_urtm_4_38_blank :
+    ∃ U : List Quint, Spec.Deterministic U ∧ Spec.Reversible U ∧
+    Spec.NStates U = 4 ∧ Spec.NSyms U = 38 ∧ (∃ r ∈ U, r.s = 0) ∧
+    (Spec.symbols U).dedup.length = 38 ∧
+    (∀ x ∈ Spec.symbols U, (∃ r ∈ U, r.s = x) ∧ (∃ r ∈ U, r.t = x)) ∧
+    (Spec.states U).dedup.length = 4 ∧ Spec.IsUTMStrict U :=
+  ⟨SymMergeBook4_38.B, SymMergeBook4_38.B_det, SymMergeBook4_38.B_rev, SymMergeBook4_38.B_counts.1, SymMergeBook4_38.B_counts.2, SymMergeBook4_38.B_blank.1,
+    SymMergeBook4_38.B_blank.2.1.trans SymMergeBook4_38.B_counts.2, SymMergeBook4_38.B_blank.2.2.1,
+    SymMergeBook4_38.B_blank.2.2.2.trans SymMergeBook4_38.B_counts.1, SymMergeBook4_38.isUTMStrict_B⟩
+
+theorem blank_desc_4_38 :
+    (∃ r ∈ SymMerge4_38.U, r.s = 0) ∧
+    (Spec.symbols SymMerge4_38.U).dedup.length = Spec.NSyms SymMerge4_38.U ∧
+    (∀ x ∈ Spec.symbols SymMerge4_38.U, (∃ r ∈ SymMerge4_38.U, r.s = x) ∧ (∃ r ∈ SymMerge4_38.U, r.t = x)) :=
+  SymMergeBook4_38.U_blank
+
+theorem blank_book_4_40 :
+    (∃ r ∈ SymMergeBook4_40.B, r.s = 0) ∧
+    (Spec.symbols SymMergeBook4_40.B).dedup.length = Spec.NSyms SymMergeBook4_40.B ∧
+    (∀ x ∈ Spec.symbols SymMergeBook4_40.B, (∃ r ∈ SymMergeBook4_40.B, r.s = x) ∧ (∃ r ∈ SymMergeBook4_40.B, r.t = x)) ∧
+    (Spec.states SymMergeBook4_40.B).dedup.length = Spec.NStates SymMergeBook4_40.B :=
+  SymMergeBook4_40.B_blank
+
+theorem exists_urtm_4_40_blank :
+    ∃ U : List Quint, Spec.Deterministic U ∧ Spec.Reversible U ∧
+    Spec.NStates U = 4 ∧ Spec.NSyms U = 40 ∧ (∃ r ∈ U, r.s = 0) ∧
+    (Spec.symbols U).dedup.length = 40 ∧
+    (∀ x ∈ Spec.symbols U, (∃ r ∈ U, r.s = x) ∧ (∃ r ∈ U, r.t = x)) ∧
+    (Spec.states U).dedup.length = 4 ∧ Spec.IsUTMStrict U :=
+  ⟨SymMergeBook4_40.B, SymMergeBook4_40.B_det, SymMergeBook4_40.B_rev, SymMergeBook4_40.B_counts.1, SymMergeBook4_40.B_counts.2, SymMergeBook4_40.B_blank.1,
+    SymMergeBook4_40.B_blank.2.1.trans SymMergeBook4_40.B_counts.2, SymMergeBook4_40.B_blank.2.2.1,
+    SymMergeBook4_40.B_blank.2.2.2.trans SymMergeBook4_40.B_counts.1, SymMergeBook4_40.isUTMStrict_B⟩
+
+theorem blank_desc_4_40 :
+    (∃ r ∈ SymMerge4_40.U, r.s = 0) ∧
+    (Spec.symbols SymMerge4_40.U).dedup.length = Spec.NSyms SymMerge4_40.U ∧
+    (∀ x ∈ Spec.symbols SymMerge4_40.U, (∃ r ∈ SymMerge4_40.U, r.s = x) ∧ (∃ r ∈ SymMerge4_40.U, r.t = x)) :=
+  SymMergeBook4_40.U_blank
 
 theorem blank_book_4_41 :
     (∃ r ∈ SymMergeBook4_41.B, r.s = 0) ∧
@@ -97,6 +149,29 @@ theorem blank_desc_4_43 :
     (∀ x ∈ Spec.symbols SymMerge4_43.U, (∃ r ∈ SymMerge4_43.U, r.s = x) ∧ (∃ r ∈ SymMerge4_43.U, r.t = x)) :=
   SymMergeBook4_43.U_blank
 
+theorem blank_book_5_36 :
+    (∃ r ∈ SymMergeBook5_36.B, r.s = 0) ∧
+    (Spec.symbols SymMergeBook5_36.B).dedup.length = Spec.NSyms SymMergeBook5_36.B ∧
+    (∀ x ∈ Spec.symbols SymMergeBook5_36.B, (∃ r ∈ SymMergeBook5_36.B, r.s = x) ∧ (∃ r ∈ SymMergeBook5_36.B, r.t = x)) ∧
+    (Spec.states SymMergeBook5_36.B).dedup.length = Spec.NStates SymMergeBook5_36.B :=
+  SymMergeBook5_36.B_blank
+
+theorem exists_urtm_5_36_blank :
+    ∃ U : List Quint, Spec.Deterministic U ∧ Spec.Reversible U ∧
+    Spec.NStates U = 5 ∧ Spec.NSyms U = 36 ∧ (∃ r ∈ U, r.s = 0) ∧
+    (Spec.symbols U).dedup.length = 36 ∧
+    (∀ x ∈ Spec.symbols U, (∃ r ∈ U, r.s = x) ∧ (∃ r ∈ U, r.t = x)) ∧
+    (Spec.states U).dedup.length = 5 ∧ Spec.IsUTMStrict U :=
+  ⟨SymMergeBook5_36.B, SymMergeBook5_36.B_det, SymMergeBook5_36.B_rev, SymMergeBook5_36.B_counts.1, SymMergeBook5_36.B_counts.2, SymMergeBook5_36.B_blank.1,
+    SymMergeBook5_36.B_blank.2.1.trans SymMergeBook5_36.B_counts.2, SymMergeBook5_36.B_blank.2.2.1,
+    SymMergeBook5_36.B_blank.2.2.2.trans SymMergeBook5_36.B_counts.1, SymMergeBook5_36.isUTMStrict_B⟩
+
+theorem blank_desc_5_36 :
+    (∃ r ∈ SymMerge5_36.U, r.s = 0) ∧
+    (Spec.symbols SymMerge5_36.U).dedup.length = Spec.NSyms SymMerge5_36.U ∧
+    (∀ x ∈ Spec.symbols SymMerge5_36.U, (∃ r ∈ SymMerge5_36.U, r.s = x) ∧ (∃ r ∈ SymMerge5_36.U, r.t = x)) :=
+  SymMergeBook5_36.U_blank
+
 theorem blank_book_5_37 :
     (∃ r ∈ SymMergeBook5_37.B, r.s = 0) ∧
     (Spec.symbols SymMergeBook5_37.B).dedup.length = Spec.NSyms SymMergeBook5_37.B ∧
@@ -166,6 +241,52 @@ theorem blank_desc_5_39 :
     (∀ x ∈ Spec.symbols SymMerge5_39.U, (∃ r ∈ SymMerge5_39.U, r.s = x) ∧ (∃ r ∈ SymMerge5_39.U, r.t = x)) :=
   SymMergeBook5_39.U_blank
 
+theorem blank_book_6_28 :
+    (∃ r ∈ SymMergeBook6_28.B, r.s = 0) ∧
+    (Spec.symbols SymMergeBook6_28.B).dedup.length = Spec.NSyms SymMergeBook6_28.B ∧
+    (∀ x ∈ Spec.symbols SymMergeBook6_28.B, (∃ r ∈ SymMergeBook6_28.B, r.s = x) ∧ (∃ r ∈ SymMergeBook6_28.B, r.t = x)) ∧
+    (Spec.states SymMergeBook6_28.B).dedup.length = Spec.NStates SymMergeBook6_28.B :=
+  SymMergeBook6_28.B_blank
+
+theorem exists_urtm_6_28_blank :
+    ∃ U : List Quint, Spec.Deterministic U ∧ Spec.Reversible U ∧
+    Spec.NStates U = 6 ∧ Spec.NSyms U = 28 ∧ (∃ r ∈ U, r.s = 0) ∧
+    (Spec.symbols U).dedup.length = 28 ∧
+    (∀ x ∈ Spec.symbols U, (∃ r ∈ U, r.s = x) ∧ (∃ r ∈ U, r.t = x)) ∧
+    (Spec.states U).dedup.length = 6 ∧ Spec.IsUTMStrict U :=
+  ⟨SymMergeBook6_28.B, SymMergeBook6_28.B_det, SymMergeBook6_28.B_rev, SymMergeBook6_28.B_counts.1, SymMergeBook6_28.B_counts.2, SymMergeBook6_28.B_blank.1,
+    SymMergeBook6_28.B_blank.2.1.trans SymMergeBook6_28.B_counts.2, SymMergeBook6_28.B_blank.2.2.1,
+    SymMergeBook6_28.B_blank.2.2.2.trans SymMergeBook6_28.B_counts.1, SymMergeBook6_28.isUTMStrict_B⟩
+
+theorem blank_desc_6_28 :
+    (∃ r ∈ SymMerge6_28.U, r.s = 0) ∧
+    (Spec.symbols SymMerge6_28.U).dedup.length = Spec.NSyms SymMerge6_28.U ∧
+    (∀ x ∈ Spec.symbols SymMerge6_28.U, (∃ r ∈ SymMerge6_28.U, r.s = x) ∧ (∃ r ∈ SymMerge6_28.U, r.t = x)) :=
+  SymMergeBook6_28.U_blank
+
+theorem blank_book_6_29 :
+    (∃ r ∈ SymMergeBook6_29.B, r.s = 0) ∧
+    (Spec.symbols SymMergeBook6_29.B).dedup.length = Spec.NSyms SymMergeBook6_29.B ∧
+    (∀ x ∈ Spec.symbols SymMergeBook6_29.B, (∃ r ∈ SymMergeBook6_29.B, r.s = x) ∧ (∃ r ∈ SymMergeBook6_29.B, r.t = x)) ∧
+    (Spec.states SymMergeBook6_29.B).dedup.length = Spec.NStates SymMergeBook6_29.B :=
+  SymMergeBook6_29.B_blank
+
+theorem exists_urtm_6_29_blank :
+    ∃ U : List Quint, Spec.Deterministic U ∧ Spec.Reversible U ∧
+    Spec.NStates U = 6 ∧ Spec.NSyms U = 29 ∧ (∃ r ∈ U, r.s = 0) ∧
+    (Spec.symbols U).dedup.length = 29 ∧
+    (∀ x ∈ Spec.symbols U, (∃ r ∈ U, r.s = x) ∧ (∃ r ∈ U, r.t = x)) ∧
+    (Spec.states U).dedup.length = 6 ∧ Spec.IsUTMStrict U :=
+  ⟨SymMergeBook6_29.B, SymMergeBook6_29.B_det, SymMergeBook6_29.B_rev, SymMergeBook6_29.B_counts.1, SymMergeBook6_29.B_counts.2, SymMergeBook6_29.B_blank.1,
+    SymMergeBook6_29.B_blank.2.1.trans SymMergeBook6_29.B_counts.2, SymMergeBook6_29.B_blank.2.2.1,
+    SymMergeBook6_29.B_blank.2.2.2.trans SymMergeBook6_29.B_counts.1, SymMergeBook6_29.isUTMStrict_B⟩
+
+theorem blank_desc_6_29 :
+    (∃ r ∈ SymMerge6_29.U, r.s = 0) ∧
+    (Spec.symbols SymMerge6_29.U).dedup.length = Spec.NSyms SymMerge6_29.U ∧
+    (∀ x ∈ Spec.symbols SymMerge6_29.U, (∃ r ∈ SymMerge6_29.U, r.s = x) ∧ (∃ r ∈ SymMerge6_29.U, r.t = x)) :=
+  SymMergeBook6_29.U_blank
+
 theorem blank_book_6_30 :
     (∃ r ∈ SymMergeBook6_30.B, r.s = 0) ∧
     (Spec.symbols SymMergeBook6_30.B).dedup.length = Spec.NSyms SymMergeBook6_30.B ∧
@@ -188,6 +309,29 @@ theorem blank_desc_6_30 :
     (Spec.symbols SymMerge6_30.U).dedup.length = Spec.NSyms SymMerge6_30.U ∧
     (∀ x ∈ Spec.symbols SymMerge6_30.U, (∃ r ∈ SymMerge6_30.U, r.s = x) ∧ (∃ r ∈ SymMerge6_30.U, r.t = x)) :=
   SymMergeBook6_30.U_blank
+
+theorem blank_book_7_26 :
+    (∃ r ∈ SymMergeBook7_26.B, r.s = 0) ∧
+    (Spec.symbols SymMergeBook7_26.B).dedup.length = Spec.NSyms SymMergeBook7_26.B ∧
+    (∀ x ∈ Spec.symbols SymMergeBook7_26.B, (∃ r ∈ SymMergeBook7_26.B, r.s = x) ∧ (∃ r ∈ SymMergeBook7_26.B, r.t = x)) ∧
+    (Spec.states SymMergeBook7_26.B).dedup.length = Spec.NStates SymMergeBook7_26.B :=
+  SymMergeBook7_26.B_blank
+
+theorem exists_urtm_7_26_blank :
+    ∃ U : List Quint, Spec.Deterministic U ∧ Spec.Reversible U ∧
+    Spec.NStates U = 7 ∧ Spec.NSyms U = 26 ∧ (∃ r ∈ U, r.s = 0) ∧
+    (Spec.symbols U).dedup.length = 26 ∧
+    (∀ x ∈ Spec.symbols U, (∃ r ∈ U, r.s = x) ∧ (∃ r ∈ U, r.t = x)) ∧
+    (Spec.states U).dedup.length = 7 ∧ Spec.IsUTMStrict U :=
+  ⟨SymMergeBook7_26.B, SymMergeBook7_26.B_det, SymMergeBook7_26.B_rev, SymMergeBook7_26.B_counts.1, SymMergeBook7_26.B_counts.2, SymMergeBook7_26.B_blank.1,
+    SymMergeBook7_26.B_blank.2.1.trans SymMergeBook7_26.B_counts.2, SymMergeBook7_26.B_blank.2.2.1,
+    SymMergeBook7_26.B_blank.2.2.2.trans SymMergeBook7_26.B_counts.1, SymMergeBook7_26.isUTMStrict_B⟩
+
+theorem blank_desc_7_26 :
+    (∃ r ∈ SymMerge7_26.U, r.s = 0) ∧
+    (Spec.symbols SymMerge7_26.U).dedup.length = Spec.NSyms SymMerge7_26.U ∧
+    (∀ x ∈ Spec.symbols SymMerge7_26.U, (∃ r ∈ SymMerge7_26.U, r.s = x) ∧ (∃ r ∈ SymMerge7_26.U, r.t = x)) :=
+  SymMergeBook7_26.U_blank
 
 theorem blank_book_7_28 :
     (∃ r ∈ SymMergeBook7_28.B, r.s = 0) ∧

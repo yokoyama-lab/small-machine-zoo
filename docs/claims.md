@@ -87,10 +87,14 @@ are not a proof of universality by themselves.
 
 The following existence theorems were proved after the paper, in the development
 repository, with the same `IsUTMStrict` and the same proof route (a CTSH
-simulation with primitive recursive encoding and readout). **Their Lean modules
-are not part of this source snapshot**; the tables are in [tables/](../tables/README.md).
+simulation with primitive recursive encoding and readout). Since the update of
+2026-11-16, their Lean modules are part of this source snapshot: the roots
+`LeanUniv.Final10_7` and `LeanUniv.Final9_8`, and `LeanUniv.FinalSymMerge`
+(imported through the existing roots) for the four symbol-merging points. Each
+point also has the variants `_book` (without the two halting quintuples),
+`_blank`, and `_moritaCount`. The tables are in [tables/](../tables/README.md).
 
-| Point | Lean identifier (development repository) | Construction |
+| Point | Lean identifier | Construction |
 |---|---|---|
 | `(4,38)`, `(5,36)`, `(6,28)`, `(7,26)` | `URTM.Univ.FinalSymMerge.exists_urtm_4_38`, `exists_urtm_5_36`, `exists_urtm_6_28`, `exists_urtm_7_26` | Block decomposition and symbol merging that allows coinciding rules, from `(10,7)` (`(4,38)`, `(5,36)`) and from `(9,8)` (`(6,28)`, `(7,26)`) |
 | `(10,7)` | `URTM.Univ.Final10_7.exists_urtm_10_7` | From `(13,7)` through `(12,7)` and `(11,7)`: each time, a state is merged into another with tags on cells, and then symbols are merged |

@@ -7,13 +7,19 @@
   Each witness is `SymMerge<k>_<m>.U`; universality goes through the general theorem
   `SymMerge.isUTMStrict_mapQ`. No hypotheses. Minimality is not claimed.
 -/
+import LeanUniv.SymMerge4_38
+import LeanUniv.SymMerge4_40
 import LeanUniv.SymMerge4_41
 import LeanUniv.SymMerge4_42
 import LeanUniv.SymMerge4_43
+import LeanUniv.SymMerge5_36
 import LeanUniv.SymMerge5_37
 import LeanUniv.SymMerge5_38
 import LeanUniv.SymMerge5_39
+import LeanUniv.SymMerge6_28
+import LeanUniv.SymMerge6_29
 import LeanUniv.SymMerge6_30
+import LeanUniv.SymMerge7_26
 import LeanUniv.SymMerge7_28
 import LeanUniv.SymMerge8_21
 import LeanUniv.SymMerge8_22
@@ -21,6 +27,18 @@ import LeanUniv.SymMerge9_21
 
 namespace URTM.Univ.FinalSymMerge
 open URTM URTM.Spec
+
+theorem exists_urtm_4_38 :
+    ∃ U : List Quint, Deterministic U ∧ Reversible U ∧ NStates U = 4 ∧ NSyms U = 38 ∧
+      IsUTMStrict U :=
+  ⟨SymMerge4_38.U, SymMerge4_38.U_det, SymMerge4_38.U_rev, SymMerge4_38.U_counts.1,
+    SymMerge4_38.U_counts.2, SymMerge4_38.isUTMStrict_U⟩
+
+theorem exists_urtm_4_40 :
+    ∃ U : List Quint, Deterministic U ∧ Reversible U ∧ NStates U = 4 ∧ NSyms U = 40 ∧
+      IsUTMStrict U :=
+  ⟨SymMerge4_40.U, SymMerge4_40.U_det, SymMerge4_40.U_rev, SymMerge4_40.U_counts.1,
+    SymMerge4_40.U_counts.2, SymMerge4_40.isUTMStrict_U⟩
 
 theorem exists_urtm_4_41 :
     ∃ U : List Quint, Deterministic U ∧ Reversible U ∧ NStates U = 4 ∧ NSyms U = 41 ∧
@@ -40,6 +58,12 @@ theorem exists_urtm_4_43 :
   ⟨SymMerge4_43.U, SymMerge4_43.U_det, SymMerge4_43.U_rev, SymMerge4_43.U_counts.1,
     SymMerge4_43.U_counts.2, SymMerge4_43.isUTMStrict_U⟩
 
+theorem exists_urtm_5_36 :
+    ∃ U : List Quint, Deterministic U ∧ Reversible U ∧ NStates U = 5 ∧ NSyms U = 36 ∧
+      IsUTMStrict U :=
+  ⟨SymMerge5_36.U, SymMerge5_36.U_det, SymMerge5_36.U_rev, SymMerge5_36.U_counts.1,
+    SymMerge5_36.U_counts.2, SymMerge5_36.isUTMStrict_U⟩
+
 theorem exists_urtm_5_37 :
     ∃ U : List Quint, Deterministic U ∧ Reversible U ∧ NStates U = 5 ∧ NSyms U = 37 ∧
       IsUTMStrict U :=
@@ -58,11 +82,29 @@ theorem exists_urtm_5_39 :
   ⟨SymMerge5_39.U, SymMerge5_39.U_det, SymMerge5_39.U_rev, SymMerge5_39.U_counts.1,
     SymMerge5_39.U_counts.2, SymMerge5_39.isUTMStrict_U⟩
 
+theorem exists_urtm_6_28 :
+    ∃ U : List Quint, Deterministic U ∧ Reversible U ∧ NStates U = 6 ∧ NSyms U = 28 ∧
+      IsUTMStrict U :=
+  ⟨SymMerge6_28.U, SymMerge6_28.U_det, SymMerge6_28.U_rev, SymMerge6_28.U_counts.1,
+    SymMerge6_28.U_counts.2, SymMerge6_28.isUTMStrict_U⟩
+
+theorem exists_urtm_6_29 :
+    ∃ U : List Quint, Deterministic U ∧ Reversible U ∧ NStates U = 6 ∧ NSyms U = 29 ∧
+      IsUTMStrict U :=
+  ⟨SymMerge6_29.U, SymMerge6_29.U_det, SymMerge6_29.U_rev, SymMerge6_29.U_counts.1,
+    SymMerge6_29.U_counts.2, SymMerge6_29.isUTMStrict_U⟩
+
 theorem exists_urtm_6_30 :
     ∃ U : List Quint, Deterministic U ∧ Reversible U ∧ NStates U = 6 ∧ NSyms U = 30 ∧
       IsUTMStrict U :=
   ⟨SymMerge6_30.U, SymMerge6_30.U_det, SymMerge6_30.U_rev, SymMerge6_30.U_counts.1,
     SymMerge6_30.U_counts.2, SymMerge6_30.isUTMStrict_U⟩
+
+theorem exists_urtm_7_26 :
+    ∃ U : List Quint, Deterministic U ∧ Reversible U ∧ NStates U = 7 ∧ NSyms U = 26 ∧
+      IsUTMStrict U :=
+  ⟨SymMerge7_26.U, SymMerge7_26.U_det, SymMerge7_26.U_rev, SymMerge7_26.U_counts.1,
+    SymMerge7_26.U_counts.2, SymMerge7_26.isUTMStrict_U⟩
 
 theorem exists_urtm_7_28 :
     ∃ U : List Quint, Deterministic U ∧ Reversible U ∧ NStates U = 7 ∧ NSyms U = 28 ∧

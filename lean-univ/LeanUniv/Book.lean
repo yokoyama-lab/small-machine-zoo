@@ -23,6 +23,7 @@
 import LeanUniv.FinalMorita
 import LeanUniv.FinalBlocks
 import LeanUniv.Final10_8
+import LeanUniv.U9_14
 import LeanUniv.DropGen
 
 namespace URTM.Univ.Book
@@ -129,6 +130,24 @@ theorem isUTMStrict_B10_8 : IsUTMStrict B10_8 :=
   isUTMStrict_drop ComputableEnc.c10_8_computable ComputableDec.d10_8_computable U10_8.U_det
     (by decide +kernel) (fun _ _ _ => by show (0 : ℕ) ∈ _; decide +kernel) (by decide +kernel)
     Chain10_8.strictBody_U10_8
+
+/-! ### (9,14) -/
+
+/-- The two halting quintuples of URTM(9,14) (into `null` and `halt`; both write the tagged blank `8`). -/
+def H9_14 : List Quint := [⟨0, 0, 8, .Z, 10⟩, ⟨1, 0, 8, .Z, 11⟩]
+/-- **URTM(9,14) without its halting quintuples** (61 quintuples), as Morita's book prints tables. -/
+def B9_14 : List Quint := dropT U9_14.U H9_14
+
+theorem B9_14_book :
+    H9_14 = U9_14.U.filter (fun r => decide (r.q ∉ U9_14.U.map Quint.p)) ∧
+    B9_14.length = 61 ∧ ∀ r ∈ B9_14, r.q ∈ B9_14.map Quint.p := by decide +kernel
+theorem B9_14_counts : NStates B9_14 = 9 ∧ NSyms B9_14 = 14 := by decide +kernel
+theorem B9_14_det : Deterministic B9_14 := deterministic_dropT _ U9_14.U_det
+theorem B9_14_rev : Reversible B9_14 := reversible_dropT _ U9_14.U_rev
+theorem isUTMStrict_B9_14 : IsUTMStrict B9_14 :=
+  isUTMStrict_drop ComputableEnc.c10_8_computable U9_14.d9_14_computable U9_14.U_det
+    (by decide +kernel) (fun _ _ _ => by show (0 : ℕ) ∈ _; decide +kernel) (by decide +kernel)
+    U9_14.strictBody_U9_14
 
 /-! ### The six block conversions -/
 

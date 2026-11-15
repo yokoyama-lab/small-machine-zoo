@@ -16,3 +16,5 @@ import LeanUniv.Final4_48
 import LeanUniv.Final4_88
 import LeanUniv.Final3_659
 import LeanUniv.Final3_18476
+import LeanUniv.Final10_7
+import LeanUniv.Final9_8

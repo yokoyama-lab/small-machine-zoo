@@ -105,6 +105,20 @@ theorem book_urtm_10_8 :
   ⟨rfl, B10_8_book.1, by decide +kernel, B10_8_book.2.2, B10_8_det, B10_8_rev, B10_8_counts.1,
     B10_8_counts.2, isUTMStrict_B10_8⟩
 
+theorem exists_urtm_9_14_book :
+    ∃ U : List Quint, Deterministic U ∧ Reversible U ∧ NStates U = 9 ∧ NSyms U = 14 ∧
+      IsUTMStrict U :=
+  ⟨B9_14, B9_14_det, B9_14_rev, B9_14_counts.1, B9_14_counts.2, isUTMStrict_B9_14⟩
+
+theorem book_urtm_9_14 :
+    B9_14 = dropT U9_14.U H9_14 ∧
+    H9_14 = U9_14.U.filter (fun r => decide (r.q ∉ U9_14.U.map Quint.p)) ∧
+    B9_14.length + 2 = U9_14.U.length ∧ (∀ r ∈ B9_14, r.q ∈ B9_14.map Quint.p) ∧
+    Deterministic B9_14 ∧ Reversible B9_14 ∧ NStates B9_14 = 9 ∧ NSyms B9_14 = 14 ∧
+      IsUTMStrict B9_14 :=
+  ⟨rfl, B9_14_book.1, by decide +kernel, B9_14_book.2.2, B9_14_det, B9_14_rev, B9_14_counts.1,
+    B9_14_counts.2, isUTMStrict_B9_14⟩
+
 theorem exists_urtm_4_46_book :
     ∃ U : List Quint, Deterministic U ∧ Reversible U ∧ NStates U = 4 ∧ NSyms U = 46 ∧
       IsUTMStrict U :=

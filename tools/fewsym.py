@@ -51,6 +51,14 @@ PSEUDO = ("halt", "null")
 
 
 # ---------------------------------------------------------------- T
+# 試験例を持たない記述ファイル → 試験例を借りる親（2026-11-03、T21）。urtm10-7.txt は joint_merge.py の write_table の形で
+# initial_conf を持たない。(13,7)・(11,7) と 1 歩ずつ並走し、入力の記号 b y n * $ は同名（CI の --cases の照合と同じ）。
+CASES_FROM = {"urtm10-7": "urtm13-7"}
+# 乱択 CTSH で照合する機械（ctsh_tape が符号化を知っているもの）。urtm11-7・urtm10-7（(13,7) から作った子、2026-11-03 に追加）の
+# CTSH の符号化は (13,7) と同じ
+CTSH_MACHINES = ("urtm10-8", "urtm13-7", "urtm15-6", "urtm17-5", "urtm24-4", "urtm32-3", "urtm11-7", "urtm10-7")
+
+
 class Base:
     def __init__(self, path):
         self.path = path
@@ -59,6 +67,9 @@ class Base:
         self.blank = blank_of(path)
         self.maxstep = maxstep_of(path)
         self.cases = read_cases(path)
+        if not self.cases and self.name in CASES_FROM:
+            # 試験例を持たない子の表（艦隊の表の形）には、1 歩ずつ並走する親の試験例を当てる（入力の記号は同名で符号化は恒等）
+            self.cases = read_cases(os.path.join(os.path.dirname(path), CASES_FROM[self.name] + ".txt"))
         self.initial = fact_of(path, "initial_state", None)
         # 0 シフトの停止規則（疑似状態 halt/null へ）は落とす（Lean の dropHalt と同じ）。T はそこで止まる。
         self.halt_rules = [r for r in quints if r[4] in PSEUDO]
@@ -428,12 +439,13 @@ def check_all(cv: Conv, nrand=0, seed=20260929, quiet=False, nostuck=False, ncts
         ok, ts, tts, why = lockstep(cv, state, pos, tape, T.maxstep)
         # 記述ファイルの %% の数は停止規則（0 シフト）も 1 と数える（lockstep は数えない）。
         # urtm13-7.txt case4 のコメントの誤植（1073 → 1173）は gen_lean.CORRECTIONS と同じく直す
-        exp = {("urtm13-7", 4): 1173}.get((T.name, i), exp)
+        # （(13,7) の試験例を写した urtm11-7.txt と、借りた子の表 CASES_FROM も同じく直す）
+        exp = {("urtm13-7", 4): 1173, ("urtm11-7", 4): 1173}.get((CASES_FROM.get(T.name, T.name), i), exp)
         if exp is not None and why == "both halt":
             ok &= ts + 1 == exp
         allok &= ok
         lines.append(f"{'ok' if ok else 'NG'} case{i}: T {ts} steps, T̃ {tts} steps ({why}; file says {exp})")
-    if T.name in ("urtm10-8", "urtm13-7", "urtm15-6", "urtm17-5", "urtm24-4", "urtm32-3") and nctsh:
+    if T.name in CTSH_MACHINES and nctsh:
         bad, halted = check_ctsh(cv, nctsh, seed=seed)
         allok &= bad == 0
         lines.append(f"{'ok' if not bad else 'NG'} random CTSH instances: {nctsh - bad}/{nctsh} in lockstep "
@@ -479,7 +491,7 @@ def mutation_test(cv, nostuck=False, seed=7):
                 if not lockstep(cv, state, pos, tape, 3000)[0]:
                     dead = True
                     break
-        if not dead and cv.T.name in ("urtm10-8", "urtm13-7", "urtm15-6", "urtm17-5", "urtm24-4", "urtm32-3"):
+        if not dead and cv.T.name in CTSH_MACHINES:
             dead = check_ctsh(cv, 200)[0] > 0
         killed += dead
         if not dead:

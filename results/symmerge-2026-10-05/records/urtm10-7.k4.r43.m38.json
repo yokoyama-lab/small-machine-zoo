@@ -1,0 +1,64 @@
+{
+ "machine": "urtm10-7.txt",
+ "blocks": [
+  2,
+  2
+ ],
+ "groups": [
+  [
+   "H+1",
+   "D+1",
+   "D+2",
+   "O-1",
+   "O-2"
+  ],
+  [
+   "O+1",
+   "O+2",
+   "H-1",
+   "D-1",
+   "D-2"
+  ]
+ ],
+ "blk": {
+  "begin_": 1,
+  "copy_n_1_": 2,
+  "copy_y_1_": 2,
+  "m_copy_end_copy_n_2_": 2,
+  "m_cycle_end__m_case_y_2_copy_y_2_": 2,
+  "case_y_1_": 2,
+  "case_y_n_": 2,
+  "copy_n_3_": 2,
+  "copy_start_": 1,
+  "copy_y_3_": 2
+ },
+ "v": {
+  "begin_": 9,
+  "copy_n_1_": 5,
+  "copy_y_1_": 4,
+  "m_copy_end_copy_n_2_": 6,
+  "m_cycle_end__m_case_y_2_copy_y_2_": 7,
+  "case_y_1_": 6,
+  "case_y_n_": 5,
+  "copy_n_3_": 7,
+  "copy_start_": 8,
+  "copy_y_3_": 4
+ },
+ "sigma": {
+  "+1": 9,
+  "+2": 4,
+  "-1": 8,
+  "-2": 7
+ },
+ "eps": {
+  "+1": 1,
+  "+2": 1,
+  "-1": -1,
+  "-2": -1
+ },
+ "states_sa": 4,
+ "symbols_sa": 43,
+ "merged_sa": 38,
+ "seed": 6103,
+ "V": 9
+}

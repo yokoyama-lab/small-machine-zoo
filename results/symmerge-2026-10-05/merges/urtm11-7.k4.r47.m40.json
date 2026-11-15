@@ -1,0 +1,35 @@
+{
+ "record": "urtm11-7.k4.r47.m40.json",
+ "classes": [
+  [
+   "b",
+   "c7_$"
+  ],
+  [
+   "n",
+   "c7_y1"
+  ],
+  [
+   "y1",
+   "c1_n"
+  ],
+  [
+   "n1",
+   "c1_*"
+  ],
+  [
+   "*",
+   "c7_n1"
+  ],
+  [
+   "$",
+   "c1_b"
+  ],
+  [
+   "c1_$",
+   "c7_b"
+  ]
+ ],
+ "nsyms": 40,
+ "note": "from results/symmerge-relaxed-2026-10-29/cand/kbr_urtm11-7.4-47.m40.color.json (CP-SAT coloring that allows merged rules to coincide, OPTIMAL with lower bound 40; the block table is the (2,2) block conversion of URTM(11,7), results/joint-2026-11-02 urtmsa5, 2026-11-02)"
+}

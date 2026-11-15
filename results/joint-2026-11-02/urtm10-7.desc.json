@@ -1,0 +1,24 @@
+{
+ "parent": "urtm11-7.txt",
+ "child": "urtm10-7.txt",
+ "lean": "lean/URTM/CTSH10_7.lean",
+ "index": "results/chain-2026-11-01/urtm11-7.desc.json",
+ "naming": "pair",
+ "rename": {
+  "n1": "*_t3"
+ },
+ "dedup": true,
+ "rules": 57,
+ "title": "joint L1+merge of u11-7.txt: {'cycle_end_': 'm_cycle_end__m_case_y_2_copy_y_2_', 'm_case_y_2_copy_y_2_': 'm_cycle_end__m_case_y_2_copy_y_2_'}",
+ "comments": [
+  "% color b = ['b', 'b_t2', 'y_t2']",
+  "% color y1 = ['$_t3', '*_t1', 'b_t1', 'b_t3', 'y1']",
+  "% color y = ['*_t2', 'y']",
+  "% color $ = ['$', 'n1', 'n1_t1', 'n1_t2', 'y1_t1']",
+  "% color *_t3 = ['*_t3', 'n1_t3', 'y_t1', 'y_t3']",
+  "% color n = ['$_t2', 'n', 'n_t2']",
+  "% color * = ['$_t1', '*', 'n_t1', 'n_t3', 'y1_t2', 'y1_t3']"
+ ],
+ "md5": "cb45f05e8ad7baa9daeaa95adde822c4",
+ "note": "tools/gen_child_desc.py writes data/urtm/urtm10-7.txt (the (10,7) description file made by the fleet's joint search on 2026-11-02, wave1 pair cycle_end_/m_case_y_2_copy_y_2_, not committed) from urtm11-7.txt and the Lean mu/chgSym of CTSH10_7.lean (T10 = (T11.flatMap chg).eraseDups). The Lean numbers qI/sJ are those of (13,7) (index). title and the '% color' lines are the solver's record (the tagged members of each colour), not in Lean; they are kept here only to reproduce the fleet's file byte for byte (the md5). rename: joint_merge.py names each colour by its representative, and the colour that holds parent n1's slot is named '*_t3'."
+}

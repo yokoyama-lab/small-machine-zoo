@@ -14,13 +14,19 @@
   * `count_desc_<k>_<m>`: for `U` (with the two quintuples into the pseudo-states),
     `NStatesMorita U = k + 2 ∧ NSymsMorita U = m`.
 -/
+import LeanUniv.SymMergeBook4_38
+import LeanUniv.SymMergeBook4_40
 import LeanUniv.SymMergeBook4_41
 import LeanUniv.SymMergeBook4_42
 import LeanUniv.SymMergeBook4_43
+import LeanUniv.SymMergeBook5_36
 import LeanUniv.SymMergeBook5_37
 import LeanUniv.SymMergeBook5_38
 import LeanUniv.SymMergeBook5_39
+import LeanUniv.SymMergeBook6_28
+import LeanUniv.SymMergeBook6_29
 import LeanUniv.SymMergeBook6_30
+import LeanUniv.SymMergeBook7_26
 import LeanUniv.SymMergeBook7_28
 import LeanUniv.SymMergeBook8_21
 import LeanUniv.SymMergeBook8_22
@@ -28,6 +34,36 @@ import LeanUniv.SymMergeBook9_21
 
 namespace URTM.Univ.FinalSymMergeMoritaCount
 open URTM URTM.Univ.MoritaCount
+
+theorem count_book_4_38 :
+    NStatesMorita SymMergeBook4_38.B = 4 ∧ NSymsMorita SymMergeBook4_38.B = 38 ∧ 0 ∈ Spec.symbols SymMergeBook4_38.B :=
+  ⟨SymMergeBook4_38.B_blank.2.2.2.trans SymMergeBook4_38.B_counts.1, SymMergeBook4_38.B_blank.2.1.trans SymMergeBook4_38.B_counts.2,
+    zero_mem_symbols SymMergeBook4_38.B_blank.1⟩
+
+theorem exists_urtm_4_38_moritaCount :
+    ∃ U : List Quint, Spec.Deterministic U ∧ Spec.Reversible U ∧
+    NStatesMorita U = 4 ∧ NSymsMorita U = 38 ∧ 0 ∈ Spec.symbols U ∧ Spec.IsUTMStrict U :=
+  ⟨SymMergeBook4_38.B, SymMergeBook4_38.B_det, SymMergeBook4_38.B_rev, count_book_4_38.1, count_book_4_38.2.1, count_book_4_38.2.2,
+    SymMergeBook4_38.isUTMStrict_B⟩
+
+theorem count_desc_4_38 :
+    NStatesMorita SymMerge4_38.U = 4 + 2 ∧ NSymsMorita SymMerge4_38.U = 38 :=
+  SymMergeBook4_38.U_countDesc
+
+theorem count_book_4_40 :
+    NStatesMorita SymMergeBook4_40.B = 4 ∧ NSymsMorita SymMergeBook4_40.B = 40 ∧ 0 ∈ Spec.symbols SymMergeBook4_40.B :=
+  ⟨SymMergeBook4_40.B_blank.2.2.2.trans SymMergeBook4_40.B_counts.1, SymMergeBook4_40.B_blank.2.1.trans SymMergeBook4_40.B_counts.2,
+    zero_mem_symbols SymMergeBook4_40.B_blank.1⟩
+
+theorem exists_urtm_4_40_moritaCount :
+    ∃ U : List Quint, Spec.Deterministic U ∧ Spec.Reversible U ∧
+    NStatesMorita U = 4 ∧ NSymsMorita U = 40 ∧ 0 ∈ Spec.symbols U ∧ Spec.IsUTMStrict U :=
+  ⟨SymMergeBook4_40.B, SymMergeBook4_40.B_det, SymMergeBook4_40.B_rev, count_book_4_40.1, count_book_4_40.2.1, count_book_4_40.2.2,
+    SymMergeBook4_40.isUTMStrict_B⟩
+
+theorem count_desc_4_40 :
+    NStatesMorita SymMerge4_40.U = 4 + 2 ∧ NSymsMorita SymMerge4_40.U = 40 :=
+  SymMergeBook4_40.U_countDesc
 
 theorem count_book_4_41 :
     NStatesMorita SymMergeBook4_41.B = 4 ∧ NSymsMorita SymMergeBook4_41.B = 41 ∧ 0 ∈ Spec.symbols SymMergeBook4_41.B :=
@@ -74,6 +110,21 @@ theorem count_desc_4_43 :
     NStatesMorita SymMerge4_43.U = 4 + 2 ∧ NSymsMorita SymMerge4_43.U = 43 :=
   SymMergeBook4_43.U_countDesc
 
+theorem count_book_5_36 :
+    NStatesMorita SymMergeBook5_36.B = 5 ∧ NSymsMorita SymMergeBook5_36.B = 36 ∧ 0 ∈ Spec.symbols SymMergeBook5_36.B :=
+  ⟨SymMergeBook5_36.B_blank.2.2.2.trans SymMergeBook5_36.B_counts.1, SymMergeBook5_36.B_blank.2.1.trans SymMergeBook5_36.B_counts.2,
+    zero_mem_symbols SymMergeBook5_36.B_blank.1⟩
+
+theorem exists_urtm_5_36_moritaCount :
+    ∃ U : List Quint, Spec.Deterministic U ∧ Spec.Reversible U ∧
+    NStatesMorita U = 5 ∧ NSymsMorita U = 36 ∧ 0 ∈ Spec.symbols U ∧ Spec.IsUTMStrict U :=
+  ⟨SymMergeBook5_36.B, SymMergeBook5_36.B_det, SymMergeBook5_36.B_rev, count_book_5_36.1, count_book_5_36.2.1, count_book_5_36.2.2,
+    SymMergeBook5_36.isUTMStrict_B⟩
+
+theorem count_desc_5_36 :
+    NStatesMorita SymMerge5_36.U = 5 + 2 ∧ NSymsMorita SymMerge5_36.U = 36 :=
+  SymMergeBook5_36.U_countDesc
+
 theorem count_book_5_37 :
     NStatesMorita SymMergeBook5_37.B = 5 ∧ NSymsMorita SymMergeBook5_37.B = 37 ∧ 0 ∈ Spec.symbols SymMergeBook5_37.B :=
   ⟨SymMergeBook5_37.B_blank.2.2.2.trans SymMergeBook5_37.B_counts.1, SymMergeBook5_37.B_blank.2.1.trans SymMergeBook5_37.B_counts.2,
@@ -119,6 +170,36 @@ theorem count_desc_5_39 :
     NStatesMorita SymMerge5_39.U = 5 + 2 ∧ NSymsMorita SymMerge5_39.U = 39 :=
   SymMergeBook5_39.U_countDesc
 
+theorem count_book_6_28 :
+    NStatesMorita SymMergeBook6_28.B = 6 ∧ NSymsMorita SymMergeBook6_28.B = 28 ∧ 0 ∈ Spec.symbols SymMergeBook6_28.B :=
+  ⟨SymMergeBook6_28.B_blank.2.2.2.trans SymMergeBook6_28.B_counts.1, SymMergeBook6_28.B_blank.2.1.trans SymMergeBook6_28.B_counts.2,
+    zero_mem_symbols SymMergeBook6_28.B_blank.1⟩
+
+theorem exists_urtm_6_28_moritaCount :
+    ∃ U : List Quint, Spec.Deterministic U ∧ Spec.Reversible U ∧
+    NStatesMorita U = 6 ∧ NSymsMorita U = 28 ∧ 0 ∈ Spec.symbols U ∧ Spec.IsUTMStrict U :=
+  ⟨SymMergeBook6_28.B, SymMergeBook6_28.B_det, SymMergeBook6_28.B_rev, count_book_6_28.1, count_book_6_28.2.1, count_book_6_28.2.2,
+    SymMergeBook6_28.isUTMStrict_B⟩
+
+theorem count_desc_6_28 :
+    NStatesMorita SymMerge6_28.U = 6 + 2 ∧ NSymsMorita SymMerge6_28.U = 28 :=
+  SymMergeBook6_28.U_countDesc
+
+theorem count_book_6_29 :
+    NStatesMorita SymMergeBook6_29.B = 6 ∧ NSymsMorita SymMergeBook6_29.B = 29 ∧ 0 ∈ Spec.symbols SymMergeBook6_29.B :=
+  ⟨SymMergeBook6_29.B_blank.2.2.2.trans SymMergeBook6_29.B_counts.1, SymMergeBook6_29.B_blank.2.1.trans SymMergeBook6_29.B_counts.2,
+    zero_mem_symbols SymMergeBook6_29.B_blank.1⟩
+
+theorem exists_urtm_6_29_moritaCount :
+    ∃ U : List Quint, Spec.Deterministic U ∧ Spec.Reversible U ∧
+    NStatesMorita U = 6 ∧ NSymsMorita U = 29 ∧ 0 ∈ Spec.symbols U ∧ Spec.IsUTMStrict U :=
+  ⟨SymMergeBook6_29.B, SymMergeBook6_29.B_det, SymMergeBook6_29.B_rev, count_book_6_29.1, count_book_6_29.2.1, count_book_6_29.2.2,
+    SymMergeBook6_29.isUTMStrict_B⟩
+
+theorem count_desc_6_29 :
+    NStatesMorita SymMerge6_29.U = 6 + 2 ∧ NSymsMorita SymMerge6_29.U = 29 :=
+  SymMergeBook6_29.U_countDesc
+
 theorem count_book_6_30 :
     NStatesMorita SymMergeBook6_30.B = 6 ∧ NSymsMorita SymMergeBook6_30.B = 30 ∧ 0 ∈ Spec.symbols SymMergeBook6_30.B :=
   ⟨SymMergeBook6_30.B_blank.2.2.2.trans SymMergeBook6_30.B_counts.1, SymMergeBook6_30.B_blank.2.1.trans SymMergeBook6_30.B_counts.2,
@@ -133,6 +214,21 @@ theorem exists_urtm_6_30_moritaCount :
 theorem count_desc_6_30 :
     NStatesMorita SymMerge6_30.U = 6 + 2 ∧ NSymsMorita SymMerge6_30.U = 30 :=
   SymMergeBook6_30.U_countDesc
+
+theorem count_book_7_26 :
+    NStatesMorita SymMergeBook7_26.B = 7 ∧ NSymsMorita SymMergeBook7_26.B = 26 ∧ 0 ∈ Spec.symbols SymMergeBook7_26.B :=
+  ⟨SymMergeBook7_26.B_blank.2.2.2.trans SymMergeBook7_26.B_counts.1, SymMergeBook7_26.B_blank.2.1.trans SymMergeBook7_26.B_counts.2,
+    zero_mem_symbols SymMergeBook7_26.B_blank.1⟩
+
+theorem exists_urtm_7_26_moritaCount :
+    ∃ U : List Quint, Spec.Deterministic U ∧ Spec.Reversible U ∧
+    NStatesMorita U = 7 ∧ NSymsMorita U = 26 ∧ 0 ∈ Spec.symbols U ∧ Spec.IsUTMStrict U :=
+  ⟨SymMergeBook7_26.B, SymMergeBook7_26.B_det, SymMergeBook7_26.B_rev, count_book_7_26.1, count_book_7_26.2.1, count_book_7_26.2.2,
+    SymMergeBook7_26.isUTMStrict_B⟩
+
+theorem count_desc_7_26 :
+    NStatesMorita SymMerge7_26.U = 7 + 2 ∧ NSymsMorita SymMerge7_26.U = 26 :=
+  SymMergeBook7_26.U_countDesc
 
 theorem count_book_7_28 :
     NStatesMorita SymMergeBook7_28.B = 7 ∧ NSymsMorita SymMergeBook7_28.B = 28 ∧ 0 ∈ Spec.symbols SymMergeBook7_28.B :=

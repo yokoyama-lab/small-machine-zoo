@@ -1,0 +1,32 @@
+{
+ "parent": "urtm10-7.txt",
+ "child": "urtm9-8n.txt",
+ "lean": "lean/URTM/CTSH9_8.lean",
+ "index": "results/joint-2026-11-02/urtm10-7.desc.json",
+ "naming": "pairsorted",
+ "symbols": [
+  "b",
+  "y",
+  "n",
+  "y1",
+  "*_t3_t3",
+  "*",
+  "$",
+  "*_t2"
+ ],
+ "dedup": true,
+ "rules": 54,
+ "title": "joint L1+merge of u10-7.txt: {'case_y_1_': 'm_case_y_1__copy_n_3_', 'copy_n_3_': 'm_case_y_1__copy_n_3_'}",
+ "comments": [
+  "% color b = ['b']",
+  "% color y = ['b_t1', 'b_t2', 'b_t3', 'y', 'y_t2', 'y_t3']",
+  "% color n = ['*_t3', '*_t3_t1', '*_t3_t2', 'n']",
+  "% color $ = ['$', '$_t1', '$_t3', '*_t1']",
+  "% color *_t3_t3 = ['*_t3_t3', 'y_t1']",
+  "% color y1 = ['y1', 'y1_t2', 'y1_t3']",
+  "% color * = ['$_t2', '*', '*_t3']",
+  "% color *_t2 = ['*_t2', 'n_t1', 'n_t2', 'n_t3', 'y1_t1']"
+ ],
+ "md5": "2c9587523a647629faefef4679132115",
+ "note": "tools/gen_child_desc.py writes data/urtm/urtm9-8n.txt (the (9,8) description file 9-8n made by the fleet's joint search on 2026-11-04, wave 5 pair case_y_1_/copy_n_3_, not committed) from urtm10-7.txt and the Lean mu/chgSym of CTSH9_8.lean (T9 = (T10.flatMap chg).eraseDups, 8 symbols Sy8). The Lean numbers qI are those of (13,7) (index, nested through the (10,7) spec); the symbol numbers sJ are those of Sy8, named by `symbols` (s0..s6 are the colours of (10,7) with s4 renamed *_t3_t3 by the solver, s7 = *_t2 is the new colour). title and the '% color' lines are the solver's record (the tagged members of each colour), not in Lean; they are kept here only to reproduce the fleet's file byte for byte (the md5). T28, 2026-11-05"
+}

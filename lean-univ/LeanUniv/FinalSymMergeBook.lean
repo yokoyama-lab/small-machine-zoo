@@ -14,13 +14,19 @@
     with outgoing quintuples, determinism, reversibility, the counts (equal to those of `U`), and
     `IsUTMStrict B`.
 -/
+import LeanUniv.SymMergeBook4_38
+import LeanUniv.SymMergeBook4_40
 import LeanUniv.SymMergeBook4_41
 import LeanUniv.SymMergeBook4_42
 import LeanUniv.SymMergeBook4_43
+import LeanUniv.SymMergeBook5_36
 import LeanUniv.SymMergeBook5_37
 import LeanUniv.SymMergeBook5_38
 import LeanUniv.SymMergeBook5_39
+import LeanUniv.SymMergeBook6_28
+import LeanUniv.SymMergeBook6_29
 import LeanUniv.SymMergeBook6_30
+import LeanUniv.SymMergeBook7_26
 import LeanUniv.SymMergeBook7_28
 import LeanUniv.SymMergeBook8_21
 import LeanUniv.SymMergeBook8_22
@@ -28,6 +34,44 @@ import LeanUniv.SymMergeBook9_21
 
 namespace URTM.Univ.FinalSymMergeBook
 open URTM URTM.Spec URTM.Univ.DropGen
+
+theorem exists_urtm_4_38_book :
+    ∃ U : List Quint, Deterministic U ∧ Reversible U ∧ NStates U = 4 ∧ NSyms U = 38 ∧
+      IsUTMStrict U :=
+  ⟨SymMergeBook4_38.B, SymMergeBook4_38.B_det, SymMergeBook4_38.B_rev, SymMergeBook4_38.B_counts.1, SymMergeBook4_38.B_counts.2,
+    SymMergeBook4_38.isUTMStrict_B⟩
+
+theorem book_urtm_4_38 :
+    SymMergeBook4_38.B = dropT SymMerge4_38.U SymMergeBook4_38.H ∧
+    SymMergeBook4_38.H = SymMerge4_38.U.filter (fun r => decide (r.q ∉ SymMerge4_38.U.map Quint.p)) ∧
+    SymMergeBook4_38.B.length + 2 = SymMerge4_38.U.length ∧
+    (∀ r ∈ SymMergeBook4_38.B, r.q ∈ SymMergeBook4_38.B.map Quint.p) ∧
+    Deterministic SymMergeBook4_38.B ∧ Reversible SymMergeBook4_38.B ∧
+    NStates SymMergeBook4_38.B = 4 ∧ NSyms SymMergeBook4_38.B = 38 ∧
+    NStates SymMergeBook4_38.B = NStates SymMerge4_38.U ∧ NSyms SymMergeBook4_38.B = NSyms SymMerge4_38.U ∧
+    IsUTMStrict SymMergeBook4_38.B :=
+  ⟨rfl, SymMergeBook4_38.B_book.1, SymMergeBook4_38.B_book.2.1, SymMergeBook4_38.B_book.2.2, SymMergeBook4_38.B_det, SymMergeBook4_38.B_rev,
+    SymMergeBook4_38.B_counts.1, SymMergeBook4_38.B_counts.2, SymMergeBook4_38.B_counts.1.trans SymMerge4_38.U_counts.1.symm,
+    SymMergeBook4_38.B_counts.2.trans SymMerge4_38.U_counts.2.symm, SymMergeBook4_38.isUTMStrict_B⟩
+
+theorem exists_urtm_4_40_book :
+    ∃ U : List Quint, Deterministic U ∧ Reversible U ∧ NStates U = 4 ∧ NSyms U = 40 ∧
+      IsUTMStrict U :=
+  ⟨SymMergeBook4_40.B, SymMergeBook4_40.B_det, SymMergeBook4_40.B_rev, SymMergeBook4_40.B_counts.1, SymMergeBook4_40.B_counts.2,
+    SymMergeBook4_40.isUTMStrict_B⟩
+
+theorem book_urtm_4_40 :
+    SymMergeBook4_40.B = dropT SymMerge4_40.U SymMergeBook4_40.H ∧
+    SymMergeBook4_40.H = SymMerge4_40.U.filter (fun r => decide (r.q ∉ SymMerge4_40.U.map Quint.p)) ∧
+    SymMergeBook4_40.B.length + 2 = SymMerge4_40.U.length ∧
+    (∀ r ∈ SymMergeBook4_40.B, r.q ∈ SymMergeBook4_40.B.map Quint.p) ∧
+    Deterministic SymMergeBook4_40.B ∧ Reversible SymMergeBook4_40.B ∧
+    NStates SymMergeBook4_40.B = 4 ∧ NSyms SymMergeBook4_40.B = 40 ∧
+    NStates SymMergeBook4_40.B = NStates SymMerge4_40.U ∧ NSyms SymMergeBook4_40.B = NSyms SymMerge4_40.U ∧
+    IsUTMStrict SymMergeBook4_40.B :=
+  ⟨rfl, SymMergeBook4_40.B_book.1, SymMergeBook4_40.B_book.2.1, SymMergeBook4_40.B_book.2.2, SymMergeBook4_40.B_det, SymMergeBook4_40.B_rev,
+    SymMergeBook4_40.B_counts.1, SymMergeBook4_40.B_counts.2, SymMergeBook4_40.B_counts.1.trans SymMerge4_40.U_counts.1.symm,
+    SymMergeBook4_40.B_counts.2.trans SymMerge4_40.U_counts.2.symm, SymMergeBook4_40.isUTMStrict_B⟩
 
 theorem exists_urtm_4_41_book :
     ∃ U : List Quint, Deterministic U ∧ Reversible U ∧ NStates U = 4 ∧ NSyms U = 41 ∧
@@ -86,6 +130,25 @@ theorem book_urtm_4_43 :
     SymMergeBook4_43.B_counts.1, SymMergeBook4_43.B_counts.2, SymMergeBook4_43.B_counts.1.trans SymMerge4_43.U_counts.1.symm,
     SymMergeBook4_43.B_counts.2.trans SymMerge4_43.U_counts.2.symm, SymMergeBook4_43.isUTMStrict_B⟩
 
+theorem exists_urtm_5_36_book :
+    ∃ U : List Quint, Deterministic U ∧ Reversible U ∧ NStates U = 5 ∧ NSyms U = 36 ∧
+      IsUTMStrict U :=
+  ⟨SymMergeBook5_36.B, SymMergeBook5_36.B_det, SymMergeBook5_36.B_rev, SymMergeBook5_36.B_counts.1, SymMergeBook5_36.B_counts.2,
+    SymMergeBook5_36.isUTMStrict_B⟩
+
+theorem book_urtm_5_36 :
+    SymMergeBook5_36.B = dropT SymMerge5_36.U SymMergeBook5_36.H ∧
+    SymMergeBook5_36.H = SymMerge5_36.U.filter (fun r => decide (r.q ∉ SymMerge5_36.U.map Quint.p)) ∧
+    SymMergeBook5_36.B.length + 2 = SymMerge5_36.U.length ∧
+    (∀ r ∈ SymMergeBook5_36.B, r.q ∈ SymMergeBook5_36.B.map Quint.p) ∧
+    Deterministic SymMergeBook5_36.B ∧ Reversible SymMergeBook5_36.B ∧
+    NStates SymMergeBook5_36.B = 5 ∧ NSyms SymMergeBook5_36.B = 36 ∧
+    NStates SymMergeBook5_36.B = NStates SymMerge5_36.U ∧ NSyms SymMergeBook5_36.B = NSyms SymMerge5_36.U ∧
+    IsUTMStrict SymMergeBook5_36.B :=
+  ⟨rfl, SymMergeBook5_36.B_book.1, SymMergeBook5_36.B_book.2.1, SymMergeBook5_36.B_book.2.2, SymMergeBook5_36.B_det, SymMergeBook5_36.B_rev,
+    SymMergeBook5_36.B_counts.1, SymMergeBook5_36.B_counts.2, SymMergeBook5_36.B_counts.1.trans SymMerge5_36.U_counts.1.symm,
+    SymMergeBook5_36.B_counts.2.trans SymMerge5_36.U_counts.2.symm, SymMergeBook5_36.isUTMStrict_B⟩
+
 theorem exists_urtm_5_37_book :
     ∃ U : List Quint, Deterministic U ∧ Reversible U ∧ NStates U = 5 ∧ NSyms U = 37 ∧
       IsUTMStrict U :=
@@ -143,6 +206,44 @@ theorem book_urtm_5_39 :
     SymMergeBook5_39.B_counts.1, SymMergeBook5_39.B_counts.2, SymMergeBook5_39.B_counts.1.trans SymMerge5_39.U_counts.1.symm,
     SymMergeBook5_39.B_counts.2.trans SymMerge5_39.U_counts.2.symm, SymMergeBook5_39.isUTMStrict_B⟩
 
+theorem exists_urtm_6_28_book :
+    ∃ U : List Quint, Deterministic U ∧ Reversible U ∧ NStates U = 6 ∧ NSyms U = 28 ∧
+      IsUTMStrict U :=
+  ⟨SymMergeBook6_28.B, SymMergeBook6_28.B_det, SymMergeBook6_28.B_rev, SymMergeBook6_28.B_counts.1, SymMergeBook6_28.B_counts.2,
+    SymMergeBook6_28.isUTMStrict_B⟩
+
+theorem book_urtm_6_28 :
+    SymMergeBook6_28.B = dropT SymMerge6_28.U SymMergeBook6_28.H ∧
+    SymMergeBook6_28.H = SymMerge6_28.U.filter (fun r => decide (r.q ∉ SymMerge6_28.U.map Quint.p)) ∧
+    SymMergeBook6_28.B.length + 2 = SymMerge6_28.U.length ∧
+    (∀ r ∈ SymMergeBook6_28.B, r.q ∈ SymMergeBook6_28.B.map Quint.p) ∧
+    Deterministic SymMergeBook6_28.B ∧ Reversible SymMergeBook6_28.B ∧
+    NStates SymMergeBook6_28.B = 6 ∧ NSyms SymMergeBook6_28.B = 28 ∧
+    NStates SymMergeBook6_28.B = NStates SymMerge6_28.U ∧ NSyms SymMergeBook6_28.B = NSyms SymMerge6_28.U ∧
+    IsUTMStrict SymMergeBook6_28.B :=
+  ⟨rfl, SymMergeBook6_28.B_book.1, SymMergeBook6_28.B_book.2.1, SymMergeBook6_28.B_book.2.2, SymMergeBook6_28.B_det, SymMergeBook6_28.B_rev,
+    SymMergeBook6_28.B_counts.1, SymMergeBook6_28.B_counts.2, SymMergeBook6_28.B_counts.1.trans SymMerge6_28.U_counts.1.symm,
+    SymMergeBook6_28.B_counts.2.trans SymMerge6_28.U_counts.2.symm, SymMergeBook6_28.isUTMStrict_B⟩
+
+theorem exists_urtm_6_29_book :
+    ∃ U : List Quint, Deterministic U ∧ Reversible U ∧ NStates U = 6 ∧ NSyms U = 29 ∧
+      IsUTMStrict U :=
+  ⟨SymMergeBook6_29.B, SymMergeBook6_29.B_det, SymMergeBook6_29.B_rev, SymMergeBook6_29.B_counts.1, SymMergeBook6_29.B_counts.2,
+    SymMergeBook6_29.isUTMStrict_B⟩
+
+theorem book_urtm_6_29 :
+    SymMergeBook6_29.B = dropT SymMerge6_29.U SymMergeBook6_29.H ∧
+    SymMergeBook6_29.H = SymMerge6_29.U.filter (fun r => decide (r.q ∉ SymMerge6_29.U.map Quint.p)) ∧
+    SymMergeBook6_29.B.length + 2 = SymMerge6_29.U.length ∧
+    (∀ r ∈ SymMergeBook6_29.B, r.q ∈ SymMergeBook6_29.B.map Quint.p) ∧
+    Deterministic SymMergeBook6_29.B ∧ Reversible SymMergeBook6_29.B ∧
+    NStates SymMergeBook6_29.B = 6 ∧ NSyms SymMergeBook6_29.B = 29 ∧
+    NStates SymMergeBook6_29.B = NStates SymMerge6_29.U ∧ NSyms SymMergeBook6_29.B = NSyms SymMerge6_29.U ∧
+    IsUTMStrict SymMergeBook6_29.B :=
+  ⟨rfl, SymMergeBook6_29.B_book.1, SymMergeBook6_29.B_book.2.1, SymMergeBook6_29.B_book.2.2, SymMergeBook6_29.B_det, SymMergeBook6_29.B_rev,
+    SymMergeBook6_29.B_counts.1, SymMergeBook6_29.B_counts.2, SymMergeBook6_29.B_counts.1.trans SymMerge6_29.U_counts.1.symm,
+    SymMergeBook6_29.B_counts.2.trans SymMerge6_29.U_counts.2.symm, SymMergeBook6_29.isUTMStrict_B⟩
+
 theorem exists_urtm_6_30_book :
     ∃ U : List Quint, Deterministic U ∧ Reversible U ∧ NStates U = 6 ∧ NSyms U = 30 ∧
       IsUTMStrict U :=
@@ -161,6 +262,25 @@ theorem book_urtm_6_30 :
   ⟨rfl, SymMergeBook6_30.B_book.1, SymMergeBook6_30.B_book.2.1, SymMergeBook6_30.B_book.2.2, SymMergeBook6_30.B_det, SymMergeBook6_30.B_rev,
     SymMergeBook6_30.B_counts.1, SymMergeBook6_30.B_counts.2, SymMergeBook6_30.B_counts.1.trans SymMerge6_30.U_counts.1.symm,
     SymMergeBook6_30.B_counts.2.trans SymMerge6_30.U_counts.2.symm, SymMergeBook6_30.isUTMStrict_B⟩
+
+theorem exists_urtm_7_26_book :
+    ∃ U : List Quint, Deterministic U ∧ Reversible U ∧ NStates U = 7 ∧ NSyms U = 26 ∧
+      IsUTMStrict U :=
+  ⟨SymMergeBook7_26.B, SymMergeBook7_26.B_det, SymMergeBook7_26.B_rev, SymMergeBook7_26.B_counts.1, SymMergeBook7_26.B_counts.2,
+    SymMergeBook7_26.isUTMStrict_B⟩
+
+theorem book_urtm_7_26 :
+    SymMergeBook7_26.B = dropT SymMerge7_26.U SymMergeBook7_26.H ∧
+    SymMergeBook7_26.H = SymMerge7_26.U.filter (fun r => decide (r.q ∉ SymMerge7_26.U.map Quint.p)) ∧
+    SymMergeBook7_26.B.length + 2 = SymMerge7_26.U.length ∧
+    (∀ r ∈ SymMergeBook7_26.B, r.q ∈ SymMergeBook7_26.B.map Quint.p) ∧
+    Deterministic SymMergeBook7_26.B ∧ Reversible SymMergeBook7_26.B ∧
+    NStates SymMergeBook7_26.B = 7 ∧ NSyms SymMergeBook7_26.B = 26 ∧
+    NStates SymMergeBook7_26.B = NStates SymMerge7_26.U ∧ NSyms SymMergeBook7_26.B = NSyms SymMerge7_26.U ∧
+    IsUTMStrict SymMergeBook7_26.B :=
+  ⟨rfl, SymMergeBook7_26.B_book.1, SymMergeBook7_26.B_book.2.1, SymMergeBook7_26.B_book.2.2, SymMergeBook7_26.B_det, SymMergeBook7_26.B_rev,
+    SymMergeBook7_26.B_counts.1, SymMergeBook7_26.B_counts.2, SymMergeBook7_26.B_counts.1.trans SymMerge7_26.U_counts.1.symm,
+    SymMergeBook7_26.B_counts.2.trans SymMerge7_26.U_counts.2.symm, SymMergeBook7_26.isUTMStrict_B⟩
 
 theorem exists_urtm_7_28_book :
     ∃ U : List Quint, Deterministic U ∧ Reversible U ∧ NStates U = 7 ∧ NSyms U = 28 ∧

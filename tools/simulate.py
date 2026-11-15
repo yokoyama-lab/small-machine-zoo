@@ -7,6 +7,8 @@
 
     python3 tools/simulate.py data/urtm/urtm10-8.txt
     python3 tools/simulate.py --check data/urtm/urtm*.txt   # 期待値と一致するか
+    python3 tools/simulate.py --check --cases data/urtm/urtm13-7.txt data/urtm/urtm10-7.txt
+        # 試験例を別のファイルから取る（試験例を持たない表に、親の試験例と期待値を当てる。テープの記号は名前のまま）
 
 pos は 0 起点。テープは右へ空白で伸ばす。規則が無ければ停止。
 """
@@ -90,14 +92,14 @@ def run(quints, blank, state, pos, tape, limit):
     return limit, "".join(tape), "maxstep reached"
 
 
-def main(paths, check):
+def main(paths, check, cases_from=None):
     allok = True
     for path in paths:
         states, symbols, quints = parse(path)
         blank = blank_of(path)
         limit = maxstep_of(path)
         name = path.split("/")[-1]
-        for k, (state, pos, tape, exp_steps, exp_out) in enumerate(read_cases(path)):
+        for k, (state, pos, tape, exp_steps, exp_out) in enumerate(read_cases(cases_from or path)):
             steps, final, why = run(quints, blank, state, pos, tape, limit)
             ok = exp_steps is None or steps == exp_steps
             allok &= ok
@@ -110,5 +112,11 @@ def main(paths, check):
 
 
 if __name__ == "__main__":
-    args = [a for a in sys.argv[1:] if not a.startswith("--")]
-    sys.exit(0 if main(args, "--check" in sys.argv) else 1)
+    argv = sys.argv[1:]
+    cases_from = None
+    if "--cases" in argv:
+        k = argv.index("--cases")
+        cases_from = argv[k + 1]
+        del argv[k:k + 2]
+    args = [a for a in argv if not a.startswith("--")]
+    sys.exit(0 if main(args, "--check" in argv, cases_from) else 1)

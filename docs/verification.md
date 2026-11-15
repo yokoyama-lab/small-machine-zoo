@@ -247,3 +247,46 @@ environment, as before. For `(4,41)`, `(5,37)`, `(6,30)`, `(7,28)`, and
 149 quintuples); with one quintuple removed from the `(5,37)` table, the
 comparison failed. Both manuscript PDFs built without LaTeX errors, warnings,
 undefined references, or overfull or underfull boxes.
+
+## Snapshot update validation (2026-11-16)
+
+The update added the roots `LeanUniv.Final10_7` and `LeanUniv.Final9_8`, and
+the existing roots now import the symbol-merging points `(4,38)`, `(5,36)`,
+`(6,28)`, and `(7,26)` and the machine `(9,14)`. Only the existence target
+imports changed or new files; the source files of the nonexistence and traces
+targets are byte-identical to those of the previous update, so those two
+targets were not rebuilt. The source PDF in `data/` matched its pinned
+SHA-256, and `tools/fetch_data.sh` rebuilt the description files of `(11,7)`,
+`(10,7)`, and `(9,8)` with their recorded MD5 sums (59, 57, and 54
+quintuples). `tools/gen_all_lean.sh` regenerated the tables; the generated
+modules that were already present were unchanged, and the new generated
+modules are `URTM.Gen.KB4_38`, `KB4_40`, `KB5_36`, `KB6_28`, `KB6_29`, and
+`KB7_26`.
+
+The existence target was built incrementally in a working copy that held a
+build of the previous update, under a 40 GB memory limit with
+`LEAN_NUM_THREADS=4`. Lake built 83 modules and reused the others by their
+recorded source hashes; `python3 tools/verify.py --target existence` passed
+in 698 s. The imported-environment audit reported:
+
+| Target | Declarations | Theorems | Additional axioms / flagged declarations |
+|---|---:|---:|---|
+| existence | 13,955 | 9,597 | None / none |
+
+The copied `Spec` and `Strict` definitions passed the agreement checks, and
+the entry modules matched the manifest roots. With comments removed, none of
+the 52 new or changed Lean files contains `sorry`, `admit`, `axiom`,
+`native_decide`, or the other forbidden tokens. As a mutation check, the
+statement of `exists_urtm_9_8` was changed to claim 7 symbols; building
+`LeanUniv.Final9_8` then failed with a type mismatch, and the existence target
+built again after the file was restored.
+
+The tables in `tables/` were compared with the tables `B` evaluated in the
+built environment. For `(4,38)`, `(5,36)`, `(6,28)`, `(7,26)`, and `(8,21)`
+(`LeanUniv.SymMergeBook<k>_<m>.B`, symbol names mapped back to their Lean
+numbers as before) the quintuples agree as sets and in order (137, 138, 150,
+150, and 149 quintuples). For `(9,8)` and `(10,7)` (`LeanUniv.Final9_8.B` and
+`LeanUniv.Final10_7.B`, 52 and 55 quintuples) exactly one renaming of states
+and symbols, sending the blank to `0` and the initial state to `0`, makes the
+sets equal; with the direction of one quintuple of the `(10,7)` table
+reversed, no renaming does.

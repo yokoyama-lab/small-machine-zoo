@@ -18,7 +18,7 @@ by construction, not claims of global minimality. The other theorems of the
 paper that are formalized are listed with their Lean names in
 [docs/claims.md](docs/claims.md).
 
-## Current record points (updated 2026-11-13)
+## Current record points (updated 2026-11-16)
 
 After the paper, further constructions improved six of the paper's points. The
 current non-dominated points are
@@ -39,11 +39,11 @@ current non-dominated points are
 
 The quintuple tables of all new machines are in [tables/](tables/README.md). The
 existence of each of the six new points is proved in Lean, in the sense of the
-same definition of universality, in the development repository
-(see [docs/claims.md](docs/claims.md#results-after-the-paper)). Those Lean modules are not
-yet part of this source snapshot, and the paper in `paper/` describes the
-earlier 13 points. As before, these are upper bounds by construction, not claims
-of minimality.
+same definition of universality. Since the update of 2026-11-16, these Lean
+modules are part of this source snapshot and are built by the existence target
+(see [docs/claims.md](docs/claims.md#results-after-the-paper)). The paper in
+`paper/` still describes the earlier 13 points. As before, these are upper
+bounds by construction, not claims of minimality.
 
 Lean checks the formal theorems relative to the definitions. This does not
 establish that the definitions faithfully capture Morita's definitions, in
@@ -86,7 +86,9 @@ kept separate; the verification script compares the definitions copied between
 them. The `legacy` path preserves the dependency layout and contains only the
 retained proof dependencies and generator helpers, not the development history.
 Some dependency modules retain historical comments about earlier records; the
-scope of the Lean code in this snapshot is the 13 points listed in the paper and `FinalAgree.dims`.
+scope of the Lean code in this snapshot is the 13 points listed in the paper, the six
+points listed under "Current record points", and the 14 machines of `FinalAgree.dims`
+(the paper's 13 points and `(9,14)`).
 
 Morita's original machine descriptions are fetched from their public source,
 checked against a fixed SHA-256, and regenerated locally. Original data,

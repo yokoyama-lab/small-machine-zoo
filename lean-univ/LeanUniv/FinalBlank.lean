@@ -37,6 +37,12 @@ theorem blank_book_10_8 :
     (Spec.states B10_8).dedup.length = Spec.NStates B10_8 := by
   decide +kernel
 
+theorem blank_book_9_14 :
+    (∃ r ∈ B9_14, r.s = 0) ∧ (Spec.symbols B9_14).dedup.length = Spec.NSyms B9_14 ∧
+    (∀ x ∈ Spec.symbols B9_14, (∃ r ∈ B9_14, r.s = x) ∧ (∃ r ∈ B9_14, r.t = x)) ∧
+    (Spec.states B9_14).dedup.length = Spec.NStates B9_14 := by
+  decide +kernel
+
 theorem blank_book_13_7 :
     (∃ r ∈ B13_7, r.s = 0) ∧ (Spec.symbols B13_7).dedup.length = Spec.NSyms B13_7 ∧
     (∀ x ∈ Spec.symbols B13_7, (∃ r ∈ B13_7, r.s = x) ∧ (∃ r ∈ B13_7, r.t = x)) ∧
@@ -120,6 +126,16 @@ theorem exists_urtm_10_8_blank :
   ⟨B10_8, B10_8_det, B10_8_rev, B10_8_counts.1, B10_8_counts.2, (blank_book_10_8).1,
     (blank_book_10_8).2.1.trans B10_8_counts.2, (blank_book_10_8).2.2.1,
     (blank_book_10_8).2.2.2.trans B10_8_counts.1, isUTMStrict_B10_8⟩
+
+theorem exists_urtm_9_14_blank :
+    ∃ U : List Quint, Spec.Deterministic U ∧ Spec.Reversible U ∧
+    Spec.NStates U = 9 ∧ Spec.NSyms U = 14 ∧ (∃ r ∈ U, r.s = 0) ∧
+    (Spec.symbols U).dedup.length = 14 ∧
+    (∀ x ∈ Spec.symbols U, (∃ r ∈ U, r.s = x) ∧ (∃ r ∈ U, r.t = x)) ∧
+    (Spec.states U).dedup.length = 9 ∧ Spec.IsUTMStrict U :=
+  ⟨B9_14, B9_14_det, B9_14_rev, B9_14_counts.1, B9_14_counts.2, (blank_book_9_14).1,
+    (blank_book_9_14).2.1.trans B9_14_counts.2, (blank_book_9_14).2.2.1,
+    (blank_book_9_14).2.2.2.trans B9_14_counts.1, isUTMStrict_B9_14⟩
 
 theorem exists_urtm_13_7_blank :
     ∃ U : List Quint, Spec.Deterministic U ∧ Spec.Reversible U ∧
@@ -246,6 +262,11 @@ theorem exists_urtm_85_2_blank :
 theorem blank_desc_10_8 :
     (∃ r ∈ U10_8.U, r.s = 0) ∧ (Spec.symbols U10_8.U).dedup.length = Spec.NSyms U10_8.U ∧
     (∀ x ∈ Spec.symbols U10_8.U, (∃ r ∈ U10_8.U, r.s = x) ∧ (∃ r ∈ U10_8.U, r.t = x)) := by
+  decide +kernel
+
+theorem blank_desc_9_14 :
+    (∃ r ∈ U9_14.U, r.s = 0) ∧ (Spec.symbols U9_14.U).dedup.length = Spec.NSyms U9_14.U ∧
+    (∀ x ∈ Spec.symbols U9_14.U, (∃ r ∈ U9_14.U, r.s = x) ∧ (∃ r ∈ U9_14.U, r.t = x)) := by
   decide +kernel
 
 theorem blank_desc_13_7 :

@@ -1,0 +1,8 @@
+{
+ "parent": "urtm13-7.txt",
+ "child": "urtm11-7.txt",
+ "lean": "lean/URTM/CTSH11_7.lean",
+ "title": "T4 lockstep merge of u12-7.copy_end_copy_n_2_.u.txt: {'case_y_2_': 'm_case_y_2_copy_y_2_', 'copy_y_2_': 'm_case_y_2_copy_y_2_'}",
+ "md5": "89d6829ba0af9ac7abe6bbe4936c47b1",
+ "note": "tools/gen_child_desc.py writes data/urtm/urtm11-7.txt (the (11,7) description file made by the chain on 2026-11-01, not committed) from Morita's urtm13-7.txt and the Lean mu/chgSym; the md5 is that of the fleet's file (results/joint-2026-11-02 urtmsa5, scratchpad joint/urtm11-7.txt)."
+}
